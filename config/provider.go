@@ -3,7 +3,7 @@ package config
 import (
 	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	tf "github.com/hashicorp/terraform-provider-hashicups/hashicups"
+	tf "github.com/hashicorp/terraform-provider-google/google"
 )
 
 const (

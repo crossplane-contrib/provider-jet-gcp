@@ -7,7 +7,8 @@ require (
 	github.com/crossplane/crossplane-runtime v0.15.1-0.20211004150827-579c1833b513
 	github.com/crossplane/crossplane-tools v0.0.0-20210916125540-071de511ae8e
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.7.0
-	github.com/hashicorp/terraform-provider-hashicups v0.3.1
+	// Commit for v3.90.0 tag https://github.com/hashicorp/terraform-provider-google/commit/38188671dbf5cc72318b1b41571686b4067af3c3
+	github.com/hashicorp/terraform-provider-google v1.20.1-0.20211026174940-38188671dbf5
 	github.com/pkg/errors v0.9.1
 	go.uber.org/multierr v1.7.0 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
