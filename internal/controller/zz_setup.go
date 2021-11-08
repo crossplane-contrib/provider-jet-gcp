@@ -25,6 +25,12 @@ import (
 	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/crossplane-contrib/terrajet/pkg/terraform"
 
+	address "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/address"
+	firewall "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/firewall"
+	managedsslcertificate "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/managedsslcertificate"
+	network "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/network"
+	router "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/router"
+	subnetwork "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/subnetwork"
 	providerconfig "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/providerconfig"
 	bucket "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/storage/bucket"
 )
@@ -33,8 +39,14 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, l logging.Logger, wl workqueue.RateLimiter, ps terraform.SetupFn, ws *terraform.WorkspaceStore, cfg *tjconfig.Provider, concurrency int) error {
 	for _, setup := range []func(ctrl.Manager, logging.Logger, workqueue.RateLimiter, terraform.SetupFn, *terraform.WorkspaceStore, *tjconfig.Provider, int) error{
+		address.Setup,
 		bucket.Setup,
+		firewall.Setup,
+		managedsslcertificate.Setup,
+		network.Setup,
 		providerconfig.Setup,
+		router.Setup,
+		subnetwork.Setup,
 	} {
 		if err := setup(mgr, l, wl, ps, ws, cfg, concurrency); err != nil {
 			return err
