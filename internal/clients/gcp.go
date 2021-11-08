@@ -15,13 +15,9 @@ import (
 )
 
 const (
-	keyUsername = "username"
-	keyPassword = "password"
-	keyHost     = "host"
+	keyProject = "project"
 
-	// GCP credentials environment variable names
-	envUsername = "HASHICUPS_USERNAME"
-	envPassword = "HASHICUPS_PASSWORD"
+	envCredentials = "GOOGLE_CREDENTIALS"
 )
 
 const (
@@ -65,19 +61,14 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		gcpCreds := map[string]string{}
-		if err := json.Unmarshal(data, &gcpCreds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
-		}
-
+		
 		// set provider configuration
 		ps.Configuration = map[string]interface{}{
-			"host": gcpCreds[keyHost],
+			keyProject: pc.Spec.ProjectID,
 		}
 		// set environment variables for sensitive provider configuration
 		ps.Env = []string{
-			fmt.Sprintf(fmtEnvVar, envUsername, gcpCreds[keyUsername]),
-			fmt.Sprintf(fmtEnvVar, envPassword, gcpCreds[keyPassword]),
+			fmt.Sprintf(fmtEnvVar, envCredentials, string(data)),
 		}
 		return ps, nil
 	}

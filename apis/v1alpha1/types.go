@@ -26,6 +26,9 @@ import (
 type ProviderConfigSpec struct {
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
+
+	// ProjectID is the project name (not numerical ID) of this GCP ProviderConfig.
+	ProjectID string `json:"projectID"`
 }
 
 // ProviderCredentials required to authenticate.
