@@ -99,8 +99,13 @@ spec:
                 required:
                 - source
                 type: object
+              projectID:
+                description: ProjectID is the project name (not numerical ID) of this
+                  GCP ProviderConfig.
+                type: string
             required:
             - credentials
+            - projectID
             type: object
           status:
             description: A ProviderConfigStatus reflects the observed state of a ProviderConfig.

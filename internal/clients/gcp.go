@@ -2,7 +2,6 @@ package clients
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/crossplane-contrib/terrajet/pkg/terraform"
