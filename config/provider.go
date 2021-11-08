@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-tf-template"
+	resourcePrefix = "gcp"
+	modulePath     = "github.com/crossplane-contrib/provider-tf-gcp"
 )
 
 // GetProvider returns provider configuration

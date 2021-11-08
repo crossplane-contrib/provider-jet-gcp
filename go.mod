@@ -1,4 +1,4 @@
-module github.com/crossplane-contrib/provider-tf-template
+module github.com/crossplane-contrib/provider-tf-gcp
 
 go 1.16
 

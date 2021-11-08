@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package v1alpha1 contains the core resources of the tf template provider.
+// Package v1alpha1 contains the core resources of the tf gcp provider.
 // +kubebuilder:object:generate=true
-// +groupName=template.tf.crossplane.io
+// +groupName=gcp.tf.crossplane.io
 // +versionName=v1alpha1
 package v1alpha1
