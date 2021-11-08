@@ -61,7 +61,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		
+
 		// set provider configuration
 		ps.Configuration = map[string]interface{}{
 			keyProject: pc.Spec.ProjectID,

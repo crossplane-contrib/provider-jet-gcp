@@ -26,7 +26,12 @@ func GetProvider() *tjconfig.Provider {
 	}
 
 	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn))
+		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+		tjconfig.WithGroupSuffix(".gcp.tf.crossplane.io"),
+		tjconfig.WithShortName("tfgcp"),
+		tjconfig.WithIncludeList([]string{
+			"google_storage_bucket$",
+		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
