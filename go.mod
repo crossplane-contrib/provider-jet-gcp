@@ -2,6 +2,8 @@ module github.com/crossplane-contrib/provider-tf-gcp
 
 go 1.16
 
+replace github.com/crossplane-contrib/terrajet => ../terrajet
+
 require (
 	github.com/crossplane-contrib/terrajet v0.1.1-0.20211104212137-874bb6ad5cff
 	github.com/crossplane/crossplane-runtime v0.15.1-0.20211004150827-579c1833b513
@@ -17,7 +19,3 @@ require (
 	sigs.k8s.io/controller-runtime v0.9.6
 	sigs.k8s.io/controller-tools v0.6.2
 )
-
-// Comment out the line below instead of the above, if your Terraform provider
-// uses an old version (<v2) of github.com/hashicorp/terraform-plugin-sdk.
-// replace github.com/hashicorp/terraform-plugin-sdk => github.com/turkenh/terraform-plugin-sdk v1.17.2-patch1

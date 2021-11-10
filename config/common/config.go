@@ -32,4 +32,3 @@ func SelfLinkExtractor() reference.ExtractValueFn {
 		return r
 	}
 }
-

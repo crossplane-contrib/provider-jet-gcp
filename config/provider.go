@@ -1,10 +1,22 @@
 package config
 
 import (
-	"github.com/crossplane-contrib/provider-tf-gcp/config/compute"
+	"strings"
+
 	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tf "github.com/hashicorp/terraform-provider-google/google"
+
+	"github.com/crossplane-contrib/provider-tf-gcp/config/cloudfunctions"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/cloudiot"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/compute"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/data"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/dataflow"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/dataproc"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/iam"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/monitoring"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/project"
+	"github.com/crossplane-contrib/provider-tf-gcp/config/storage"
 )
 
 const (
@@ -12,25 +24,19 @@ const (
 	modulePath     = "github.com/crossplane-contrib/provider-tf-gcp"
 )
 
-var includeList = []string{
-	"google_storage_bucket$",
-
-	// Compute
-	"google_compute_network$",
-	"google_compute_subnetwork$",
-	"google_compute_address$",
-	"google_compute_firewall$",
-	// Had to skip "google_compute_instance" due to
-	// https://github.com/crossplane-contrib/terrajet/issues/134
-	//"google_compute_instance$",
-	"google_compute_managed_ssl_certificate$",
-	"google_compute_router$",
-	// Had to skip "google_compute_router_nat" due to
-	// https://github.com/crossplane-contrib/terrajet/issues/135
-	//"google_compute_router_nat$",
-
-
+var skipList = []string{
+	// Note(turkenh): Following two resources conflicts their singular versions
+	// "google_access_context_manager_access_level" and
+	// "google_access_context_manager_service_perimeter". Skipping for now.
+	"google_access_context_manager_access_levels$",
+	"google_access_context_manager_service_perimeters$",
 }
+
+/*var includeList = []string{
+	"google_compute_subnetwork$",
+	"google_compute_router_nat$",
+}*/
+
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
 	resourceMap := tf.Provider().ResourcesMap
@@ -45,6 +51,10 @@ func GetProvider() *tjconfig.Provider {
 		// So, we cannot generate external name using the provided config until
 		// https://github.com/crossplane-contrib/terrajet/issues/119 resolved.
 		r.ExternalName = tjconfig.IdentifierFromProvider
+
+		if strings.HasPrefix(r.Name, "google_service") {
+			r.Group = "iam"
+		}
 		return r
 	}
 
@@ -52,11 +62,20 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithDefaultResourceFn(defaultResourceFn),
 		tjconfig.WithGroupSuffix(".gcp.tf.crossplane.io"),
 		tjconfig.WithShortName("tfgcp"),
-		tjconfig.WithIncludeList(includeList))
+		tjconfig.WithSkipList(skipList))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
+		cloudfunctions.Configure,
+		cloudiot.Configure,
 		compute.Configure,
+		data.Configure,
+		dataflow.Configure,
+		dataproc.Configure,
+		iam.Configure,
+		monitoring.Configure,
+		project.Configure,
+		storage.Configure,
 	} {
 		configure(pc)
 	}
