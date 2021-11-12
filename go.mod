@@ -2,15 +2,14 @@ module github.com/crossplane-contrib/provider-tf-gcp
 
 go 1.16
 
-replace github.com/crossplane-contrib/terrajet => ../terrajet
-
 require (
-	github.com/crossplane-contrib/terrajet v0.1.1-0.20211104212137-874bb6ad5cff
+	github.com/crossplane-contrib/terrajet v0.1.1-0.20211113105347-a0f23e076728
 	github.com/crossplane/crossplane-runtime v0.15.1-0.20211004150827-579c1833b513
 	github.com/crossplane/crossplane-tools v0.0.0-20210916125540-071de511ae8e
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.7.0
-	// Commit for v3.90.0 tag https://github.com/hashicorp/terraform-provider-google/commit/38188671dbf5cc72318b1b41571686b4067af3c3
-	github.com/hashicorp/terraform-provider-google v1.20.1-0.20211026174940-38188671dbf5
+	// Commit for v4.0.0 tag https://github.com/hashicorp/terraform-provider-google/commit/f004d2d203fa86da2e344fc23dc6fe509e6bbfae
+	github.com/hashicorp/terraform-provider-google v1.20.1-0.20211102210101-f004d2d203fa
+	github.com/iancoleman/strcase v0.2.0
 	github.com/pkg/errors v0.9.1
 	go.uber.org/multierr v1.7.0 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
