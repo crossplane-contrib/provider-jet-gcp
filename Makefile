@@ -81,7 +81,7 @@ crds.clean:
 	@$(OK) cleaned generated CRDs
 
 terrajet.run:
-	@go run cmd/generator/main.go
+	@go run cmd/generator/main.go .
 
 generate.init: terrajet.run
 generate.done: crds.clean

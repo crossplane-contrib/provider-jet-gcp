@@ -86,26 +86,4 @@ func Configure(p *config.Provider) {
 
 		r.TerraformResource.Schema["metadata"].Elem = schema.TypeString
 	})
-
-	p.AddResourceConfigurator("google_compute_global_network_endpoint_group", func(r *config.Resource) {
-		// Note(turkenh): We have to override the default kind here,
-		// which is "GlobalNetworkEndpointGroup", since it conflicts otherwise
-		// with: GlobalNetworkEndpointGroupKind redeclared in this block
-		r.Kind = "ComputeGlobalNetworkEndpointGroup"
-	})
-
-	p.AddResourceConfigurator("google_compute_instance_group", func(r *config.Resource) {
-		// Note(turkenh): We have to override the default kind here,
-		// which is "InstanceGroup", since it conflicts otherwise
-		// with:  InstanceGroupKind redeclared in this block
-		r.Kind = "ComputeInstanceGroup"
-	})
-
-	p.AddResourceConfigurator("google_compute_network_endpoint_group", func(r *config.Resource) {
-		// Note(turkenh): We have to override the default kind here,
-		// which is "NetworkEndpointGroup", since it conflicts otherwise
-		// with:  NetworkEndpointGroupKind redeclared in this block redeclared
-		// in this block
-		r.Kind = "ComputeNetworkEndpointGroup"
-	})
 }
