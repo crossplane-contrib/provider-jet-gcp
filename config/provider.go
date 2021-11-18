@@ -53,7 +53,7 @@ func GetProvider() *tjconfig.Provider {
 	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
 		tjconfig.WithDefaultResourceFn(gcpDefaultResourceFn),
 		tjconfig.WithGroupSuffix("gcp.jet.crossplane.io"),
-		tjconfig.WithShortName("tfgcp"),
+		tjconfig.WithShortName("gcpjet"),
 		// Comment out the following line to generate all resources.
 		tjconfig.WithIncludeList(includeList),
 		tjconfig.WithSkipList(skipList))
