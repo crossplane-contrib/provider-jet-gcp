@@ -4,18 +4,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: managedsslcertificates.compute.gcp.tf.crossplane.io
+  name: addresses.compute.gcp.jet.crossplane.io
 spec:
-  group: compute.gcp.tf.crossplane.io
+  group: compute.gcp.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - tfgcp
-    kind: ManagedSSLCertificate
-    listKind: ManagedSSLCertificateList
-    plural: managedsslcertificates
-    singular: managedsslcertificate
+    kind: Address
+    listKind: AddressList
+    plural: addresses
+    singular: address
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ManagedSSLCertificate is the Schema for the ManagedSSLCertificates
-          API
+        description: Address is the Schema for the Addresss API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +49,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ManagedSSLCertificateSpec defines the desired state of ManagedSSLCertificate
+            description: AddressSpec defines the desired state of Address
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,47 +62,117 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  certificateId:
-                    description: The unique identifier for the resource.
-                    format: int64
-                    type: integer
+                  address:
+                    description: The static external IP address represented by this
+                      resource. Only IPv4 is supported. An address may only be specified
+                      for INTERNAL address types. The IP address must be inside the
+                      specified subnetwork, if any.
+                    type: string
+                  addressType:
+                    description: 'The type of address to reserve. Default value: "EXTERNAL"
+                      Possible values: ["INTERNAL", "EXTERNAL"]'
+                    type: string
                   description:
                     description: An optional description of this resource.
                     type: string
-                  managed:
-                    description: Properties relevant to a managed certificate.  These
-                      will be used if the certificate is managed (as indicated by
-                      a value of 'MANAGED' in 'type').
-                    items:
-                      properties:
-                        domains:
-                          description: Domains for which a managed SSL certificate
-                            will be valid.  Currently, there can be up to 100 domains
-                            in this list.
-                          items:
-                            type: string
-                          type: array
-                      required:
-                      - domains
-                      type: object
-                    type: array
                   name:
-                    description: "Name of the resource. Provided by the client when
-                      the resource is created. The name must be 1-63 characters long,
-                      and comply with RFC1035. Specifically, the name must be 1-63
-                      characters long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
+                    description: Name of the resource. The name must be 1-63 characters
+                      long, and comply with RFC1035. Specifically, the name must be
+                      1-63 characters long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
                       which means the first character must be a lowercase letter,
                       and all following characters must be a dash, lowercase letter,
                       or digit, except the last character, which cannot be a dash.
-                      \n These are in the same namespace as the managed SSL certificates."
                     type: string
+                  network:
+                    description: The URL of the network in which to reserve the address.
+                      This field can only be used with INTERNAL type with the VPC_PEERING
+                      and IPSEC_INTERCONNECT purposes.
+                    type: string
+                  networkRef:
+                    description: A Reference to a named object.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  networkSelector:
+                    description: A Selector selects an object.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                    type: object
+                  networkTier:
+                    description: 'The networking tier used for configuring this address.
+                      If this field is not specified, it is assumed to be PREMIUM.
+                      Possible values: ["PREMIUM", "STANDARD"]'
+                    type: string
+                  prefixLength:
+                    description: The prefix length if the resource represents an IP
+                      range.
+                    format: int64
+                    type: integer
                   project:
                     type: string
-                  type:
-                    description: 'Enum field whose value is always ''MANAGED'' - used
-                      to signal to the API which type this is. Default value: "MANAGED"
-                      Possible values: ["MANAGED"]'
+                  purpose:
+                    description: "The purpose of this resource, which can be one of
+                      the following values: \n * GCE_ENDPOINT for addresses that are
+                      used by VM instances, alias IP ranges, internal load balancers,
+                      and similar resources. \n * SHARED_LOADBALANCER_VIP for an address
+                      that can be used by multiple internal load balancers. \n * VPC_PEERING
+                      for addresses that are reserved for VPC peer networks. \n *
+                      IPSEC_INTERCONNECT for addresses created from a private IP range
+                      that are reserved for a VLAN attachment in an IPsec-encrypted
+                      Cloud Interconnect configuration. These addresses are regional
+                      resources. \n * PRIVATE_SERVICE_CONNECT for a private network
+                      address that is used to configure Private Service Connect. Only
+                      global internal addresses can use this purpose. \n This should
+                      only be set when using an Internal address."
                     type: string
+                  region:
+                    description: The Region in which the created address should reside.
+                      If it is not provided, the provider region is used.
+                    type: string
+                  subnetwork:
+                    description: The URL of the subnetwork in which to reserve the
+                      address. If an IP address is specified, it must be within the
+                      subnetwork's IP range. This field can only be used with INTERNAL
+                      type with GCE_ENDPOINT/DNS_RESOLVER purposes.
+                    type: string
+                  subnetworkRef:
+                    description: A Reference to a named object.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  subnetworkSelector:
+                    description: A Selector selects an object.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                    type: object
+                required:
+                - name
                 type: object
               providerConfigRef:
                 default:
@@ -150,18 +219,15 @@ spec:
             - forProvider
             type: object
           status:
-            description: ManagedSSLCertificateStatus defines the observed state of
-              ManagedSSLCertificate.
+            description: AddressStatus defines the observed state of Address.
             properties:
               atProvider:
                 properties:
                   creationTimestamp:
                     type: string
-                  expireTime:
-                    type: string
                   selfLink:
                     type: string
-                  subjectAlternativeNames:
+                  users:
                     items:
                       type: string
                     type: array

@@ -4,9 +4,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: routernats.compute.gcp.tf.crossplane.io
+  name: routernats.compute.gcp.jet.crossplane.io
 spec:
-  group: compute.gcp.tf.crossplane.io
+  group: compute.gcp.jet.crossplane.io
   names:
     categories:
     - crossplane

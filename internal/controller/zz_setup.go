@@ -25,16 +25,16 @@ import (
 	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/crossplane-contrib/terrajet/pkg/terraform"
 
-	address "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/address"
-	firewall "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/firewall"
-	instance "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/instance"
-	managedsslcertificate "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/managedsslcertificate"
-	network "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/network"
-	router "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/router"
-	routernat "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/routernat"
-	subnetwork "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/compute/subnetwork"
-	providerconfig "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/providerconfig"
-	bucket "github.com/crossplane-contrib/provider-tf-gcp/internal/controller/storage/bucket"
+	address "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/address"
+	firewall "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/firewall"
+	instance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/instance"
+	managedsslcertificate "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/managedsslcertificate"
+	network "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/network"
+	router "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/router"
+	routernat "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/routernat"
+	subnetwork "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/subnetwork"
+	providerconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/providerconfig"
+	bucket "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/storage/bucket"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to

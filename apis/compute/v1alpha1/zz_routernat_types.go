@@ -140,7 +140,7 @@ type SubnetworkParameters struct {
 
 	// Self-link of subnetwork to NAT
 	// +crossplane:generate:reference:type=Subnetwork
-	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-tf-gcp/config/common.SelfLinkExtractor()
+	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-gcp/config/common.SelfLinkExtractor()
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

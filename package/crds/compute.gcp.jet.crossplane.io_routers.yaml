@@ -4,18 +4,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: addresses.compute.gcp.tf.crossplane.io
+  name: routers.compute.gcp.jet.crossplane.io
 spec:
-  group: compute.gcp.tf.crossplane.io
+  group: compute.gcp.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - tfgcp
-    kind: Address
-    listKind: AddressList
-    plural: addresses
-    singular: address
+    kind: Router
+    listKind: RouterList
+    plural: routers
+    singular: router
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Address is the Schema for the Addresss API
+        description: Router is the Schema for the Routers API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -49,7 +49,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: AddressSpec defines the desired state of Address
+            description: RouterSpec defines the desired state of Router
             properties:
               deletionPolicy:
                 default: Delete
@@ -62,19 +62,66 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  address:
-                    description: The static external IP address represented by this
-                      resource. Only IPv4 is supported. An address may only be specified
-                      for INTERNAL address types. The IP address must be inside the
-                      specified subnetwork, if any.
-                    type: string
-                  addressType:
-                    description: 'The type of address to reserve. Default value: "EXTERNAL"
-                      Possible values: ["INTERNAL", "EXTERNAL"]'
-                    type: string
+                  bgp:
+                    description: BGP information specific to this router.
+                    items:
+                      properties:
+                        advertiseMode:
+                          description: 'User-specified flag to indicate which mode
+                            to use for advertisement. Default value: "DEFAULT" Possible
+                            values: ["DEFAULT", "CUSTOM"]'
+                          type: string
+                        advertisedGroups:
+                          description: "User-specified list of prefix groups to advertise
+                            in custom mode. This field can only be populated if advertiseMode
+                            is CUSTOM and is advertised to all peers of the router.
+                            These groups will be advertised in addition to any specified
+                            prefixes. Leave this field blank to advertise no custom
+                            groups. \n This enum field has the one valid value: ALL_SUBNETS"
+                          items:
+                            type: string
+                          type: array
+                        advertisedIpRanges:
+                          description: User-specified list of individual IP ranges
+                            to advertise in custom mode. This field can only be populated
+                            if advertiseMode is CUSTOM and is advertised to all peers
+                            of the router. These IP ranges will be advertised in addition
+                            to any specified groups. Leave this field blank to advertise
+                            no custom IP ranges.
+                          items:
+                            properties:
+                              description:
+                                description: User-specified description for the IP
+                                  range.
+                                type: string
+                              range:
+                                description: The IP range to advertise. The value
+                                  must be a CIDR-formatted string.
+                                type: string
+                            required:
+                            - range
+                            type: object
+                          type: array
+                        asn:
+                          description: Local BGP Autonomous System Number (ASN). Must
+                            be an RFC6996 private ASN, either 16-bit or 32-bit. The
+                            value will be fixed for this router resource. All VPN
+                            tunnels that link to this router will have the same local
+                            ASN.
+                          format: int64
+                          type: integer
+                      required:
+                      - asn
+                      type: object
+                    type: array
                   description:
                     description: An optional description of this resource.
                     type: string
+                  encryptedInterconnectRouter:
+                    description: "Field to indicate if a router is dedicated to use
+                      with encrypted Interconnect Attachment (IPsec-encrypted Cloud
+                      Interconnect feature). \n Not currently available publicly."
+                    type: boolean
                   name:
                     description: Name of the resource. The name must be 1-63 characters
                       long, and comply with RFC1035. Specifically, the name must be
@@ -84,9 +131,7 @@ spec:
                       or digit, except the last character, which cannot be a dash.
                     type: string
                   network:
-                    description: The URL of the network in which to reserve the address.
-                      This field can only be used with INTERNAL type with the VPC_PEERING
-                      and IPSEC_INTERCONNECT purposes.
+                    description: A reference to the network to which this router belongs.
                     type: string
                   networkRef:
                     description: A Reference to a named object.
@@ -111,66 +156,11 @@ spec:
                           is selected.
                         type: object
                     type: object
-                  networkTier:
-                    description: 'The networking tier used for configuring this address.
-                      If this field is not specified, it is assumed to be PREMIUM.
-                      Possible values: ["PREMIUM", "STANDARD"]'
-                    type: string
-                  prefixLength:
-                    description: The prefix length if the resource represents an IP
-                      range.
-                    format: int64
-                    type: integer
                   project:
                     type: string
-                  purpose:
-                    description: "The purpose of this resource, which can be one of
-                      the following values: \n * GCE_ENDPOINT for addresses that are
-                      used by VM instances, alias IP ranges, internal load balancers,
-                      and similar resources. \n * SHARED_LOADBALANCER_VIP for an address
-                      that can be used by multiple internal load balancers. \n * VPC_PEERING
-                      for addresses that are reserved for VPC peer networks. \n *
-                      IPSEC_INTERCONNECT for addresses created from a private IP range
-                      that are reserved for a VLAN attachment in an IPsec-encrypted
-                      Cloud Interconnect configuration. These addresses are regional
-                      resources. \n * PRIVATE_SERVICE_CONNECT for a private network
-                      address that is used to configure Private Service Connect. Only
-                      global internal addresses can use this purpose. \n This should
-                      only be set when using an Internal address."
-                    type: string
                   region:
-                    description: The Region in which the created address should reside.
-                      If it is not provided, the provider region is used.
+                    description: Region where the router resides.
                     type: string
-                  subnetwork:
-                    description: The URL of the subnetwork in which to reserve the
-                      address. If an IP address is specified, it must be within the
-                      subnetwork's IP range. This field can only be used with INTERNAL
-                      type with GCE_ENDPOINT/DNS_RESOLVER purposes.
-                    type: string
-                  subnetworkRef:
-                    description: A Reference to a named object.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                    required:
-                    - name
-                    type: object
-                  subnetworkSelector:
-                    description: A Selector selects an object.
-                    properties:
-                      matchControllerRef:
-                        description: MatchControllerRef ensures an object with the
-                          same controller reference as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                    type: object
                 required:
                 - name
                 type: object
@@ -219,7 +209,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: AddressStatus defines the observed state of Address.
+            description: RouterStatus defines the observed state of Router.
             properties:
               atProvider:
                 properties:
@@ -227,10 +217,6 @@ spec:
                     type: string
                   selfLink:
                     type: string
-                  users:
-                    items:
-                      type: string
-                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

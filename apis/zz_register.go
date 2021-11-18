@@ -22,9 +22,9 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1compute "github.com/crossplane-contrib/provider-tf-gcp/apis/compute/v1alpha1"
-	v1alpha1storage "github.com/crossplane-contrib/provider-tf-gcp/apis/storage/v1alpha1"
-	v1alpha1 "github.com/crossplane-contrib/provider-tf-gcp/apis/v1alpha1"
+	v1alpha1compute "github.com/crossplane-contrib/provider-jet-gcp/apis/compute/v1alpha1"
+	v1alpha1storage "github.com/crossplane-contrib/provider-jet-gcp/apis/storage/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-gcp/apis/v1alpha1"
 )
 
 func init() {

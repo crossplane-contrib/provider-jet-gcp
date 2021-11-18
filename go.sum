@@ -195,8 +195,6 @@ github.com/creachadair/staticfile v0.1.2/go.mod h1:a3qySzCIXEprDGxk6tSxSI+dBBdLz
 github.com/creack/pty v1.1.7/go.mod h1:lj5s0c3V2DBrqTV7llrYr5NG6My20zk30Fl46Y7DoTY=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/creack/pty v1.1.11/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
-github.com/crossplane-contrib/provider-tf-gcp v0.0.0-20211118092054-107e5de97d80 h1:2wcWvQ2SP0qYbR9cyQen5ZapuzCclmz6PnkGykYhNnE=
-github.com/crossplane-contrib/provider-tf-gcp v0.0.0-20211118092054-107e5de97d80/go.mod h1:1JwS6lBppL8P9v1gQHw2sJWgpYRTCEUPJgQZlMut6Ec=
 github.com/crossplane-contrib/terrajet v0.1.1-0.20211117111831-8f40bd1fef2c h1:wPeuEvPHm1m/FxDT9h3EhEocSv0cXDZG4rZWZsaL1Bw=
 github.com/crossplane-contrib/terrajet v0.1.1-0.20211117111831-8f40bd1fef2c/go.mod h1:RUsskXE63KZE7EcvZ7WK4UzBQjc1+7IhelK+/gIa/Go=
 github.com/crossplane/crossplane-runtime v0.15.1-0.20211004150827-579c1833b513 h1:Sk3QurYYpy8x3c0DvTh9iGYFSv8WgdhnjCalNqNqlRI=
