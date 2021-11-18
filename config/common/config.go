@@ -1,12 +1,16 @@
 package common
 
 import (
+	"strings"
+
 	"github.com/crossplane/crossplane-runtime/pkg/fieldpath"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 )
 
 const (
+	// KeyProject is the key for project in Terraform Provider Configuration
+	KeyProject = "project"
 	// SelfPackagePath is the golang path for this package.
 	SelfPackagePath = "github.com/crossplane-contrib/provider-jet-gcp/config/common"
 )
@@ -31,4 +35,13 @@ func SelfLinkExtractor() reference.ExtractValueFn {
 		}
 		return r
 	}
+}
+
+func GetNameFromFullyQualifiedID(tfstate map[string]interface{}) string {
+	id, ok := tfstate["id"].(string)
+	if !ok {
+		return ""
+	}
+	words := strings.Split(id, "/")
+	return words[len(words)-1]
 }

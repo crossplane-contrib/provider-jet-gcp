@@ -1,6 +1,8 @@
 package compute
 
 import (
+	"fmt"
+
 	"github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -66,6 +68,11 @@ func Configure(p *config.Provider) {
 			Schema["initialize_params"].Elem.(*schema.Resource).
 			Schema["labels"].Elem = schema.TypeString
 
+		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.GetNameFn = common.GetNameFromFullyQualifiedID
+		r.ExternalName.GetIDFn = func(name string, parameters map[string]interface{}, providerConfig map[string]interface{}) string {
+			return fmt.Sprintf("projects/%s/zones/%s/instances/%s", common.KeyProject, parameters["zone"].(string), name)
+		}
 		r.UseAsync = true
 	})
 

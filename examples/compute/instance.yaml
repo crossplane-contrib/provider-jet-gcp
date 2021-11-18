@@ -1,0 +1,15 @@
+apiVersion: compute.gcp.tf.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: example-hasan
+spec:
+  forProvider:
+    machineType: e2-medium
+    zone: us-central1-a
+    labels:
+      managed-by: crossplane
+    networkInterface:
+      - network: default
+    bootDisk:
+      - initializeParams:
+          - image: debian-cloud/debian-9
