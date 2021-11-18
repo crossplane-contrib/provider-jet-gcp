@@ -7,7 +7,7 @@ import (
 
 	"github.com/crossplane-contrib/terrajet/pkg/pipeline"
 
-	"github.com/crossplane-contrib/provider-tf-gcp/config"
+	"github.com/crossplane-contrib/provider-jet-gcp/config"
 )
 
 func main() {

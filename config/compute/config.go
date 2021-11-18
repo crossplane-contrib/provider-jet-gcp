@@ -4,7 +4,7 @@ import (
 	"github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/crossplane-contrib/provider-tf-gcp/config/common"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/common"
 )
 
 // Configure configures individual resources by adding custom

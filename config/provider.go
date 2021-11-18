@@ -8,20 +8,20 @@ import (
 	tf "github.com/hashicorp/terraform-provider-google/google"
 	"github.com/iancoleman/strcase"
 
-	"github.com/crossplane-contrib/provider-tf-gcp/config/accessapproval"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/cloudfunctions"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/cloudiot"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/cloudplatform"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/compute"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/dataflow"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/dataproc"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/project"
-	"github.com/crossplane-contrib/provider-tf-gcp/config/storage"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudfunctions"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudiot"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/compute"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/dataflow"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/storage"
 )
 
 const (
 	resourcePrefix = "gcp"
-	modulePath     = "github.com/crossplane-contrib/provider-tf-gcp"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-gcp"
 )
 
 var skipList = []string{
@@ -52,7 +52,7 @@ func GetProvider() *tjconfig.Provider {
 	resourceMap := tf.Provider().ResourcesMap
 	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
 		tjconfig.WithDefaultResourceFn(gcpDefaultResourceFn),
-		tjconfig.WithGroupSuffix("gcp.tf.crossplane.io"),
+		tjconfig.WithGroupSuffix("gcp.jet.crossplane.io"),
 		tjconfig.WithShortName("tfgcp"),
 		// Comment out the following line to generate all resources.
 		tjconfig.WithIncludeList(includeList),
