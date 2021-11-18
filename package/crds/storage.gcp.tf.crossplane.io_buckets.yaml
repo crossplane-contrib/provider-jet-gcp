@@ -62,9 +62,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  bucketPolicyOnly:
-                    description: Enables Bucket Policy Only access to a bucket.
-                    type: boolean
                   cors:
                     description: The bucket's Cross-Origin Resource Sharing (CORS)
                       configuration.
@@ -289,6 +286,8 @@ spec:
                           type: string
                       type: object
                     type: array
+                required:
+                - location
                 type: object
               providerConfigRef:
                 default:

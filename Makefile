@@ -4,11 +4,11 @@
 PROJECT_NAME := provider-tf-gcp
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.0.5
+export TERRAFORM_VERSION := 1.0.11
 export TERRAFORM_PROVIDER_SOURCE := hashicorp/google
-export TERRAFORM_PROVIDER_VERSION := 3.90.0
+export TERRAFORM_PROVIDER_VERSION := 4.0.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-google
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-google/3.90.0
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-google/4.0.0
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
@@ -81,7 +81,7 @@ crds.clean:
 	@$(OK) cleaned generated CRDs
 
 terrajet.run:
-	@go run cmd/generator/main.go
+	@go run cmd/generator/main.go .
 
 generate.init: terrajet.run
 generate.done: crds.clean
