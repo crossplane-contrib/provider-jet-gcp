@@ -11,7 +11,7 @@ spec:
     categories:
     - crossplane
     - managed
-    - tfgcp
+    - gcpjet
     kind: Network
     listKind: NetworkList
     plural: networks

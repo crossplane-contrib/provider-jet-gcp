@@ -11,7 +11,7 @@ spec:
     categories:
     - crossplane
     - managed
-    - tfgcp
+    - gcpjet
     kind: Subnetwork
     listKind: SubnetworkList
     plural: subnetworks

@@ -11,7 +11,7 @@ spec:
     categories:
     - crossplane
     - managed
-    - tfgcp
+    - gcpjet
     kind: Router
     listKind: RouterList
     plural: routers
