@@ -47,10 +47,6 @@ type BucketObservation struct {
 
 type BucketParameters struct {
 
-	// Enables Bucket Policy Only access to a bucket.
-	// +kubebuilder:validation:Optional
-	BucketPolicyOnly *bool `json:"bucketPolicyOnly,omitempty" tf:"bucket_policy_only,omitempty"`
-
 	// The bucket's Cross-Origin Resource Sharing (CORS) configuration.
 	// +kubebuilder:validation:Optional
 	Cors []CorsParameters `json:"cors,omitempty" tf:"cors,omitempty"`
@@ -75,8 +71,8 @@ type BucketParameters struct {
 	LifecycleRule []LifecycleRuleParameters `json:"lifecycleRule,omitempty" tf:"lifecycle_rule,omitempty"`
 
 	// The Google Cloud Storage location
-	// +kubebuilder:validation:Optional
-	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+	// +kubebuilder:validation:Required
+	Location *string `json:"location" tf:"location,omitempty"`
 
 	// The bucket's Access & Storage Logs configuration.
 	// +kubebuilder:validation:Optional
@@ -291,10 +287,10 @@ type BucketList struct {
 
 // Repository type metadata.
 var (
-	BucketKind             = "Bucket"
-	BucketGroupKind        = schema.GroupKind{Group: Group, Kind: BucketKind}.String()
-	BucketKindAPIVersion   = BucketKind + "." + GroupVersion.String()
-	BucketGroupVersionKind = GroupVersion.WithKind(BucketKind)
+	Bucket_Kind             = "Bucket"
+	Bucket_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Bucket_Kind}.String()
+	Bucket_KindAPIVersion   = Bucket_Kind + "." + CRDGroupVersion.String()
+	Bucket_GroupVersionKind = CRDGroupVersion.WithKind(Bucket_Kind)
 )
 
 func init() {
