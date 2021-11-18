@@ -65,6 +65,8 @@ func Configure(p *config.Provider) {
 			Schema["boot_disk"].Elem.(*schema.Resource).
 			Schema["initialize_params"].Elem.(*schema.Resource).
 			Schema["labels"].Elem = schema.TypeString
+
+		r.UseAsync = true
 	})
 
 	p.AddResourceConfigurator("google_compute_instance_template", func(r *config.Resource) {
@@ -72,6 +74,8 @@ func Configure(p *config.Provider) {
 		// "boot_disk.initialize_params.labels", since it is a map where
 		// elements configured as nil, defaulting to map[string]string:
 		r.TerraformResource.Schema["metadata"].Elem = schema.TypeString
+
+		r.UseAsync = true
 	})
 
 	p.AddResourceConfigurator("google_compute_instance_from_template", func(r *config.Resource) {
