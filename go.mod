@@ -1,4 +1,4 @@
-module github.com/crossplane-contrib/provider-tf-gcp
+module github.com/crossplane-contrib/provider-jet-gcp
 
 go 1.16
 

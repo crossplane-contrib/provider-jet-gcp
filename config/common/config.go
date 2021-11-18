@@ -8,7 +8,7 @@ import (
 
 const (
 	// SelfPackagePath is the golang path for this package.
-	SelfPackagePath = "github.com/crossplane-contrib/provider-tf-gcp/config/common"
+	SelfPackagePath = "github.com/crossplane-contrib/provider-jet-gcp/config/common"
 )
 
 var (

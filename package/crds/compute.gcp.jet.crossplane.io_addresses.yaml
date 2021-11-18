@@ -4,14 +4,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: addresses.compute.gcp.tf.crossplane.io
+  name: addresses.compute.gcp.jet.crossplane.io
 spec:
-  group: compute.gcp.tf.crossplane.io
+  group: compute.gcp.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
-    - tfgcp
+    - gcpjet
     kind: Address
     listKind: AddressList
     plural: addresses

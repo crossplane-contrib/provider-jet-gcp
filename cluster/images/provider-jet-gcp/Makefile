@@ -7,7 +7,7 @@ include ../../../build/makelib/common.mk
 # ====================================================================================
 #  Options
 DOCKER_REGISTRY ?= crossplane
-IMAGE = $(BUILD_REGISTRY)/provider-tf-gcp-$(ARCH)
+IMAGE = $(BUILD_REGISTRY)/provider-jet-gcp-$(ARCH)
 OSBASEIMAGE = scratch
 include ../../../build/makelib/image.mk
 

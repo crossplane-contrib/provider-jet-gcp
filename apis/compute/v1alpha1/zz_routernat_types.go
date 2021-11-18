@@ -140,7 +140,7 @@ type SubnetworkParameters struct {
 
 	// Self-link of subnetwork to NAT
 	// +crossplane:generate:reference:type=Subnetwork
-	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-tf-gcp/config/common.SelfLinkExtractor()
+	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-gcp/config/common.SelfLinkExtractor()
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -185,7 +185,7 @@ type RouterNatStatus struct {
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,tfgcp}
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,gcpjet}
 type RouterNat struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

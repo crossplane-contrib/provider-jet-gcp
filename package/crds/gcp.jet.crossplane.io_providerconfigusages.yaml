@@ -4,9 +4,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: providerconfigusages.gcp.tf.crossplane.io
+  name: providerconfigusages.gcp.jet.crossplane.io
 spec:
-  group: gcp.tf.crossplane.io
+  group: gcp.jet.crossplane.io
   names:
     categories:
     - crossplane

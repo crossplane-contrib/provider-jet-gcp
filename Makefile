@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME := provider-tf-gcp
+PROJECT_NAME := provider-jet-gcp
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.0.11
@@ -50,7 +50,7 @@ GO111MODULE = on
 # Setup Images
 
 DOCKER_REGISTRY := crossplane
-IMAGES = provider-tf-gcp provider-tf-gcp-controller
+IMAGES = provider-jet-gcp provider-jet-gcp-controller
 -include build/makelib/image.mk
 
 # ====================================================================================

@@ -4,14 +4,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: buckets.storage.gcp.tf.crossplane.io
+  name: buckets.storage.gcp.jet.crossplane.io
 spec:
-  group: storage.gcp.tf.crossplane.io
+  group: storage.gcp.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
-    - tfgcp
+    - gcpjet
     kind: Bucket
     listKind: BucketList
     plural: buckets
