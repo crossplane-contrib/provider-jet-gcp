@@ -3,6 +3,8 @@ package common
 import (
 	"strings"
 
+	"github.com/pkg/errors"
+
 	"github.com/crossplane/crossplane-runtime/pkg/fieldpath"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
@@ -13,6 +15,8 @@ const (
 	KeyProject = "project"
 	// SelfPackagePath is the golang path for this package.
 	SelfPackagePath = "github.com/crossplane-contrib/provider-jet-gcp/config/common"
+
+	errFmtCannotGetFieldAsString = "cannot get the %q field as string"
 )
 
 var (
@@ -37,11 +41,23 @@ func SelfLinkExtractor() reference.ExtractValueFn {
 	}
 }
 
-func GetNameFromFullyQualifiedID(tfstate map[string]interface{}) string {
+// GetNameFromFullyQualifiedID extracts external-name from GCP ID
+// Example: projects/{{project}}/zones/{{zone}}/instances/{{name}}
+func GetNameFromFullyQualifiedID(tfstate map[string]interface{}) (string, error) {
 	id, ok := tfstate["id"].(string)
 	if !ok {
-		return ""
+		return "", errors.New("cannot get the id field as string in tfstate")
 	}
 	words := strings.Split(id, "/")
-	return words[len(words)-1]
+	return words[len(words)-1], nil
+}
+
+// GetField returns the value of field as a string in a map[string]interface{},
+//  fails properly otherwise.
+func GetField(mapping map[string]interface{}, field string) (string, error) {
+	f, ok := mapping[field].(string)
+	if !ok {
+		return "", errors.Errorf(errFmtCannotGetFieldAsString, f)
+	}
+	return f, nil
 }
