@@ -93,6 +93,53 @@ func (mg *Firewall) ResolveReferences(ctx context.Context, c client.Reader) erro
 	return nil
 }
 
+// ResolveReferences of this Instance.
+func (mg *Instance) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.NetworkInterface); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NetworkInterface[i3].Network),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.NetworkInterface[i3].NetworkRef,
+			Selector:     mg.Spec.ForProvider.NetworkInterface[i3].NetworkSelector,
+			To: reference.To{
+				List:    &NetworkList{},
+				Managed: &Network{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.NetworkInterface[i3].Network")
+		}
+		mg.Spec.ForProvider.NetworkInterface[i3].Network = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.NetworkInterface[i3].NetworkRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.NetworkInterface); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NetworkInterface[i3].Subnetwork),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.NetworkInterface[i3].SubnetworkRef,
+			Selector:     mg.Spec.ForProvider.NetworkInterface[i3].SubnetworkSelector,
+			To: reference.To{
+				List:    &SubnetworkList{},
+				Managed: &Subnetwork{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.NetworkInterface[i3].Subnetwork")
+		}
+		mg.Spec.ForProvider.NetworkInterface[i3].Subnetwork = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.NetworkInterface[i3].SubnetworkRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this Router.
 func (mg *Router) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -145,7 +192,7 @@ func (mg *RouterNat) ResolveReferences(ctx context.Context, c client.Reader) err
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Subnetwork); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Subnetwork[i3].Name),
-			Extract:      common.SelfLinkExtractor(),
+			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Subnetwork[i3].NameRef,
 			Selector:     mg.Spec.ForProvider.Subnetwork[i3].NameSelector,
 			To: reference.To{

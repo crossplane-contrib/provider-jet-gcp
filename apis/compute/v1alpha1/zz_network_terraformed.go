@@ -30,11 +30,6 @@ func (mg *Network) GetTerraformResourceType() string {
 	return "google_compute_network"
 }
 
-// GetTerraformResourceIDField returns Terraform identifier field for this Network
-func (tr *Network) GetTerraformResourceIDField() string {
-	return "id"
-}
-
 // GetConnectionDetailsMapping for this Network
 func (tr *Network) GetConnectionDetailsMapping() map[string]string {
 	return nil

@@ -30,11 +30,6 @@ func (mg *Router) GetTerraformResourceType() string {
 	return "google_compute_router"
 }
 
-// GetTerraformResourceIDField returns Terraform identifier field for this Router
-func (tr *Router) GetTerraformResourceIDField() string {
-	return "id"
-}
-
 // GetConnectionDetailsMapping for this Router
 func (tr *Router) GetConnectionDetailsMapping() map[string]string {
 	return nil

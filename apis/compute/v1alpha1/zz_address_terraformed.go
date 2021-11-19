@@ -30,11 +30,6 @@ func (mg *Address) GetTerraformResourceType() string {
 	return "google_compute_address"
 }
 
-// GetTerraformResourceIDField returns Terraform identifier field for this Address
-func (tr *Address) GetTerraformResourceIDField() string {
-	return "id"
-}
-
 // GetConnectionDetailsMapping for this Address
 func (tr *Address) GetConnectionDetailsMapping() map[string]string {
 	return nil

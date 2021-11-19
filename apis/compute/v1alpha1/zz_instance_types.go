@@ -83,7 +83,7 @@ type AttachedDiskParameters struct {
 
 	// A 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.
 	// +kubebuilder:validation:Optional
-	DiskEncryptionKeyRawSecretRef v1.SecretKeySelector `json:"diskEncryptionKeyRawSecretRef,omitempty" tf:"-"`
+	DiskEncryptionKeyRawSecretRef *v1.SecretKeySelector `json:"diskEncryptionKeyRawSecretRef,omitempty" tf:"-"`
 
 	// The self_link of the encryption key that is stored in Google Cloud KMS to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.
 	// +kubebuilder:validation:Optional
@@ -114,7 +114,7 @@ type BootDiskParameters struct {
 
 	// A 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.
 	// +kubebuilder:validation:Optional
-	DiskEncryptionKeyRawSecretRef v1.SecretKeySelector `json:"diskEncryptionKeyRawSecretRef,omitempty" tf:"-"`
+	DiskEncryptionKeyRawSecretRef *v1.SecretKeySelector `json:"diskEncryptionKeyRawSecretRef,omitempty" tf:"-"`
 
 	// Parameters with which a disk was created alongside the instance.
 	// +kubebuilder:validation:Optional
@@ -282,10 +282,6 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	MinCPUPlatform *string `json:"minCpuPlatform,omitempty" tf:"min_cpu_platform,omitempty"`
 
-	// The name of the instance. One of name or self_link must be provided.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-
 	// The networks attached to the instance.
 	// +kubebuilder:validation:Required
 	NetworkInterface []NetworkInterfaceParameters `json:"networkInterface" tf:"network_interface,omitempty"`
@@ -348,12 +344,19 @@ type NetworkInterfaceParameters struct {
 	IPv6AccessConfig []IPv6AccessConfigParameters `json:"ipv6AccessConfig,omitempty" tf:"ipv6_access_config,omitempty"`
 
 	// The name or self_link of the network attached to this interface.
+	// +crossplane:generate:reference:type=Network
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
 
 	// The private IP address assigned to the instance.
 	// +kubebuilder:validation:Optional
 	NetworkIP *string `json:"networkIp,omitempty" tf:"network_ip,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	NetworkRef *v1.Reference `json:"networkRef,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	NetworkSelector *v1.Selector `json:"networkSelector,omitempty" tf:"-"`
 
 	// The type of vNIC to be used on this interface. Possible values:GVNIC, VIRTIO_NET
 	// +kubebuilder:validation:Optional
@@ -364,12 +367,19 @@ type NetworkInterfaceParameters struct {
 	StackType *string `json:"stackType,omitempty" tf:"stack_type,omitempty"`
 
 	// The name or self_link of the subnetwork attached to this interface.
+	// +crossplane:generate:reference:type=Subnetwork
 	// +kubebuilder:validation:Optional
 	Subnetwork *string `json:"subnetwork,omitempty" tf:"subnetwork,omitempty"`
 
 	// The project in which the subnetwork belongs.
 	// +kubebuilder:validation:Optional
 	SubnetworkProject *string `json:"subnetworkProject,omitempty" tf:"subnetwork_project,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SubnetworkRef *v1.Reference `json:"subnetworkRef,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	SubnetworkSelector *v1.Selector `json:"subnetworkSelector,omitempty" tf:"-"`
 }
 
 type NodeAffinitiesObservation struct {

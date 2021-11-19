@@ -42,15 +42,15 @@ import (
 func Setup(mgr ctrl.Manager, l logging.Logger, wl workqueue.RateLimiter, ps terraform.SetupFn, ws *terraform.WorkspaceStore, cfg *tjconfig.Provider, concurrency int) error {
 	for _, setup := range []func(ctrl.Manager, logging.Logger, workqueue.RateLimiter, terraform.SetupFn, *terraform.WorkspaceStore, *tjconfig.Provider, int) error{
 		address.Setup,
-		bucket.Setup,
 		firewall.Setup,
 		instance.Setup,
 		managedsslcertificate.Setup,
 		network.Setup,
-		providerconfig.Setup,
 		router.Setup,
 		routernat.Setup,
 		subnetwork.Setup,
+		providerconfig.Setup,
+		bucket.Setup,
 	} {
 		if err := setup(mgr, l, wl, ps, ws, cfg, concurrency); err != nil {
 			return err

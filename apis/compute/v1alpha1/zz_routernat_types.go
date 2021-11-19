@@ -66,11 +66,6 @@ type RouterNatParameters struct {
 	// +kubebuilder:validation:Optional
 	MinPortsPerVM *int64 `json:"minPortsPerVm,omitempty" tf:"min_ports_per_vm,omitempty"`
 
-	// Name of the NAT service. The name must be 1-63 characters long and
-	// comply with RFC1035.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-
 	// How external IPs should be allocated for this NAT. Valid values are
 	// 'AUTO_ONLY' for only allowing NAT IPs allocated by Google Cloud
 	// Platform, or 'MANUAL_ONLY' for only user-allocated NAT IP addresses. Possible values: ["MANUAL_ONLY", "AUTO_ONLY"]
@@ -140,7 +135,6 @@ type SubnetworkParameters struct {
 
 	// Self-link of subnetwork to NAT
 	// +crossplane:generate:reference:type=Subnetwork
-	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-gcp/config/common.SelfLinkExtractor()
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

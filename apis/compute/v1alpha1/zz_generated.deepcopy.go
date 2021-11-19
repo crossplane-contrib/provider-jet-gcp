@@ -183,11 +183,6 @@ func (in *AddressParameters) DeepCopyInto(out *AddressParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Network != nil {
 		in, out := &in.Network, &out.Network
 		*out = new(string)
@@ -483,7 +478,11 @@ func (in *AttachedDiskParameters) DeepCopyInto(out *AttachedDiskParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.DiskEncryptionKeyRawSecretRef = in.DiskEncryptionKeyRawSecretRef
+	if in.DiskEncryptionKeyRawSecretRef != nil {
+		in, out := &in.DiskEncryptionKeyRawSecretRef, &out.DiskEncryptionKeyRawSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.KmsKeySelfLink != nil {
 		in, out := &in.KmsKeySelfLink, &out.KmsKeySelfLink
 		*out = new(string)
@@ -602,7 +601,11 @@ func (in *BootDiskParameters) DeepCopyInto(out *BootDiskParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	out.DiskEncryptionKeyRawSecretRef = in.DiskEncryptionKeyRawSecretRef
+	if in.DiskEncryptionKeyRawSecretRef != nil {
+		in, out := &in.DiskEncryptionKeyRawSecretRef, &out.DiskEncryptionKeyRawSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.InitializeParams != nil {
 		in, out := &in.InitializeParams, &out.InitializeParams
 		*out = make([]InitializeParamsParameters, len(*in))
@@ -856,11 +859,6 @@ func (in *FirewallParameters) DeepCopyInto(out *FirewallParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
 	}
 	if in.Network != nil {
 		in, out := &in.Network, &out.Network
@@ -1357,11 +1355,6 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.NetworkInterface != nil {
 		in, out := &in.NetworkInterface, &out.NetworkInterface
 		*out = make([]NetworkInterfaceParameters, len(*in))
@@ -1678,11 +1671,6 @@ func (in *ManagedSSLCertificateParameters) DeepCopyInto(out *ManagedSSLCertifica
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Project != nil {
 		in, out := &in.Project, &out.Project
 		*out = new(string)
@@ -1825,6 +1813,16 @@ func (in *NetworkInterfaceParameters) DeepCopyInto(out *NetworkInterfaceParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
+		*out = new(v1.Reference)
+		**out = **in
+	}
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NicType != nil {
 		in, out := &in.NicType, &out.NicType
 		*out = new(string)
@@ -1844,6 +1842,16 @@ func (in *NetworkInterfaceParameters) DeepCopyInto(out *NetworkInterfaceParamete
 		in, out := &in.SubnetworkProject, &out.SubnetworkProject
 		*out = new(string)
 		**out = **in
+	}
+	if in.SubnetworkRef != nil {
+		in, out := &in.SubnetworkRef, &out.SubnetworkRef
+		*out = new(v1.Reference)
+		**out = **in
+	}
+	if in.SubnetworkSelector != nil {
+		in, out := &in.SubnetworkSelector, &out.SubnetworkSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1935,11 +1943,6 @@ func (in *NetworkParameters) DeepCopyInto(out *NetworkParameters) {
 	if in.Mtu != nil {
 		in, out := &in.Mtu, &out.Mtu
 		*out = new(int64)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
 		**out = **in
 	}
 	if in.Project != nil {
@@ -2300,11 +2303,6 @@ func (in *RouterNatParameters) DeepCopyInto(out *RouterNatParameters) {
 		*out = new(int64)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.NatIPAllocateOption != nil {
 		in, out := &in.NatIPAllocateOption, &out.NatIPAllocateOption
 		*out = new(string)
@@ -2462,11 +2460,6 @@ func (in *RouterParameters) DeepCopyInto(out *RouterParameters) {
 	if in.EncryptedInterconnectRouter != nil {
 		in, out := &in.EncryptedInterconnectRouter, &out.EncryptedInterconnectRouter
 		*out = new(bool)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
 		**out = **in
 	}
 	if in.Network != nil {
@@ -3065,11 +3058,6 @@ func (in *SubnetworkParameters_2) DeepCopyInto(out *SubnetworkParameters_2) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
 	}
 	if in.Network != nil {
 		in, out := &in.Network, &out.Network
