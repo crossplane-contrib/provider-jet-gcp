@@ -30,11 +30,6 @@ func (mg *RouterNat) GetTerraformResourceType() string {
 	return "google_compute_router_nat"
 }
 
-// GetTerraformResourceIDField returns Terraform identifier field for this RouterNat
-func (tr *RouterNat) GetTerraformResourceIDField() string {
-	return "id"
-}
-
 // GetConnectionDetailsMapping for this RouterNat
 func (tr *RouterNat) GetConnectionDetailsMapping() map[string]string {
 	return nil

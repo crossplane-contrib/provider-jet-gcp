@@ -30,11 +30,6 @@ func (mg *Firewall) GetTerraformResourceType() string {
 	return "google_compute_firewall"
 }
 
-// GetTerraformResourceIDField returns Terraform identifier field for this Firewall
-func (tr *Firewall) GetTerraformResourceIDField() string {
-	return "id"
-}
-
 // GetConnectionDetailsMapping for this Firewall
 func (tr *Firewall) GetConnectionDetailsMapping() map[string]string {
 	return nil

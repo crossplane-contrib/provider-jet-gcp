@@ -30,11 +30,6 @@ func (mg *ManagedSSLCertificate) GetTerraformResourceType() string {
 	return "google_compute_managed_ssl_certificate"
 }
 
-// GetTerraformResourceIDField returns Terraform identifier field for this ManagedSSLCertificate
-func (tr *ManagedSSLCertificate) GetTerraformResourceIDField() string {
-	return "id"
-}
-
 // GetConnectionDetailsMapping for this ManagedSSLCertificate
 func (tr *ManagedSSLCertificate) GetConnectionDetailsMapping() map[string]string {
 	return nil

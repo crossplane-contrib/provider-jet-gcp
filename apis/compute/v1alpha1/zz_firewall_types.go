@@ -125,16 +125,6 @@ type FirewallParameters struct {
 	// +kubebuilder:validation:Optional
 	LogConfig []LogConfigParameters `json:"logConfig,omitempty" tf:"log_config,omitempty"`
 
-	// Name of the resource. Provided by the client when the resource is
-	// created. The name must be 1-63 characters long, and comply with
-	// RFC1035. Specifically, the name must be 1-63 characters long and match
-	// the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-	// first character must be a lowercase letter, and all following
-	// characters must be a dash, lowercase letter, or digit, except the last
-	// character, which cannot be a dash.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
-
 	// The name or self_link of the network to attach this firewall to.
 	// +crossplane:generate:reference:type=Network
 	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-gcp/config/common.SelfLinkExtractor()

@@ -281,10 +281,6 @@ spec:
                   minCpuPlatform:
                     description: The minimum CPU platform specified for the VM instance.
                     type: string
-                  name:
-                    description: The name of the instance. One of name or self_link
-                      must be provided.
-                    type: string
                   networkInterface:
                     description: The networks attached to the instance.
                     items:
@@ -354,6 +350,30 @@ spec:
                         networkIp:
                           description: The private IP address assigned to the instance.
                           type: string
+                        networkRef:
+                          description: A Reference to a named object.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        networkSelector:
+                          description: A Selector selects an object.
+                          properties:
+                            matchControllerRef:
+                              description: MatchControllerRef ensures an object with
+                                the same controller reference as the selecting object
+                                is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                          type: object
                         nicType:
                           description: The type of vNIC to be used on this interface.
                             Possible values:GVNIC, VIRTIO_NET
@@ -370,6 +390,30 @@ spec:
                         subnetworkProject:
                           description: The project in which the subnetwork belongs.
                           type: string
+                        subnetworkRef:
+                          description: A Reference to a named object.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        subnetworkSelector:
+                          description: A Selector selects an object.
+                          properties:
+                            matchControllerRef:
+                              description: MatchControllerRef ensures an object with
+                                the same controller reference as the selecting object
+                                is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                          type: object
                       type: object
                     type: array
                   project:
@@ -518,7 +562,6 @@ spec:
                 required:
                 - bootDisk
                 - machineType
-                - name
                 - networkInterface
                 type: object
               providerConfigRef:
