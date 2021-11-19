@@ -18,6 +18,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 
 	p.AddResourceConfigurator("google_compute_managed_ssl_certificate", func(r *config.Resource) {
 		r.Kind = "ManagedSSLCertificate"
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -30,6 +31,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_subnetwork", func(r *config.Resource) {
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -49,6 +51,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_address", func(r *config.Resource) {
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -70,6 +73,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_firewall", func(r *config.Resource) {
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -85,6 +89,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_router", func(r *config.Resource) {
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -104,6 +109,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_router_nat", func(r *config.Resource) {
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -135,6 +141,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 		// elements configured as nil, defaulting to map[string]string:
 		r.TerraformResource.Schema["metadata"].Elem = schema.TypeString
 
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -155,6 +162,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 			Schema["initialize_params"].Elem.(*schema.Resource).
 			Schema["labels"].Elem = schema.TypeString
 
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -189,6 +197,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 			Schema["labels"].Elem = schema.TypeString
 		r.TerraformResource.Schema["metadata"].Elem = schema.TypeString
 
+		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
@@ -210,5 +219,15 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 		}
 
 		r.UseAsync = true
+	})
+
+	p.AddResourceConfigurator("google_compute_network", func(r *config.Resource) {
+		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
+		// projects/{{project}}/global/networks/{{name}}
+		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
+			project, err := common.GetField(providerConfig, common.KeyProject)
+			return fmt.Sprintf("projects/%s/global/networks/%s", project, externalName), err
+		}
 	})
 }
