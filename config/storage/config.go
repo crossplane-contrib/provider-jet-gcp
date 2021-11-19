@@ -1,7 +1,12 @@
 package storage
 
 import (
+	"context"
+	"path/filepath"
+
 	"github.com/crossplane-contrib/terrajet/pkg/config"
+
+	"github.com/crossplane-contrib/provider-jet-gcp/config/common"
 )
 
 // Configure configures individual resources by adding custom
@@ -16,5 +21,10 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator("google_storage_bucket", func(r *config.Resource) {
 		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
+		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
+			project, err := common.GetField(providerConfig, common.KeyProject)
+			return filepath.Join(project, externalName), err
+		}
 	})
 }

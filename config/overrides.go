@@ -3,8 +3,9 @@ package config
 import (
 	"strings"
 
-	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
 	"github.com/iancoleman/strcase"
+
+	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
@@ -50,5 +51,11 @@ func groupOverrides() tjconfig.ResourceOption { //nolint: gocyclo
 			r.ShortGroup = words[1] + words[2]
 			r.Kind = strcase.ToCamel(strings.Join(words[3:], "_"))
 		}
+	}
+}
+
+func externalNameConfig() tjconfig.ResourceOption {
+	return func(r *tjconfig.Resource) {
+		r.ExternalName = tjconfig.IdentifierFromProvider
 	}
 }
