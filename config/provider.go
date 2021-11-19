@@ -56,7 +56,7 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithRootGroup("gcp.jet.crossplane.io"),
 		tjconfig.WithShortName("gcpjet"),
 		// Comment out the following line to generate all resources.
-		//tjconfig.WithIncludeList(IncludeList),
+		// tjconfig.WithIncludeList(IncludeList),
 		tjconfig.WithSkipList(skipList))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
