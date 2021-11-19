@@ -48,7 +48,7 @@ var includeList = []string{
 func GetProvider() *tjconfig.Provider {
 	resourceMap := tf.Provider().ResourcesMap
 	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(DefaultResource(groupOverrides(), externalNameOverride())),
+		tjconfig.WithDefaultResourceFn(DefaultResource(groupOverrides())),
 		tjconfig.WithRootGroup("gcp.jet.crossplane.io"),
 		tjconfig.WithShortName("gcpjet"),
 		// Comment out the following line to generate all resources.
