@@ -31,6 +31,8 @@ func Configure(p *config.Provider) {
 	})
 	p.AddResourceConfigurator("google_project", func(r *config.Resource) {
 		r.Kind = "Project"
+		r.TerraformResource.Schema["org_id"].Description =
+			"The numeric ID of the organization this project belongs to."
 	})
 	p.AddResourceConfigurator("google_project_default_service_accounts", func(r *config.Resource) {
 		r.Kind = "ProjectDefaultServiceAccounts"
