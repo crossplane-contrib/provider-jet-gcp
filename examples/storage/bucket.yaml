@@ -2,10 +2,12 @@ apiVersion: storage.gcp.jet.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   name: example
-  annotations:
-    # Note that this will be the actual bucket name so it has to be globally unique/available.
-    crossplane.io/external-name: crossplane-example-bucket
 spec:
   forProvider:
+    # Note(turkenh): Ideally we should use 'metadata.name' as bucket name,
+    # however due to the following issue we cannot use name as identifier external
+    # name option: https://github.com/hashicorp/terraform-provider-google/issues/10423
+    # Note that this will be the actual bucket name so it has to be globally unique/available.
+    name: crossplane-example-bucket
     location: US
     storageClass: MULTI_REGIONAL
