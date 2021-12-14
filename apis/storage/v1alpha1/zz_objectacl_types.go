@@ -26,6 +26,7 @@ import (
 )
 
 type ObjectAclObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ObjectAclParameters struct {

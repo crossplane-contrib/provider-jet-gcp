@@ -34,6 +34,8 @@ type ObjectAccessControlObservation struct {
 
 	Generation *int64 `json:"generation,omitempty" tf:"generation,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ProjectTeam []ObjectAccessControlProjectTeamObservation `json:"projectTeam,omitempty" tf:"project_team,omitempty"`
 }
 

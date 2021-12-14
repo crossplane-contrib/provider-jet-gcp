@@ -26,6 +26,8 @@ import (
 )
 
 type RouteObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	NextHopNetwork *string `json:"nextHopNetwork,omitempty" tf:"next_hop_network,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

@@ -27,6 +27,8 @@ import (
 
 type Hl7V2StoreIamPolicyObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type Hl7V2StoreIamPolicyParameters struct {

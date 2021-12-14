@@ -51,6 +51,8 @@ type CxVersionNluSettingsParameters struct {
 type CxVersionObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	NluSettings []CxVersionNluSettingsObservation `json:"nluSettings,omitempty" tf:"nlu_settings,omitempty"`

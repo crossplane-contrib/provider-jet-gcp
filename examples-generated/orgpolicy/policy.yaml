@@ -1,0 +1,13 @@
+apiVersion: orgpolicy.gcp.jet.crossplane.io/v1alpha1
+kind: Policy
+metadata:
+  name: example
+spec:
+  forProvider:
+    name: My Project
+    parent: My Project
+    spec:
+    - rules:
+      - enforce: "FALSE"
+  providerConfigRef:
+    name: example

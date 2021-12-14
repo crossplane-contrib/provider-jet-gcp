@@ -1,0 +1,22 @@
+apiVersion: dialogflow.gcp.jet.crossplane.io/v1alpha1
+kind: CxAgent
+metadata:
+  name: example
+spec:
+  forProvider:
+    avatarUri: https://cloud.google.com/_static/images/cloud/icons/favicons/onecloud/super_cloud.png
+    defaultLanguageCode: en
+    description: Example description.
+    displayName: dialogflowcx-agent
+    enableSpellCorrection: true
+    enableStackdriverLogging: true
+    location: global
+    speechToTextSettings:
+    - enableSpeechAdaptation: true
+    supportedLanguageCodes:
+    - fr
+    - de
+    - es
+    timeZone: America/New_York
+  providerConfigRef:
+    name: example

@@ -149,6 +149,8 @@ spec:
                 properties:
                   caCertificate:
                     type: string
+                  id:
+                    type: string
                   name:
                     type: string
                   subscriptionType:

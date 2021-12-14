@@ -120,6 +120,8 @@ type DatabaseInstanceObservation struct {
 
 	FirstIPAddress *string `json:"firstIpAddress,omitempty" tf:"first_ip_address,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	IPAddress []IPAddressObservation `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
 	PrivateIPAddress *string `json:"privateIpAddress,omitempty" tf:"private_ip_address,omitempty"`

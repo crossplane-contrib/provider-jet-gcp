@@ -1,0 +1,21 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: RegionSslCertificate
+metadata:
+  name: example
+spec:
+  forProvider:
+    certificateSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    description: a description
+    lifecycle:
+    - create_before_destroy: true
+    namePrefix: my-certificate-
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    region: us-central1
+  providerConfigRef:
+    name: example

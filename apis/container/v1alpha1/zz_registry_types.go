@@ -27,6 +27,8 @@ import (
 
 type RegistryObservation struct {
 	BucketSelfLink *string `json:"bucketSelfLink,omitempty" tf:"bucket_self_link,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RegistryParameters struct {

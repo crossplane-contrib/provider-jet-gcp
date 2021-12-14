@@ -289,6 +289,8 @@ spec:
                 properties:
                   creationTimestamp:
                     type: string
+                  id:
+                    type: string
                   labelFingerprint:
                     type: string
                   selfLink:

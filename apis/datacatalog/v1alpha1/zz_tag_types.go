@@ -58,6 +58,8 @@ type FieldsParameters struct {
 }
 
 type TagObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	TemplateDisplayname *string `json:"templateDisplayname,omitempty" tf:"template_displayname,omitempty"`

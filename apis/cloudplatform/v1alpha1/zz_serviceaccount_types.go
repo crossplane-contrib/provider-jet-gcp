@@ -28,6 +28,8 @@ import (
 type ServiceAccountObservation struct {
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	UniqueID *string `json:"uniqueId,omitempty" tf:"unique_id,omitempty"`

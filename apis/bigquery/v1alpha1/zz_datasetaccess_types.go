@@ -27,6 +27,8 @@ import (
 
 type DatasetAccessObservation struct {
 	APIUpdatedMember *bool `json:"apiUpdatedMember,omitempty" tf:"api_updated_member,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type DatasetAccessParameters struct {

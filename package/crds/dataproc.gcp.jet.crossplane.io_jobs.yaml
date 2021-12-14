@@ -538,6 +538,8 @@ spec:
                     type: string
                   driverOutputResourceUri:
                     type: string
+                  id:
+                    type: string
                   status:
                     items:
                       properties:

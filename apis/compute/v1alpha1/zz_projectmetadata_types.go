@@ -26,6 +26,7 @@ import (
 )
 
 type ProjectMetadataObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ProjectMetadataParameters struct {

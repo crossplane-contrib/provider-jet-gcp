@@ -120,6 +120,7 @@ type HTTPTargetParameters struct {
 }
 
 type JobObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type JobParameters struct {

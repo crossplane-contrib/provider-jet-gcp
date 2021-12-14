@@ -26,6 +26,7 @@ import (
 )
 
 type RecordSetObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RecordSetParameters struct {

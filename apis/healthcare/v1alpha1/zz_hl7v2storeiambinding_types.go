@@ -42,6 +42,8 @@ type Hl7V2StoreIamBindingConditionParameters struct {
 
 type Hl7V2StoreIamBindingObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type Hl7V2StoreIamBindingParameters struct {

@@ -26,6 +26,7 @@ import (
 )
 
 type SharedVpcHostProjectObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type SharedVpcHostProjectParameters struct {

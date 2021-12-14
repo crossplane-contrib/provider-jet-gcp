@@ -184,6 +184,8 @@ type ExtractParameters struct {
 }
 
 type JobObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	JobType *string `json:"jobType,omitempty" tf:"job_type,omitempty"`
 
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`

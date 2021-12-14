@@ -26,6 +26,7 @@ import (
 )
 
 type LiteReservationObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type LiteReservationParameters struct {

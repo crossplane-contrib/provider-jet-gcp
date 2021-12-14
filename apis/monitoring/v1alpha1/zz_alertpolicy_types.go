@@ -119,6 +119,8 @@ type AggregationsParameters struct {
 type AlertPolicyObservation struct {
 	CreationRecord []CreationRecordObservation `json:"creationRecord,omitempty" tf:"creation_record,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

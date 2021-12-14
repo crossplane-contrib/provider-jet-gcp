@@ -41,6 +41,8 @@ type Hl7V2StoreNotificationConfigParameters struct {
 }
 
 type Hl7V2StoreObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

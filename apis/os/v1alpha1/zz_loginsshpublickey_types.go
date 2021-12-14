@@ -27,6 +27,8 @@ import (
 
 type LoginSshPublicKeyObservation struct {
 	Fingerprint *string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type LoginSshPublicKeyParameters struct {

@@ -28,6 +28,8 @@ import (
 type TargetHttpProxyObservation struct {
 	CreationTimestamp *string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ProxyID *int64 `json:"proxyId,omitempty" tf:"proxy_id,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

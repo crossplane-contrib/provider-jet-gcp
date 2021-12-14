@@ -127,6 +127,8 @@ spec:
                 properties:
                   accessId:
                     type: string
+                  id:
+                    type: string
                   timeCreated:
                     type: string
                   updated:

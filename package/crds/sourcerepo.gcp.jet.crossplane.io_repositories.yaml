@@ -147,6 +147,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   size:
                     format: int64
                     type: integer

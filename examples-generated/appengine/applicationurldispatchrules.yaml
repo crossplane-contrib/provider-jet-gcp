@@ -1,0 +1,15 @@
+apiVersion: appengine.gcp.jet.crossplane.io/v1alpha1
+kind: ApplicationUrlDispatchRules
+metadata:
+  name: example
+spec:
+  forProvider:
+    dispatchRules:
+    - domain: '*'
+      path: /*
+      service: default
+    - domain: '*'
+      path: /admin/*
+      service: myapp
+  providerConfigRef:
+    name: example

@@ -26,6 +26,8 @@ import (
 )
 
 type DomainMappingObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	ResourceRecords []ResourceRecordsObservation `json:"resourceRecords,omitempty" tf:"resource_records,omitempty"`

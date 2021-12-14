@@ -1,0 +1,18 @@
+apiVersion: dialogflow.gcp.jet.crossplane.io/v1alpha1
+kind: Fulfillment
+metadata:
+  name: example
+spec:
+  forProvider:
+    depends_on:
+    - ${google_dialogflow_agent.basic_agent}
+    displayName: basic-fulfillment
+    enabled: true
+    genericWebService:
+    - password: password
+      requestHeaders:
+        name: wrench
+      uri: https://google.com
+      username: admin
+  providerConfigRef:
+    name: example

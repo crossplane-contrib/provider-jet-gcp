@@ -26,6 +26,7 @@ import (
 )
 
 type RouterInterfaceObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RouterInterfaceParameters struct {

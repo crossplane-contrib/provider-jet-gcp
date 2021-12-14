@@ -208,6 +208,8 @@ type RegionAutoscalerAutoscalingPolicyParameters struct {
 type RegionAutoscalerObservation struct {
 	CreationTimestamp *string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

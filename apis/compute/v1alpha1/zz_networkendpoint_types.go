@@ -26,6 +26,7 @@ import (
 )
 
 type NetworkEndpointObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type NetworkEndpointParameters struct {

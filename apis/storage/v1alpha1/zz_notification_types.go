@@ -26,6 +26,8 @@ import (
 )
 
 type NotificationObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	NotificationID *string `json:"notificationId,omitempty" tf:"notification_id,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

@@ -610,6 +610,9 @@ spec:
             description: ClusterStatus defines the observed state of Cluster.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

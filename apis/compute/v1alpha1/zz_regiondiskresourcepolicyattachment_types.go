@@ -26,6 +26,7 @@ import (
 )
 
 type RegionDiskResourcePolicyAttachmentObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RegionDiskResourcePolicyAttachmentParameters struct {

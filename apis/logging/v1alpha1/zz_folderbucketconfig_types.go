@@ -26,6 +26,8 @@ import (
 )
 
 type FolderBucketConfigObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LifecycleState *string `json:"lifecycleState,omitempty" tf:"lifecycle_state,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

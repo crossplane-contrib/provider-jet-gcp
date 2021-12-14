@@ -1,0 +1,16 @@
+apiVersion: privateca.gcp.jet.crossplane.io/v1alpha1
+kind: CaPool
+metadata:
+  name: example
+spec:
+  forProvider:
+    labels:
+      foo: bar
+    location: us-central1
+    name: my-pool
+    publishingOptions:
+    - publishCaCert: true
+      publishCrl: true
+    tier: ENTERPRISE
+  providerConfigRef:
+    name: example

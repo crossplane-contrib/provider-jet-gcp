@@ -58,6 +58,7 @@ type IdpConfigParameters struct {
 }
 
 type InboundSamlConfigObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type InboundSamlConfigParameters struct {

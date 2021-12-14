@@ -28,6 +28,8 @@ import (
 type HmacKeyObservation struct {
 	AccessID *string `json:"accessId,omitempty" tf:"access_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	TimeCreated *string `json:"timeCreated,omitempty" tf:"time_created,omitempty"`
 
 	Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`

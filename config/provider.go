@@ -57,7 +57,8 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithShortName("gcpjet"),
 		// Comment out the following line to generate all resources.
 		// tjconfig.WithIncludeList(IncludeList),
-		tjconfig.WithSkipList(skipList))
+		tjconfig.WithSkipList(skipList),
+		tjconfig.WithProviderMetadata("./hack/provider-metadata.yaml"))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		accessapproval.Configure,

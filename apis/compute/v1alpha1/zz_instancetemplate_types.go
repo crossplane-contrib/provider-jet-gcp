@@ -225,6 +225,8 @@ type InstanceTemplateNetworkInterfaceParameters struct {
 }
 
 type InstanceTemplateObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	MetadataFingerprint *string `json:"metadataFingerprint,omitempty" tf:"metadata_fingerprint,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

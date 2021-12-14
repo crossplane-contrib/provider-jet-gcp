@@ -42,6 +42,8 @@ type ContainerImageParameters struct {
 
 type EnvironmentObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type EnvironmentParameters struct {

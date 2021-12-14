@@ -44,6 +44,8 @@ type FollowupIntentInfoParameters struct {
 type IntentObservation struct {
 	FollowupIntentInfo []FollowupIntentInfoObservation `json:"followupIntentInfo,omitempty" tf:"followup_intent_info,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	RootFollowupIntentName *string `json:"rootFollowupIntentName,omitempty" tf:"root_followup_intent_name,omitempty"`

@@ -1,0 +1,10 @@
+apiVersion: privateca.gcp.jet.crossplane.io/v1alpha1
+kind: CaPoolIamPolicy
+metadata:
+  name: example
+spec:
+  forProvider:
+    caPool: ${google_privateca_ca_pool.default.id}
+    policyData: ${data.google_iam_policy.admin.policy_data}
+  providerConfigRef:
+    name: example

@@ -98,6 +98,8 @@ type JobObservation struct {
 
 	DriverOutputResourceURI *string `json:"driverOutputResourceUri,omitempty" tf:"driver_output_resource_uri,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 }
 

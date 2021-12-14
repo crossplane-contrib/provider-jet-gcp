@@ -132,6 +132,7 @@ type ClusterConfigWorkerConfigParameters struct {
 }
 
 type ClusterObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ClusterParameters struct {

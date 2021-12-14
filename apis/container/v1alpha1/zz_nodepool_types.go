@@ -184,6 +184,8 @@ type NodePoolNodeConfigWorkloadMetadataConfigParameters struct {
 }
 
 type NodePoolObservation_2 struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	InstanceGroupUrls []*string `json:"instanceGroupUrls,omitempty" tf:"instance_group_urls,omitempty"`
 
 	ManagedInstanceGroupUrls []*string `json:"managedInstanceGroupUrls,omitempty" tf:"managed_instance_group_urls,omitempty"`

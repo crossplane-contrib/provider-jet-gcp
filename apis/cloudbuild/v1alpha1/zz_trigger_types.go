@@ -533,6 +533,8 @@ type TimingParameters struct {
 type TriggerObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	TriggerID *string `json:"triggerId,omitempty" tf:"trigger_id,omitempty"`
 }
 

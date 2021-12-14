@@ -29,6 +29,8 @@ type BucketAccessControlObservation struct {
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type BucketAccessControlParameters struct {

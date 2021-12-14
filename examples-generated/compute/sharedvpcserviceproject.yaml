@@ -1,0 +1,10 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: SharedVpcServiceProject
+metadata:
+  name: example
+spec:
+  forProvider:
+    hostProject: host-project-id
+    serviceProject: service-project-id-1
+  providerConfigRef:
+    name: example

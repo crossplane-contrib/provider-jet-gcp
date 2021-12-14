@@ -1,0 +1,10 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: SslPolicy
+metadata:
+  name: example
+spec:
+  forProvider:
+    name: production-ssl-policy
+    profile: MODERN
+  providerConfigRef:
+    name: example

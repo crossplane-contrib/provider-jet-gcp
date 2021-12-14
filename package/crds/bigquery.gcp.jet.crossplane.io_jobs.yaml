@@ -759,6 +759,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   jobType:
                     type: string
                   status:

@@ -1,0 +1,14 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: BackendServiceSignedUrlKey
+metadata:
+  name: example
+spec:
+  forProvider:
+    backendService: backend-service
+    keyValueSecretRef:
+      key: attribute.b64_url
+      name: example-id
+      namespace: crossplane-system
+    name: test-key
+  providerConfigRef:
+    name: example

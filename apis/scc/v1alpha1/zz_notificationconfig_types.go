@@ -26,6 +26,8 @@ import (
 )
 
 type NotificationConfigObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	ServiceAccount *string `json:"serviceAccount,omitempty" tf:"service_account,omitempty"`

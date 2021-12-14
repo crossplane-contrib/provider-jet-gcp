@@ -131,6 +131,8 @@ spec:
                     type: string
                   folderId:
                     type: string
+                  id:
+                    type: string
                   lifecycleState:
                     type: string
                   name:

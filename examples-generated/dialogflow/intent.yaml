@@ -1,0 +1,11 @@
+apiVersion: dialogflow.gcp.jet.crossplane.io/v1alpha1
+kind: Intent
+metadata:
+  name: example
+spec:
+  forProvider:
+    depends_on:
+    - ${google_dialogflow_agent.basic_agent}
+    displayName: basic-intent
+  providerConfigRef:
+    name: example

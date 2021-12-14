@@ -1,0 +1,11 @@
+apiVersion: binaryauthorization.gcp.jet.crossplane.io/v1alpha1
+kind: AttestorIamPolicy
+metadata:
+  name: example
+spec:
+  forProvider:
+    attestor: test-attestor
+    policyData: ${data.google_iam_policy.admin.policy_data}
+    project: ${google_binary_authorization_attestor.attestor.project}
+  providerConfigRef:
+    name: example

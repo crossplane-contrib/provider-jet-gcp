@@ -92,6 +92,8 @@ type SubnetworkObservation_2 struct {
 
 	GatewayAddress *string `json:"gatewayAddress,omitempty" tf:"gateway_address,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	IPv6CidrRange *string `json:"ipv6CidrRange,omitempty" tf:"ipv6_cidr_range,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

@@ -42,6 +42,8 @@ type ConditionParameters struct {
 
 type CryptoKeyIamBindingObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type CryptoKeyIamBindingParameters struct {

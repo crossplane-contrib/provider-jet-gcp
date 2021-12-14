@@ -54,6 +54,14 @@ func (tr *BillingAccountBucketConfig) SetObservation(obs map[string]interface{})
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this BillingAccountBucketConfig
+func (tr *BillingAccountBucketConfig) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this BillingAccountBucketConfig
 func (tr *BillingAccountBucketConfig) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

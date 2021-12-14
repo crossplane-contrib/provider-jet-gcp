@@ -26,6 +26,8 @@ import (
 )
 
 type CxEnvironmentObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`

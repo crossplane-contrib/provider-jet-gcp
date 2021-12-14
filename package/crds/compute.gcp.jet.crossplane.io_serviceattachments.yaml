@@ -189,6 +189,8 @@ spec:
                     type: array
                   fingerprint:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                 type: object

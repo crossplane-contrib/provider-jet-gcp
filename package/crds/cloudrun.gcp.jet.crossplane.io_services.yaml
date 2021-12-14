@@ -466,6 +466,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   status:
                     items:
                       properties:

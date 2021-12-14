@@ -186,6 +186,9 @@ spec:
             description: LiteTopicStatus defines the observed state of LiteTopic.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -1,0 +1,12 @@
+apiVersion: cloudplatform.gcp.jet.crossplane.io/v1alpha1
+kind: ProjectOrganizationPolicy
+metadata:
+  name: example
+spec:
+  forProvider:
+    booleanPolicy:
+    - enforced: true
+    constraint: compute.disableSerialPortAccess
+    project: your-project-id
+  providerConfigRef:
+    name: example

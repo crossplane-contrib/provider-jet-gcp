@@ -36,6 +36,8 @@ type BigqueryOptionsParameters struct {
 }
 
 type BillingAccountSinkObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	WriterIdentity *string `json:"writerIdentity,omitempty" tf:"writer_identity,omitempty"`
 }
 

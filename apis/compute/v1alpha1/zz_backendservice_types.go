@@ -190,6 +190,8 @@ type BackendServiceObservation struct {
 
 	Fingerprint *string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

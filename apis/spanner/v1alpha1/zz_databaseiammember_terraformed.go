@@ -54,6 +54,14 @@ func (tr *DatabaseIamMember) SetObservation(obs map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this DatabaseIamMember
+func (tr *DatabaseIamMember) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this DatabaseIamMember
 func (tr *DatabaseIamMember) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

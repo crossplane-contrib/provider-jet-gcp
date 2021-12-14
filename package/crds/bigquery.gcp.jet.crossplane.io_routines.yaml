@@ -200,6 +200,8 @@ spec:
                   creationTime:
                     format: int64
                     type: integer
+                  id:
+                    type: string
                   lastModifiedTime:
                     format: int64
                     type: integer

@@ -54,6 +54,7 @@ type RegistryCredentialsParameters struct {
 }
 
 type RegistryObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RegistryParameters struct {

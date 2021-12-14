@@ -42,6 +42,8 @@ type JobIamBindingConditionParameters struct {
 
 type JobIamBindingObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type JobIamBindingParameters struct {

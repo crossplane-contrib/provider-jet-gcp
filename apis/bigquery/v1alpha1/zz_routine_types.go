@@ -56,6 +56,8 @@ type ArgumentsParameters struct {
 type RoutineObservation struct {
 	CreationTime *int64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LastModifiedTime *int64 `json:"lastModifiedTime,omitempty" tf:"last_modified_time,omitempty"`
 }
 

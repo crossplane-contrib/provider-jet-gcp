@@ -136,6 +136,8 @@ spec:
                     type: string
                   expirationTime:
                     type: string
+                  id:
+                    type: string
                   serverCaCert:
                     type: string
                   sha1Fingerprint:

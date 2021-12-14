@@ -26,6 +26,7 @@ import (
 )
 
 type SchemaObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type SchemaParameters struct {

@@ -42,6 +42,8 @@ type AppEngineServiceIamMemberConditionParameters struct {
 
 type AppEngineServiceIamMemberObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type AppEngineServiceIamMemberParameters struct {

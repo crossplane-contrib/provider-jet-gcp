@@ -141,6 +141,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   name:
                     type: string
                 type: object

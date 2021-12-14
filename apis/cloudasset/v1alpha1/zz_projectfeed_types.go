@@ -71,6 +71,8 @@ type ProjectFeedFeedOutputConfigPubsubDestinationParameters struct {
 }
 
 type ProjectFeedObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

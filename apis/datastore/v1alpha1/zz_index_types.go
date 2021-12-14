@@ -26,6 +26,8 @@ import (
 )
 
 type IndexObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	IndexID *string `json:"indexId,omitempty" tf:"index_id,omitempty"`
 }
 

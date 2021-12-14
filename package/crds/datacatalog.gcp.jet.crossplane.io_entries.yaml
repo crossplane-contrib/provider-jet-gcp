@@ -230,6 +230,8 @@ spec:
                           type: array
                       type: object
                     type: array
+                  id:
+                    type: string
                   integratedSystem:
                     type: string
                   name:

@@ -188,6 +188,8 @@ spec:
                 properties:
                   createTime:
                     type: string
+                  id:
+                    type: string
                   kind:
                     type: string
                   name:

@@ -93,6 +93,7 @@ type PacketMirroringNetworkParameters struct {
 }
 
 type PacketMirroringObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type PacketMirroringParameters struct {

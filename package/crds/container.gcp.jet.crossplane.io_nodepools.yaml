@@ -368,6 +368,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   instanceGroupUrls:
                     items:
                       type: string

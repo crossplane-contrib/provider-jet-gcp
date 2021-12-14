@@ -26,6 +26,7 @@ import (
 )
 
 type KeyRingObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type KeyRingParameters struct {

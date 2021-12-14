@@ -56,6 +56,8 @@ type RegionInstanceGroupManagerNamedPortParameters struct {
 type RegionInstanceGroupManagerObservation struct {
 	Fingerprint *string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	InstanceGroup *string `json:"instanceGroup,omitempty" tf:"instance_group,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

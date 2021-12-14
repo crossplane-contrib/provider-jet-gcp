@@ -212,6 +212,8 @@ spec:
                     type: string
                   creationTimestamp:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                   status:

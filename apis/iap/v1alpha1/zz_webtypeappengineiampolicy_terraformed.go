@@ -54,6 +54,14 @@ func (tr *WebTypeAppEngineIamPolicy) SetObservation(obs map[string]interface{}) 
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this WebTypeAppEngineIamPolicy
+func (tr *WebTypeAppEngineIamPolicy) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this WebTypeAppEngineIamPolicy
 func (tr *WebTypeAppEngineIamPolicy) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

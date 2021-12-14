@@ -18,3 +18,5 @@ require (
 	sigs.k8s.io/controller-runtime v0.9.6
 	sigs.k8s.io/controller-tools v0.6.2
 )
+
+replace github.com/crossplane-contrib/terrajet => github.com/ulucinar/terrajet v0.0.0-20211214071941-f444f6e65332

@@ -27,6 +27,8 @@ import (
 
 type AgentObservation struct {
 	AvatarURIBackend *string `json:"avatarUriBackend,omitempty" tf:"avatar_uri_backend,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type AgentParameters struct {

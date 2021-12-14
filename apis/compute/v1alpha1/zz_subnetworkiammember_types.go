@@ -42,6 +42,8 @@ type SubnetworkIamMemberConditionParameters struct {
 
 type SubnetworkIamMemberObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type SubnetworkIamMemberParameters struct {

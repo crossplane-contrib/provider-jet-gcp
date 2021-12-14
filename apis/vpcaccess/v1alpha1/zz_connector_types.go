@@ -26,6 +26,8 @@ import (
 )
 
 type ConnectorObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

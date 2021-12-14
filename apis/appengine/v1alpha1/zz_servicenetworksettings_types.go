@@ -36,6 +36,7 @@ type NetworkSettingsParameters struct {
 }
 
 type ServiceNetworkSettingsObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServiceNetworkSettingsParameters struct {

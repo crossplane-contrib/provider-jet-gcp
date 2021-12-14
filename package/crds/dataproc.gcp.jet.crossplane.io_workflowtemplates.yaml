@@ -1730,6 +1730,8 @@ spec:
                 properties:
                   createTime:
                     type: string
+                  id:
+                    type: string
                   updateTime:
                     type: string
                 type: object

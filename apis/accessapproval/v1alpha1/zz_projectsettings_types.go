@@ -52,6 +52,8 @@ type ProjectSettingsEnrolledServicesParameters struct {
 type ProjectSettingsObservation struct {
 	EnrolledAncestor *bool `json:"enrolledAncestor,omitempty" tf:"enrolled_ancestor,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

@@ -28,6 +28,8 @@ import (
 type RealmObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

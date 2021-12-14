@@ -55,6 +55,8 @@ type InstanceContainerImageParameters struct {
 }
 
 type InstanceObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ProxyURI *string `json:"proxyUri,omitempty" tf:"proxy_uri,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

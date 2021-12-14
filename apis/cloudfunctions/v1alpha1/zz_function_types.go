@@ -54,6 +54,7 @@ type FailurePolicyParameters struct {
 }
 
 type FunctionObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type FunctionParameters struct {

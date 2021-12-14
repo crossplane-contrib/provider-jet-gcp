@@ -226,6 +226,8 @@ type TransferJobObservation struct {
 
 	DeletionTime *string `json:"deletionTime,omitempty" tf:"deletion_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LastModificationTime *string `json:"lastModificationTime,omitempty" tf:"last_modification_time,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

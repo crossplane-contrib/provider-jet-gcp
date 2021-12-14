@@ -1,0 +1,14 @@
+apiVersion: healthcare.gcp.jet.crossplane.io/v1alpha1
+kind: DicomStore
+metadata:
+  name: example
+spec:
+  forProvider:
+    dataset: ${google_healthcare_dataset.dataset.id}
+    labels:
+      label1: labelvalue1
+    name: example-dicom-store
+    notificationConfig:
+    - pubsubTopic: ${google_pubsub_topic.topic.id}
+  providerConfigRef:
+    name: example

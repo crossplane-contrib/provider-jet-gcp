@@ -41,6 +41,8 @@ type RouterPeerAdvertisedIPRangesParameters struct {
 }
 
 type RouterPeerObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ManagementType *string `json:"managementType,omitempty" tf:"management_type,omitempty"`
 }
 

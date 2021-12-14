@@ -27,6 +27,8 @@ import (
 
 type ClientObservation struct {
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ClientParameters struct {

@@ -1,0 +1,11 @@
+apiVersion: pubsub.gcp.jet.crossplane.io/v1alpha1
+kind: Topic
+metadata:
+  name: example
+spec:
+  forProvider:
+    labels:
+      foo: bar
+    name: example-topic
+  providerConfigRef:
+    name: example

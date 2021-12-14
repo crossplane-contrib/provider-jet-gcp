@@ -28,6 +28,8 @@ import (
 type InstanceObservation struct {
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 }
 

@@ -28,6 +28,8 @@ import (
 type NetworkObservation struct {
 	GatewayIPv4 *string `json:"gatewayIpv4,omitempty" tf:"gateway_ipv4,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

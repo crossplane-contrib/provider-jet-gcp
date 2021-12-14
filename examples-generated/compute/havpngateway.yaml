@@ -1,0 +1,11 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: HaVpnGateway
+metadata:
+  name: example
+spec:
+  forProvider:
+    name: ha-vpn-1
+    network: ${google_compute_network.network1.id}
+    region: us-central1
+  providerConfigRef:
+    name: example

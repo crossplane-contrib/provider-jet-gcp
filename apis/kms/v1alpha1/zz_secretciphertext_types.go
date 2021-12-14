@@ -27,6 +27,8 @@ import (
 
 type SecretCiphertextObservation struct {
 	Ciphertext *string `json:"ciphertext,omitempty" tf:"ciphertext,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type SecretCiphertextParameters struct {

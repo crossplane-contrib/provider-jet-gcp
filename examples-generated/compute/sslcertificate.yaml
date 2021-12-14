@@ -1,0 +1,20 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: SslCertificate
+metadata:
+  name: example
+spec:
+  forProvider:
+    certificateSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    description: a description
+    lifecycle:
+    - create_before_destroy: true
+    namePrefix: my-certificate-
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+  providerConfigRef:
+    name: example

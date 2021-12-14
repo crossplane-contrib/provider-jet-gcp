@@ -189,6 +189,8 @@ spec:
                     type: string
                   discoveryEndpoint:
                     type: string
+                  id:
+                    type: string
                   memcacheFullVersion:
                     type: string
                   memcacheNodes:

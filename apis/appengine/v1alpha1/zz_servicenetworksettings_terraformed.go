@@ -54,6 +54,14 @@ func (tr *ServiceNetworkSettings) SetObservation(obs map[string]interface{}) err
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this ServiceNetworkSettings
+func (tr *ServiceNetworkSettings) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this ServiceNetworkSettings
 func (tr *ServiceNetworkSettings) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

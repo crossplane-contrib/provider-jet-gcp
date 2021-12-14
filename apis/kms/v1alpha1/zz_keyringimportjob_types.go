@@ -39,6 +39,8 @@ type KeyRingImportJobObservation struct {
 
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	PublicKey []PublicKeyObservation `json:"publicKey,omitempty" tf:"public_key,omitempty"`

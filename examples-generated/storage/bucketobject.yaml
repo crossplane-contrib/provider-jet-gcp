@@ -1,0 +1,11 @@
+apiVersion: storage.gcp.jet.crossplane.io/v1alpha1
+kind: BucketObject
+metadata:
+  name: example
+spec:
+  forProvider:
+    bucket: image-store
+    name: butterfly01
+    source: /images/nature/garden-tiger-moth.jpg
+  providerConfigRef:
+    name: example

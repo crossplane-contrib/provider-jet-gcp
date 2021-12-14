@@ -30,6 +30,8 @@ type VpnTunnelObservation struct {
 
 	DetailedStatus *string `json:"detailedStatus,omitempty" tf:"detailed_status,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 
 	SharedSecretHash *string `json:"sharedSecretHash,omitempty" tf:"shared_secret_hash,omitempty"`

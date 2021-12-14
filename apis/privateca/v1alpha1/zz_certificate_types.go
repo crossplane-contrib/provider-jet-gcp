@@ -75,6 +75,8 @@ type CertificateObservation struct {
 
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	PemCertificate *string `json:"pemCertificate,omitempty" tf:"pem_certificate,omitempty"`
 
 	PemCertificates []*string `json:"pemCertificates,omitempty" tf:"pem_certificates,omitempty"`

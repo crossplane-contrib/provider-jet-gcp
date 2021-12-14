@@ -205,6 +205,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   managementType:
                     type: string
                 type: object

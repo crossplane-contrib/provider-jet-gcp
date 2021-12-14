@@ -186,6 +186,8 @@ spec:
                     items:
                       type: object
                     type: array
+                  id:
+                    type: string
                   name:
                     type: string
                   rootFollowupIntentName:

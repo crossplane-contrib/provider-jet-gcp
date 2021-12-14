@@ -48,6 +48,8 @@ type AptParameters struct {
 type ConfigPatchDeploymentObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LastExecuteTime *string `json:"lastExecuteTime,omitempty" tf:"last_execute_time,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

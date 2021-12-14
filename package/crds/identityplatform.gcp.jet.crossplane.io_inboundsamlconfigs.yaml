@@ -177,6 +177,9 @@ spec:
             description: InboundSamlConfigStatus defines the observed state of InboundSamlConfig.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

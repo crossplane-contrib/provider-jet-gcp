@@ -32,6 +32,8 @@ type InstanceObservation struct {
 
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	PersistenceIamIdentity *string `json:"persistenceIamIdentity,omitempty" tf:"persistence_iam_identity,omitempty"`
 
 	Port *int64 `json:"port,omitempty" tf:"port,omitempty"`

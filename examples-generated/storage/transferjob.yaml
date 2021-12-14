@@ -1,0 +1,47 @@
+apiVersion: storage.gcp.jet.crossplane.io/v1alpha1
+kind: TransferJob
+metadata:
+  name: example
+spec:
+  forProvider:
+    depends_on:
+    - ${google_storage_bucket_iam_member.s3-backup-bucket}
+    description: Nightly backup of S3 bucket
+    project: ${var.project}
+    schedule:
+    - scheduleEndDate:
+      - day: 15
+        month: 1
+        year: 2019
+      scheduleStartDate:
+      - day: 1
+        month: 10
+        year: 2018
+      startTimeOfDay:
+      - hours: 23
+        minutes: 30
+        nanos: 0
+        seconds: 0
+    transferSpec:
+    - awsS3DataSource:
+      - awsAccessKey:
+        - accessKeyIDSecretRef:
+            key: example-key
+            name: example-secret
+            namespace: crossplane-system
+          secretAccessKeySecretRef:
+            key: example-key
+            name: example-secret
+            namespace: crossplane-system
+        bucketName: ${var.aws_s3_bucket}
+      gcsDataSink:
+      - bucketName: ${google_storage_bucket.s3-backup-bucket.name}
+        path: foo/bar/
+      objectConditions:
+      - excludePrefixes:
+        - requests.gz
+        maxTimeElapsedSinceLastModification: 600s
+      transferOptions:
+      - deleteObjectsUniqueInSink: false
+  providerConfigRef:
+    name: example

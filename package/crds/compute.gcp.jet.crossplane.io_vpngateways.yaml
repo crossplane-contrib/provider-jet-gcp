@@ -141,6 +141,8 @@ spec:
                   gatewayId:
                     format: int64
                     type: integer
+                  id:
+                    type: string
                   selfLink:
                     type: string
                 type: object

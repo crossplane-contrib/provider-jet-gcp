@@ -28,6 +28,8 @@ import (
 type OrganizationObservation struct {
 	CaCertificate *string `json:"caCertificate,omitempty" tf:"ca_certificate,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	SubscriptionType *string `json:"subscriptionType,omitempty" tf:"subscription_type,omitempty"`

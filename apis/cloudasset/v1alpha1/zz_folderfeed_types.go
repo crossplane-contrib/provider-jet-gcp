@@ -63,6 +63,8 @@ type FeedOutputConfigParameters struct {
 type FolderFeedObservation struct {
 	FolderID *string `json:"folderId,omitempty" tf:"folder_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

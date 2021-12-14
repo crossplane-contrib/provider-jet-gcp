@@ -26,6 +26,7 @@ import (
 )
 
 type ProjectExclusionObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ProjectExclusionParameters struct {

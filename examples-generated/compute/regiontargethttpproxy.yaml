@@ -1,0 +1,11 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: RegionTargetHttpProxy
+metadata:
+  name: example
+spec:
+  forProvider:
+    name: test-proxy
+    region: us-central1
+    urlMap: ${google_compute_region_url_map.default.id}
+  providerConfigRef:
+    name: example

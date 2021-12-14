@@ -57,6 +57,8 @@ type CredentialsParameters struct {
 type DeviceObservation struct {
 	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LastConfigAckTime *string `json:"lastConfigAckTime,omitempty" tf:"last_config_ack_time,omitempty"`
 
 	LastConfigSendTime *string `json:"lastConfigSendTime,omitempty" tf:"last_config_send_time,omitempty"`

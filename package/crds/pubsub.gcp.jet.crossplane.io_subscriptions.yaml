@@ -324,6 +324,9 @@ spec:
             description: SubscriptionStatus defines the observed state of Subscription.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

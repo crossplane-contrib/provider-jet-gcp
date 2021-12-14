@@ -26,6 +26,8 @@ import (
 )
 
 type HaVpnGatewayObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

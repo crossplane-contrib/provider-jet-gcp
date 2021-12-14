@@ -1,0 +1,18 @@
+apiVersion: filestore.gcp.jet.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: example
+spec:
+  forProvider:
+    fileShares:
+    - capacityGb: 2660
+      name: share1
+    name: test-instance
+    networks:
+    - modes:
+      - MODE_IPV4
+      network: default
+    tier: PREMIUM
+    zone: us-central1-b
+  providerConfigRef:
+    name: example

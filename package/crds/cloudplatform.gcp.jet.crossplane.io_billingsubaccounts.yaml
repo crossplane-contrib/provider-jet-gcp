@@ -123,6 +123,8 @@ spec:
                 properties:
                   billingAccountId:
                     type: string
+                  id:
+                    type: string
                   name:
                     type: string
                   open:

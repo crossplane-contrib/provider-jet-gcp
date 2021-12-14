@@ -26,6 +26,8 @@ import (
 )
 
 type NetworkPeeringObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	StateDetails *string `json:"stateDetails,omitempty" tf:"state_details,omitempty"`

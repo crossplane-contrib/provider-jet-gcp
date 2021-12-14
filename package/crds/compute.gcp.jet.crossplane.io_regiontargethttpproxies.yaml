@@ -142,6 +142,8 @@ spec:
                 properties:
                   creationTimestamp:
                     type: string
+                  id:
+                    type: string
                   proxyId:
                     format: int64
                     type: integer

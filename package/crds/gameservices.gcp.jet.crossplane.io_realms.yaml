@@ -139,6 +139,8 @@ spec:
                 properties:
                   etag:
                     type: string
+                  id:
+                    type: string
                   name:
                     type: string
                 type: object

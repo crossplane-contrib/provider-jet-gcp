@@ -1,0 +1,11 @@
+apiVersion: spanner.gcp.jet.crossplane.io/v1alpha1
+kind: DatabaseIamPolicy
+metadata:
+  name: example
+spec:
+  forProvider:
+    database: your-database-name
+    instance: your-instance-name
+    policyData: ${data.google_iam_policy.admin.policy_data}
+  providerConfigRef:
+    name: example

@@ -54,6 +54,14 @@ func (tr *OrganizationBucketConfig) SetObservation(obs map[string]interface{}) e
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this OrganizationBucketConfig
+func (tr *OrganizationBucketConfig) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this OrganizationBucketConfig
 func (tr *OrganizationBucketConfig) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

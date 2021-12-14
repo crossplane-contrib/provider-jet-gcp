@@ -1,0 +1,12 @@
+apiVersion: logging.gcp.jet.crossplane.io/v1alpha1
+kind: ProjectBucketConfig
+metadata:
+  name: example
+spec:
+  forProvider:
+    bucketId: _Default
+    location: global
+    project: My Project
+    retentionDays: 30
+  providerConfigRef:
+    name: example

@@ -476,6 +476,8 @@ spec:
                     type: string
                   firstIpAddress:
                     type: string
+                  id:
+                    type: string
                   ipAddress:
                     items:
                       properties:

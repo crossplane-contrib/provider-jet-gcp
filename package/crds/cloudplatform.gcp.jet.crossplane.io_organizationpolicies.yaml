@@ -203,6 +203,8 @@ spec:
                 properties:
                   etag:
                     type: string
+                  id:
+                    type: string
                   updateTime:
                     type: string
                 type: object

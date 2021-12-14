@@ -26,6 +26,7 @@ import (
 )
 
 type ReservationObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ReservationParameters struct {

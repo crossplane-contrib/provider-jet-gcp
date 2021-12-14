@@ -1,0 +1,12 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: HttpHealthCheck
+metadata:
+  name: example
+spec:
+  forProvider:
+    checkIntervalSec: 1
+    name: authentication-health-check
+    requestPath: /health_check
+    timeoutSec: 1
+  providerConfigRef:
+    name: example

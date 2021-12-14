@@ -224,6 +224,8 @@ spec:
                 properties:
                   crc32c:
                     type: string
+                  id:
+                    type: string
                   md5hash:
                     type: string
                   mediaLink:

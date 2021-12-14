@@ -26,6 +26,7 @@ import (
 )
 
 type OauthIdpConfigObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type OauthIdpConfigParameters struct {

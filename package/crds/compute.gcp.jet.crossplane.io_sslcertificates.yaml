@@ -175,6 +175,8 @@ spec:
                     type: integer
                   creationTimestamp:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                 type: object

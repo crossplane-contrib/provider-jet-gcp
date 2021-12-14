@@ -26,6 +26,7 @@ import (
 )
 
 type SourceRepresentationInstanceObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type SourceRepresentationInstanceParameters struct {

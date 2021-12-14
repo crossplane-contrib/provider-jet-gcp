@@ -239,6 +239,8 @@ spec:
                     type: string
                   googleReferenceId:
                     type: string
+                  id:
+                    type: string
                   pairingKey:
                     type: string
                   partnerAsn:

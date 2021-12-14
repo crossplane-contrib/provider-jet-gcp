@@ -1,0 +1,13 @@
+apiVersion: dialogflow.gcp.jet.crossplane.io/v1alpha1
+kind: CxEnvironment
+metadata:
+  name: example
+spec:
+  forProvider:
+    description: Development Environment
+    displayName: Development
+    parent: ${google_dialogflow_cx_agent.agent.id}
+    versionConfigs:
+    - version: ${google_dialogflow_cx_version.version_1.id}
+  providerConfigRef:
+    name: example

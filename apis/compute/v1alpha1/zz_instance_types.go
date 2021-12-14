@@ -201,6 +201,8 @@ type InstanceObservation struct {
 
 	CurrentStatus *string `json:"currentStatus,omitempty" tf:"current_status,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	LabelFingerprint *string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`

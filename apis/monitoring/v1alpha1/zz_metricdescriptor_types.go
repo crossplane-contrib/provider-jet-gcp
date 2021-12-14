@@ -58,6 +58,8 @@ type MetadataParameters struct {
 }
 
 type MetricDescriptorObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	MonitoredResourceTypes []*string `json:"monitoredResourceTypes,omitempty" tf:"monitored_resource_types,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

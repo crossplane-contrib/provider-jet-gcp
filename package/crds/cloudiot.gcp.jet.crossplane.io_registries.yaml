@@ -178,6 +178,9 @@ spec:
             description: RegistryStatus defines the observed state of Registry.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

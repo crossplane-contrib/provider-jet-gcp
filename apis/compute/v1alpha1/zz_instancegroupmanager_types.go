@@ -56,6 +56,8 @@ type InstanceGroupManagerNamedPortParameters struct {
 type InstanceGroupManagerObservation struct {
 	Fingerprint *string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	InstanceGroup *string `json:"instanceGroup,omitempty" tf:"instance_group,omitempty"`
 
 	Operation *string `json:"operation,omitempty" tf:"operation,omitempty"`

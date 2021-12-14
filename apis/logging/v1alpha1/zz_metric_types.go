@@ -147,6 +147,7 @@ type MetricDescriptorParameters struct {
 }
 
 type MetricObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type MetricParameters struct {

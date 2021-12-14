@@ -177,6 +177,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   networkEndpoints:
                     items:
                       properties:

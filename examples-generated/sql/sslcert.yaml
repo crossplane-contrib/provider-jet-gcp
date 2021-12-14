@@ -1,0 +1,10 @@
+apiVersion: sql.gcp.jet.crossplane.io/v1alpha1
+kind: SslCert
+metadata:
+  name: example
+spec:
+  forProvider:
+    commonName: client-name
+    instance: master-instance
+  providerConfigRef:
+    name: example

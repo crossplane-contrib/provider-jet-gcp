@@ -36,6 +36,8 @@ type ApplicationObservation struct {
 
 	GcrDomain *string `json:"gcrDomain,omitempty" tf:"gcr_domain,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	URLDispatchRule []URLDispatchRuleObservation `json:"urlDispatchRule,omitempty" tf:"url_dispatch_rule,omitempty"`

@@ -331,6 +331,8 @@ spec:
                 properties:
                   fingerprint:
                     type: string
+                  id:
+                    type: string
                   instanceGroup:
                     type: string
                   operation:

@@ -1,0 +1,10 @@
+apiVersion: redis.gcp.jet.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: example
+spec:
+  forProvider:
+    memorySizeGb: 1
+    name: memory-cache
+  providerConfigRef:
+    name: example

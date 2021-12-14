@@ -26,6 +26,8 @@ import (
 )
 
 type NotificationChannelObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	VerificationStatus *string `json:"verificationStatus,omitempty" tf:"verification_status,omitempty"`

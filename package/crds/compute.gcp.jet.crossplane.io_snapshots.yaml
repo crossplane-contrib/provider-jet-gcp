@@ -219,6 +219,8 @@ spec:
                   diskSizeGb:
                     format: int64
                     type: integer
+                  id:
+                    type: string
                   labelFingerprint:
                     type: string
                   licenses:

@@ -156,6 +156,8 @@ spec:
                 properties:
                   enrolledAncestor:
                     type: boolean
+                  id:
+                    type: string
                   name:
                     type: string
                 type: object

@@ -34,6 +34,8 @@ type SslCertObservation struct {
 
 	ExpirationTime *string `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ServerCaCert *string `json:"serverCaCert,omitempty" tf:"server_ca_cert,omitempty"`
 
 	Sha1Fingerprint *string `json:"sha1Fingerprint,omitempty" tf:"sha1_fingerprint,omitempty"`

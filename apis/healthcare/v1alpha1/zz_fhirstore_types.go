@@ -55,6 +55,8 @@ type FhirStoreNotificationConfigParameters struct {
 }
 
 type FhirStoreObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

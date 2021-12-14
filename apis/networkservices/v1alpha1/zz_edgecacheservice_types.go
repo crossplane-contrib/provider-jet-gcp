@@ -213,6 +213,8 @@ type CorsPolicyParameters struct {
 }
 
 type EdgeCacheServiceObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	IPv4Addresses []*string `json:"ipv4Addresses,omitempty" tf:"ipv4_addresses,omitempty"`
 
 	IPv6Addresses []*string `json:"ipv6Addresses,omitempty" tf:"ipv6_addresses,omitempty"`

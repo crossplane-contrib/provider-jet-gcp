@@ -28,6 +28,8 @@ import (
 type BucketObjectObservation struct {
 	Crc32C *string `json:"crc32c,omitempty" tf:"crc32c,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Md5Hash *string `json:"md5hash,omitempty" tf:"md5hash,omitempty"`
 
 	MediaLink *string `json:"mediaLink,omitempty" tf:"media_link,omitempty"`

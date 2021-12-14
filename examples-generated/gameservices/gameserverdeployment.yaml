@@ -1,0 +1,10 @@
+apiVersion: gameservices.gcp.jet.crossplane.io/v1alpha1
+kind: GameServerDeployment
+metadata:
+  name: example
+spec:
+  forProvider:
+    deploymentId: tf-test-deployment
+    description: a deployment description
+  providerConfigRef:
+    name: example

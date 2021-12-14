@@ -44,6 +44,8 @@ type FilterLabelsParameters struct {
 }
 
 type GlobalForwardingRuleObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LabelFingerprint *string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

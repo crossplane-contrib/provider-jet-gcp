@@ -214,6 +214,8 @@ spec:
                     type: string
                   detailedStatus:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                   sharedSecretHash:

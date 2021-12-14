@@ -660,6 +660,8 @@ spec:
                     type: array
                   createTime:
                     type: string
+                  id:
+                    type: string
                   pemCertificate:
                     type: string
                   pemCertificates:

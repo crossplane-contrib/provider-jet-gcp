@@ -152,6 +152,8 @@ type ClusterAutoscalingParameters struct {
 type ClusterObservation struct {
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LabelFingerprint *string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`
 
 	MasterVersion *string `json:"masterVersion,omitempty" tf:"master_version,omitempty"`

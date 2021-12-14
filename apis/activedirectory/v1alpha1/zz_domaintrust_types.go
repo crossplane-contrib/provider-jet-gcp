@@ -26,6 +26,7 @@ import (
 )
 
 type DomainTrustObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type DomainTrustParameters struct {

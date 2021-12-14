@@ -26,6 +26,8 @@ import (
 )
 
 type ProjectObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Number *string `json:"number,omitempty" tf:"number,omitempty"`
 }
 

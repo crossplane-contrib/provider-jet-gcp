@@ -448,6 +448,8 @@ spec:
                     type: string
                   deletionTime:
                     type: string
+                  id:
+                    type: string
                   lastModificationTime:
                     type: string
                   name:

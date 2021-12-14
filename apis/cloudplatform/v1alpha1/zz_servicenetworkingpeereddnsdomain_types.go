@@ -26,6 +26,8 @@ import (
 )
 
 type ServiceNetworkingPeeredDNSDomainObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 }
 

@@ -42,6 +42,8 @@ type RegionDiskIamBindingConditionParameters struct {
 
 type RegionDiskIamBindingObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RegionDiskIamBindingParameters struct {

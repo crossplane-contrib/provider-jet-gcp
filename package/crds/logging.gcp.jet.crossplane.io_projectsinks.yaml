@@ -196,6 +196,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   writerIdentity:
                     type: string
                 type: object

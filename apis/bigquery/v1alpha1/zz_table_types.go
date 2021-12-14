@@ -199,6 +199,8 @@ type TableObservation struct {
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LastModifiedTime *int64 `json:"lastModifiedTime,omitempty" tf:"last_modified_time,omitempty"`
 
 	Location *string `json:"location,omitempty" tf:"location,omitempty"`

@@ -146,6 +146,8 @@ spec:
                   generation:
                     format: int64
                     type: integer
+                  id:
+                    type: string
                   projectTeam:
                     items:
                       type: object

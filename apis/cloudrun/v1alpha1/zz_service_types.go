@@ -261,6 +261,8 @@ type ServiceMetadataParameters struct {
 }
 
 type ServiceObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Status []ServiceStatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 }
 

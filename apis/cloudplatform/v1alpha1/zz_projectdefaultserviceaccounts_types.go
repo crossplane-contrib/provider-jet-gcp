@@ -26,6 +26,8 @@ import (
 )
 
 type ProjectDefaultServiceAccountsObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ServiceAccounts map[string]string `json:"serviceAccounts,omitempty" tf:"service_accounts,omitempty"`
 }
 

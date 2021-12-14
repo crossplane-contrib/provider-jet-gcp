@@ -146,6 +146,8 @@ spec:
                 properties:
                   host:
                     type: string
+                  id:
+                    type: string
                   port:
                     type: string
                 type: object

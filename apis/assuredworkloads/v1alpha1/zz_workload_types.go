@@ -65,6 +65,8 @@ type ResourcesParameters struct {
 type WorkloadObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Resources []ResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`

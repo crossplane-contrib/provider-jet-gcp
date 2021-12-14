@@ -26,6 +26,8 @@ import (
 )
 
 type DatabaseObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 

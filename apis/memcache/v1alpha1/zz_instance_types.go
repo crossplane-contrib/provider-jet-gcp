@@ -30,6 +30,8 @@ type InstanceObservation struct {
 
 	DiscoveryEndpoint *string `json:"discoveryEndpoint,omitempty" tf:"discovery_endpoint,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	MemcacheFullVersion *string `json:"memcacheFullVersion,omitempty" tf:"memcache_full_version,omitempty"`
 
 	MemcacheNodes []MemcacheNodesObservation `json:"memcacheNodes,omitempty" tf:"memcache_nodes,omitempty"`

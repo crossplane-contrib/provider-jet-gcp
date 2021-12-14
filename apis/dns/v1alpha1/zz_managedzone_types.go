@@ -91,6 +91,8 @@ type ForwardingConfigParameters struct {
 }
 
 type ManagedZoneObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	NameServers []*string `json:"nameServers,omitempty" tf:"name_servers,omitempty"`
 }
 

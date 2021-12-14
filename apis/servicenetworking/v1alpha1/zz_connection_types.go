@@ -26,6 +26,8 @@ import (
 )
 
 type ConnectionObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Peering *string `json:"peering,omitempty" tf:"peering,omitempty"`
 }
 

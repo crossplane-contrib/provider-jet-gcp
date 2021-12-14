@@ -1,0 +1,11 @@
+apiVersion: healthcare.gcp.jet.crossplane.io/v1alpha1
+kind: ConsentStoreIamPolicy
+metadata:
+  name: example
+spec:
+  forProvider:
+    consentStoreId: my-consent-store
+    dataset: ${google_healthcare_dataset.dataset.id}
+    policyData: ${data.google_iam_policy.admin.policy_data}
+  providerConfigRef:
+    name: example

@@ -28,6 +28,8 @@ import (
 type ProjectIAMCustomRoleObservation struct {
 	Deleted *bool `json:"deleted,omitempty" tf:"deleted,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

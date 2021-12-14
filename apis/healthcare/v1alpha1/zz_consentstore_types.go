@@ -26,6 +26,7 @@ import (
 )
 
 type ConsentStoreObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ConsentStoreParameters struct {

@@ -1,0 +1,16 @@
+apiVersion: monitoring.gcp.jet.crossplane.io/v1alpha1
+kind: Slo
+metadata:
+  name: example
+spec:
+  forProvider:
+    basicSli:
+    - latency:
+      - threshold: 1s
+    calendarPeriod: DAY
+    displayName: Terraform Test SLO for App Engine
+    goal: 0.9
+    service: ${data.google_monitoring_app_engine_service.default.service_id}
+    sloId: ae-slo
+  providerConfigRef:
+    name: example

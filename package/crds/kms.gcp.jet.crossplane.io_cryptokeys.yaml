@@ -173,6 +173,9 @@ spec:
             description: CryptoKeyStatus defines the observed state of CryptoKey.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

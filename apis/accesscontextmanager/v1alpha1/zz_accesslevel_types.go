@@ -26,6 +26,7 @@ import (
 )
 
 type AccessLevelObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type AccessLevelParameters struct {

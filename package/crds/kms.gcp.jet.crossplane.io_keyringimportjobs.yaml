@@ -146,6 +146,8 @@ spec:
                     type: array
                   expireTime:
                     type: string
+                  id:
+                    type: string
                   name:
                     type: string
                   publicKey:

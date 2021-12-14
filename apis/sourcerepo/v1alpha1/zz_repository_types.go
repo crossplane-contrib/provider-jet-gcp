@@ -48,6 +48,8 @@ type PubsubConfigsParameters struct {
 }
 
 type RepositoryObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Size *int64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`

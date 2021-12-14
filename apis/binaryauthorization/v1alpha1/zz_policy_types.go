@@ -94,6 +94,7 @@ type DefaultAdmissionRuleParameters struct {
 }
 
 type PolicyObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type PolicyParameters struct {

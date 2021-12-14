@@ -138,6 +138,8 @@ type TCPCheckParameters struct {
 }
 
 type UptimeCheckConfigObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	UptimeCheckID *string `json:"uptimeCheckId,omitempty" tf:"uptime_check_id,omitempty"`

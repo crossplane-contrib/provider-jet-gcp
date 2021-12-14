@@ -88,6 +88,8 @@ type ProjectOrganizationPolicyListPolicyParameters struct {
 type ProjectOrganizationPolicyObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 

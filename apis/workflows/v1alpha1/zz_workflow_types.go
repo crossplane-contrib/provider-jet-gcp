@@ -28,6 +28,8 @@ import (
 type WorkflowObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	RevisionID *string `json:"revisionId,omitempty" tf:"revision_id,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

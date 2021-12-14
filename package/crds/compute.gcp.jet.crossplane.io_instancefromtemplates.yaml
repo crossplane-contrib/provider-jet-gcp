@@ -621,6 +621,8 @@ spec:
                     type: string
                   currentStatus:
                     type: string
+                  id:
+                    type: string
                   instanceId:
                     type: string
                   labelFingerprint:

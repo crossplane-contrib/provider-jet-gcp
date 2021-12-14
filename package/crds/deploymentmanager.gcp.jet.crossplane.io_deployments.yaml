@@ -205,6 +205,8 @@ spec:
                 properties:
                   deploymentId:
                     type: string
+                  id:
+                    type: string
                   manifest:
                     type: string
                   selfLink:

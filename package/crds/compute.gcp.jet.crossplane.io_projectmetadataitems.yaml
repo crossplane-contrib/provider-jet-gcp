@@ -125,6 +125,9 @@ spec:
             description: ProjectMetadataItemStatus defines the observed state of ProjectMetadataItem.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

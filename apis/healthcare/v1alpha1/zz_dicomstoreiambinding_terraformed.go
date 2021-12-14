@@ -54,6 +54,14 @@ func (tr *DicomStoreIamBinding) SetObservation(obs map[string]interface{}) error
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this DicomStoreIamBinding
+func (tr *DicomStoreIamBinding) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this DicomStoreIamBinding
 func (tr *DicomStoreIamBinding) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

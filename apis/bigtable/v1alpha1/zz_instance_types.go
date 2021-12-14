@@ -52,6 +52,7 @@ type ClusterParameters struct {
 }
 
 type InstanceObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type InstanceParameters struct {

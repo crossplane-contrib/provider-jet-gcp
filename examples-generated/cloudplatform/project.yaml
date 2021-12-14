@@ -1,0 +1,11 @@
+apiVersion: cloudplatform.gcp.jet.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  name: example
+spec:
+  forProvider:
+    name: My Project
+    orgId: "1234567"
+    projectId: your-project-id
+  providerConfigRef:
+    name: example

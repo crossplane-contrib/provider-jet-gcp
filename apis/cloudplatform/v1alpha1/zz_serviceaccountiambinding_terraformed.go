@@ -54,6 +54,14 @@ func (tr *ServiceAccountIAMBinding) SetObservation(obs map[string]interface{}) e
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
+// GetID returns ID of underlying Terraform resource of this ServiceAccountIAMBinding
+func (tr *ServiceAccountIAMBinding) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
 // GetParameters of this ServiceAccountIAMBinding
 func (tr *ServiceAccountIAMBinding) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)

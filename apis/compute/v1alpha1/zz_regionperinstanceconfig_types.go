@@ -26,6 +26,7 @@ import (
 )
 
 type RegionPerInstanceConfigObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RegionPerInstanceConfigParameters struct {

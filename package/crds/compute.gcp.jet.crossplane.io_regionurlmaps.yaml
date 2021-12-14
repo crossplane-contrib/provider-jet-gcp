@@ -1754,6 +1754,8 @@ spec:
                     type: string
                   fingerprint:
                     type: string
+                  id:
+                    type: string
                   mapId:
                     format: int64
                     type: integer

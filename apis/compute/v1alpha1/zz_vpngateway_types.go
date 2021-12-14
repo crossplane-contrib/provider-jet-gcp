@@ -30,6 +30,8 @@ type VpnGatewayObservation struct {
 
 	GatewayID *int64 `json:"gatewayId,omitempty" tf:"gateway_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 

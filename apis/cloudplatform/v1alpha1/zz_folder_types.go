@@ -30,6 +30,8 @@ type FolderObservation struct {
 
 	FolderID *string `json:"folderId,omitempty" tf:"folder_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LifecycleState *string `json:"lifecycleState,omitempty" tf:"lifecycle_state,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

@@ -68,6 +68,8 @@ type ServiceObservation struct {
 	DNSAddress *string `json:"dnsAddress,omitempty" tf:"dns_address,omitempty"`
 
 	Endpoints []EndpointsObservation `json:"endpoints,omitempty" tf:"endpoints,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type ServiceParameters struct {

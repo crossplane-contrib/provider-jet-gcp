@@ -154,6 +154,8 @@ spec:
                 properties:
                   createTime:
                     type: string
+                  id:
+                    type: string
                   name:
                     type: string
                   updateTime:

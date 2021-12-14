@@ -42,6 +42,8 @@ type DiskIamMemberConditionParameters struct {
 
 type DiskIamMemberObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type DiskIamMemberParameters struct {

@@ -26,6 +26,8 @@ import (
 )
 
 type JobObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

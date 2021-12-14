@@ -1100,6 +1100,8 @@ type WorkerConfigManagedGroupConfigParameters struct {
 type WorkflowTemplateObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 

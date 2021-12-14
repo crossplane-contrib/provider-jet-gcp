@@ -52,6 +52,8 @@ type EntryObservation struct {
 
 	BigqueryTableSpec []BigqueryTableSpecObservation `json:"bigqueryTableSpec,omitempty" tf:"bigquery_table_spec,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	IntegratedSystem *string `json:"integratedSystem,omitempty" tf:"integrated_system,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

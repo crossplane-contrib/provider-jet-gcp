@@ -35,6 +35,8 @@ type NetworkEndpointsParameters struct {
 }
 
 type NodeObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	NetworkEndpoints []NetworkEndpointsObservation `json:"networkEndpoints,omitempty" tf:"network_endpoints,omitempty"`
 
 	ServiceAccount *string `json:"serviceAccount,omitempty" tf:"service_account,omitempty"`

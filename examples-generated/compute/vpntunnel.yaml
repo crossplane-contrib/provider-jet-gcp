@@ -1,0 +1,19 @@
+apiVersion: compute.gcp.jet.crossplane.io/v1alpha1
+kind: VpnTunnel
+metadata:
+  name: example
+spec:
+  forProvider:
+    depends_on:
+    - ${google_compute_forwarding_rule.fr_esp}
+    - ${google_compute_forwarding_rule.fr_udp500}
+    - ${google_compute_forwarding_rule.fr_udp4500}
+    name: tunnel1
+    peerIp: 15.0.0.120
+    sharedSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    targetVpnGateway: ${google_compute_vpn_gateway.target_gateway.id}
+  providerConfigRef:
+    name: example

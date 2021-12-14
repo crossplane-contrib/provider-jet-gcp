@@ -203,6 +203,8 @@ spec:
                     type: string
                   host:
                     type: string
+                  id:
+                    type: string
                   persistenceIamIdentity:
                     type: string
                   port:

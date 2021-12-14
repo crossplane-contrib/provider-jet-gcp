@@ -30,6 +30,8 @@ type SecretVersionObservation struct {
 
 	DestroyTime *string `json:"destroyTime,omitempty" tf:"destroy_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 

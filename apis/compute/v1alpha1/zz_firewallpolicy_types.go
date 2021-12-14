@@ -32,6 +32,8 @@ type FirewallPolicyObservation struct {
 
 	FirewallPolicyID *string `json:"firewallPolicyId,omitempty" tf:"firewall_policy_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	RuleTupleCount *int64 `json:"ruleTupleCount,omitempty" tf:"rule_tuple_count,omitempty"`

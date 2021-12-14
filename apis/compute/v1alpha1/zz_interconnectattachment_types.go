@@ -34,6 +34,8 @@ type InterconnectAttachmentObservation struct {
 
 	GoogleReferenceID *string `json:"googleReferenceId,omitempty" tf:"google_reference_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	PairingKey *string `json:"pairingKey,omitempty" tf:"pairing_key,omitempty"`
 
 	PartnerAsn *string `json:"partnerAsn,omitempty" tf:"partner_asn,omitempty"`

@@ -51,6 +51,8 @@ type SnapshotObservation struct {
 
 	DiskSizeGb *int64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LabelFingerprint *string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`
 
 	Licenses []*string `json:"licenses,omitempty" tf:"licenses,omitempty"`

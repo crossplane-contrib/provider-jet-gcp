@@ -1,0 +1,13 @@
+apiVersion: sql.gcp.jet.crossplane.io/v1alpha1
+kind: DatabaseInstance
+metadata:
+  name: example
+spec:
+  forProvider:
+    databaseVersion: POSTGRES_11
+    name: master-instance
+    region: us-central1
+    settings:
+    - tier: db-f1-micro
+  providerConfigRef:
+    name: example

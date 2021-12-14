@@ -696,6 +696,8 @@ type RegionUrlMapObservation struct {
 
 	Fingerprint *string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	MapID *int64 `json:"mapId,omitempty" tf:"map_id,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

@@ -475,6 +475,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   lastRunTime:
                     type: string
                   name:

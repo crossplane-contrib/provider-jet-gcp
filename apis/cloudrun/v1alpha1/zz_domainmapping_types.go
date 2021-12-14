@@ -39,6 +39,8 @@ type ConditionsParameters struct {
 }
 
 type DomainMappingObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
 }
 

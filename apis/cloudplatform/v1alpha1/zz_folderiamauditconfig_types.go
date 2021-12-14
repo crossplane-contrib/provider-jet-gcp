@@ -41,6 +41,8 @@ type AuditLogConfigParameters struct {
 
 type FolderIAMAuditConfigObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type FolderIAMAuditConfigParameters struct {

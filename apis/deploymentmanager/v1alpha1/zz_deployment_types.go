@@ -38,6 +38,8 @@ type ConfigParameters struct {
 type DeploymentObservation struct {
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Manifest *string `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`

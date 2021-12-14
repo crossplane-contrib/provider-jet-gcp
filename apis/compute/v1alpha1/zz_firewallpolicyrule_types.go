@@ -26,6 +26,8 @@ import (
 )
 
 type FirewallPolicyRuleObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 
 	RuleTupleCount *int64 `json:"ruleTupleCount,omitempty" tf:"rule_tuple_count,omitempty"`

@@ -150,6 +150,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   notificationId:
                     type: string
                   selfLink:

@@ -327,6 +327,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   proxyUri:
                     type: string
                   state:

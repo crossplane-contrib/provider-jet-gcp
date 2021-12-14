@@ -134,6 +134,8 @@ type InspectJobParameters struct {
 }
 
 type JobTriggerObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	LastRunTime *string `json:"lastRunTime,omitempty" tf:"last_run_time,omitempty"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

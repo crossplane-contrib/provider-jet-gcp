@@ -28,6 +28,8 @@ import (
 type BillingSubaccountObservation struct {
 	BillingAccountID *string `json:"billingAccountId,omitempty" tf:"billing_account_id,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Open *bool `json:"open,omitempty" tf:"open,omitempty"`

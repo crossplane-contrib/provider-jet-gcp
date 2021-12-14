@@ -716,6 +716,8 @@ spec:
                     type: string
                   fingerprint:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                 type: object
