@@ -5,8 +5,8 @@ metadata:
 spec:
   forProvider:
     commonName: client-name
-    instance: hasan-testing-ssl-with-jet
+    instance: example-instance
   writeConnectionSecretToRef:
-    name: sql-ssl-secret
+    name: example-sql-ssl-secret
     namespace: crossplane-system
 

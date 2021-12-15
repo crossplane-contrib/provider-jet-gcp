@@ -149,6 +149,8 @@ spec:
                     type: string
                   expireTime:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                   subjectAlternativeNames:

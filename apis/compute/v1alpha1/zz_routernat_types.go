@@ -40,6 +40,7 @@ type RouterNatLogConfigParameters struct {
 }
 
 type RouterNatObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RouterNatParameters struct {

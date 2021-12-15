@@ -142,6 +142,8 @@ spec:
                 properties:
                   gatewayIpv4:
                     type: string
+                  id:
+                    type: string
                   selfLink:
                     type: string
                 type: object
