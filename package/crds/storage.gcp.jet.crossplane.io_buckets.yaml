@@ -338,6 +338,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  id:
+                    type: string
                   selfLink:
                     type: string
                   url:

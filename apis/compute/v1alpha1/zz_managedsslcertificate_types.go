@@ -41,6 +41,8 @@ type ManagedSSLCertificateObservation struct {
 
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
 	SelfLink *string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 
 	SubjectAlternativeNames []*string `json:"subjectAlternativeNames,omitempty" tf:"subject_alternative_names,omitempty"`

@@ -275,6 +275,9 @@ spec:
             description: RouterNatStatus defines the observed state of RouterNat.
             properties:
               atProvider:
+                properties:
+                  id:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.
