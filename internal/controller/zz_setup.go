@@ -25,6 +25,7 @@ import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/crossplane/terrajet/pkg/terraform"
 
+	serviceaccount "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/cloudplatform/serviceaccount"
 	address "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/address"
 	firewall "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/firewall"
 	instance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/instance"
@@ -33,6 +34,11 @@ import (
 	router "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/router"
 	routernat "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/routernat"
 	subnetwork "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/subnetwork"
+	cluster "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/container/cluster"
+	nodepool "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/container/nodepool"
+	alertpolicy "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/alertpolicy"
+	notificationchannel "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/notificationchannel"
+	uptimecheckconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/uptimecheckconfig"
 	providerconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/providerconfig"
 	bucket "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/storage/bucket"
 )
@@ -41,6 +47,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, l logging.Logger, wl workqueue.RateLimiter, ps terraform.SetupFn, ws *terraform.WorkspaceStore, cfg *tjconfig.Provider, concurrency int) error {
 	for _, setup := range []func(ctrl.Manager, logging.Logger, workqueue.RateLimiter, terraform.SetupFn, *terraform.WorkspaceStore, *tjconfig.Provider, int) error{
+		serviceaccount.Setup,
 		address.Setup,
 		firewall.Setup,
 		instance.Setup,
@@ -49,6 +56,11 @@ func Setup(mgr ctrl.Manager, l logging.Logger, wl workqueue.RateLimiter, ps terr
 		router.Setup,
 		routernat.Setup,
 		subnetwork.Setup,
+		cluster.Setup,
+		nodepool.Setup,
+		alertpolicy.Setup,
+		notificationchannel.Setup,
+		uptimecheckconfig.Setup,
 		providerconfig.Setup,
 		bucket.Setup,
 	} {
