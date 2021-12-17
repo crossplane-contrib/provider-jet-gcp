@@ -6,12 +6,14 @@ import (
 	tf "github.com/hashicorp/terraform-provider-google/google"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/bigtable"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudfunctions"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudiot"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/compute"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataflow"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/identityplatform"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/storage"
 )
@@ -60,12 +62,14 @@ func GetProvider() *tjconfig.Provider {
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		accessapproval.Configure,
+		bigtable.Configure,
 		cloudfunctions.Configure,
 		cloudiot.Configure,
 		cloudplatform.Configure,
 		compute.Configure,
 		dataflow.Configure,
 		dataproc.Configure,
+		identityplatform.Configure,
 		project.Configure,
 		storage.Configure,
 	} {
