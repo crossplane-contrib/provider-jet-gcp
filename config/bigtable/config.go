@@ -1,6 +1,6 @@
 package bigtable
 
-import "github.com/crossplane-contrib/terrajet/pkg/config"
+import "github.com/crossplane/terrajet/pkg/config"
 
 // Configure configures individual resources by adding custom
 // ResourceConfigurators.

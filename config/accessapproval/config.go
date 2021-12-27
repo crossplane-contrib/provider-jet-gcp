@@ -17,12 +17,3 @@ func Configure(p *config.Provider) {
 		r.Kind = "ProjectSettings"
 	})
 }
-
-// Resources in "Access Approval" group.
-// Note(turkenh): The following resources are listed under "Access Approval"
-// section in Terraform Documentation.
-var Resources = map[string]struct{}{
-	"google_folder_access_approval_settings":       {},
-	"google_organization_access_approval_settings": {},
-	"google_project_access_approval_settings":      {},
-}

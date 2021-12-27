@@ -3,7 +3,6 @@ module github.com/crossplane-contrib/provider-jet-gcp
 go 1.16
 
 require (
-	github.com/crossplane-contrib/terrajet v0.2.1
 	github.com/crossplane/crossplane-runtime v0.15.1-0.20211004150827-579c1833b513
 	github.com/crossplane/crossplane-tools v0.0.0-20210916125540-071de511ae8e
 	github.com/crossplane/terrajet v0.2.1-0.20220103083602-2c54e8491aba
