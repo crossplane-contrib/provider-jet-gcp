@@ -3,9 +3,8 @@ package config
 import (
 	"strings"
 
-	"github.com/crossplane-contrib/terrajet/pkg/types/name"
-
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
+	"github.com/crossplane/terrajet/pkg/types/name"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
