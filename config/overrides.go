@@ -32,6 +32,7 @@ func groupOverrides() tjconfig.ResourceOption { //nolint: gocyclo
 			strings.HasPrefix(r.Name, "google_app_engine") ||
 			strings.HasPrefix(r.Name, "google_assured_workloads") ||
 			strings.HasPrefix(r.Name, "google_binary_authorization") ||
+			strings.HasPrefix(r.Name, "google_container_analysis") ||
 			strings.HasPrefix(r.Name, "google_deployment_manager") ||
 			strings.HasPrefix(r.Name, "google_dialogflow_cx") ||
 			strings.HasPrefix(r.Name, "google_essential_contacts") ||
@@ -50,7 +51,9 @@ func groupOverrides() tjconfig.ResourceOption { //nolint: gocyclo
 			strings.HasPrefix(r.Name, "google_vpc_access_connector") ||
 			// Examples: google_cloud_identity, google_cloud_run,
 			// google_cloud_asset, google_data_fusion, google_data_source...
-			strings.HasPrefix(r.Name, "google_cloud_") || strings.HasPrefix(r.Name, "google_data_") {
+			strings.HasPrefix(r.Name, "google_cloud_") ||
+			strings.HasPrefix(r.Name, "google_data_") ||
+			strings.HasPrefix(r.Name, "google_os_") {
 
 			r.ShortGroup = words[1] + words[2]
 			kindInSnake = strings.Join(words[3:], "_")

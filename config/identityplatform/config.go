@@ -6,15 +6,15 @@ import "github.com/crossplane-contrib/terrajet/pkg/config"
 // ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("google_identity_platform_default_supported_idp_config", func(r *config.Resource) {
-		r.Kind = "DefaultSupportedIDPConfig"
+		r.Kind = "DefaultSupportedIdPConfig"
 	})
 	p.AddResourceConfigurator("google_identity_platform_oauth_idp_config", func(r *config.Resource) {
-		r.Kind = "OAuthIDPConfig"
+		r.Kind = "OAuthIdPConfig"
 	})
 	p.AddResourceConfigurator("google_identity_platform_tenant_default_supported_idp_config", func(r *config.Resource) {
-		r.Kind = "TenantDefaultSupportedIDPConfig"
+		r.Kind = "TenantDefaultSupportedIdPConfig"
 	})
 	p.AddResourceConfigurator("google_identity_platform_tenant_oauth_idp_config", func(r *config.Resource) {
-		r.Kind = "TenantOAuthIDPConfig"
+		r.Kind = "TenantOAuthIdPConfig"
 	})
 }
