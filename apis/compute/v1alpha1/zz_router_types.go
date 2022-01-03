@@ -40,10 +40,10 @@ type AdvertisedIPRangesParameters struct {
 	Range *string `json:"range" tf:"range,omitempty"`
 }
 
-type BgpObservation struct {
+type BGPObservation struct {
 }
 
-type BgpParameters struct {
+type BGPParameters struct {
 
 	// User-specified flag to indicate which mode to use for advertisement. Default value: "DEFAULT" Possible values: ["DEFAULT", "CUSTOM"]
 	// +kubebuilder:validation:Optional
@@ -87,7 +87,7 @@ type RouterParameters struct {
 
 	// BGP information specific to this router.
 	// +kubebuilder:validation:Optional
-	Bgp []BgpParameters `json:"bgp,omitempty" tf:"bgp,omitempty"`
+	BGP []BGPParameters `json:"bgp,omitempty" tf:"bgp,omitempty"`
 
 	// An optional description of this resource.
 	// +kubebuilder:validation:Optional

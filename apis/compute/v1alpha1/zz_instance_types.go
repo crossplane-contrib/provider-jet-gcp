@@ -32,7 +32,7 @@ type AccessConfigParameters struct {
 
 	// The IP address that is be 1:1 mapped to the instance's network ip.
 	// +kubebuilder:validation:Optional
-	NatIP *string `json:"natIp,omitempty" tf:"nat_ip,omitempty"`
+	NATIP *string `json:"natIp,omitempty" tf:"nat_ip,omitempty"`
 
 	// The networking tier used for configuring this instance. One of PREMIUM or STANDARD.
 	// +kubebuilder:validation:Optional
@@ -87,7 +87,7 @@ type AttachedDiskParameters struct {
 
 	// The self_link of the encryption key that is stored in Google Cloud KMS to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.
 	// +kubebuilder:validation:Optional
-	KmsKeySelfLink *string `json:"kmsKeySelfLink,omitempty" tf:"kms_key_self_link,omitempty"`
+	KMSKeySelfLink *string `json:"kmsKeySelfLink,omitempty" tf:"kms_key_self_link,omitempty"`
 
 	// Read/write mode for the disk. One of "READ_ONLY" or "READ_WRITE".
 	// +kubebuilder:validation:Optional
@@ -122,7 +122,7 @@ type BootDiskParameters struct {
 
 	// The self_link of the encryption key that is stored in Google Cloud KMS to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.
 	// +kubebuilder:validation:Optional
-	KmsKeySelfLink *string `json:"kmsKeySelfLink,omitempty" tf:"kms_key_self_link,omitempty"`
+	KMSKeySelfLink *string `json:"kmsKeySelfLink,omitempty" tf:"kms_key_self_link,omitempty"`
 
 	// Read/write mode for the disk. One of "READ_ONLY" or "READ_WRITE".
 	// +kubebuilder:validation:Optional

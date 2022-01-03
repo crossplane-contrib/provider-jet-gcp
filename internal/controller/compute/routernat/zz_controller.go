@@ -30,20 +30,20 @@ import (
 	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 
-	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
-	tjcontroller "github.com/crossplane-contrib/terrajet/pkg/controller"
-	"github.com/crossplane-contrib/terrajet/pkg/terraform"
+	tjconfig "github.com/crossplane/terrajet/pkg/config"
+	tjcontroller "github.com/crossplane/terrajet/pkg/controller"
+	"github.com/crossplane/terrajet/pkg/terraform"
 
 	v1alpha1 "github.com/crossplane-contrib/provider-jet-gcp/apis/compute/v1alpha1"
 )
 
-// Setup adds a controller that reconciles RouterNat managed resources.
+// Setup adds a controller that reconciles RouterNAT managed resources.
 func Setup(mgr ctrl.Manager, l logging.Logger, rl workqueue.RateLimiter, s terraform.SetupFn, ws *terraform.WorkspaceStore, cfg *tjconfig.Provider, concurrency int) error {
-	name := managed.ControllerName(v1alpha1.RouterNat_GroupVersionKind.String())
+	name := managed.ControllerName(v1alpha1.RouterNAT_GroupVersionKind.String())
 	r := managed.NewReconciler(mgr,
-		xpresource.ManagedKind(v1alpha1.RouterNat_GroupVersionKind),
+		xpresource.ManagedKind(v1alpha1.RouterNAT_GroupVersionKind),
 		managed.WithExternalConnecter(tjcontroller.NewConnector(mgr.GetClient(), ws, s, cfg.Resources["google_compute_router_nat"],
-			tjcontroller.WithCallbackProvider(tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha1.RouterNat_GroupVersionKind))),
+			tjcontroller.WithCallbackProvider(tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha1.RouterNAT_GroupVersionKind))),
 		)),
 		managed.WithLogger(l.WithValues("controller", name)),
 		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
@@ -54,6 +54,6 @@ func Setup(mgr ctrl.Manager, l logging.Logger, rl workqueue.RateLimiter, s terra
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(controller.Options{RateLimiter: rl, MaxConcurrentReconciles: concurrency}).
-		For(&v1alpha1.RouterNat{}).
+		For(&v1alpha1.RouterNAT{}).
 		Complete(r)
 }

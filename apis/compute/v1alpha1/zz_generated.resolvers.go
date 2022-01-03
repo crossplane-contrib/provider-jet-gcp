@@ -166,8 +166,8 @@ func (mg *Router) ResolveReferences(ctx context.Context, c client.Reader) error 
 	return nil
 }
 
-// ResolveReferences of this RouterNat.
-func (mg *RouterNat) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this RouterNAT.
+func (mg *RouterNAT) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse

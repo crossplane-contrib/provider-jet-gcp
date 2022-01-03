@@ -21,22 +21,22 @@ package v1alpha1
 import (
 	"github.com/pkg/errors"
 
-	"github.com/crossplane-contrib/terrajet/pkg/resource"
-	"github.com/crossplane-contrib/terrajet/pkg/resource/json"
+	"github.com/crossplane/terrajet/pkg/resource"
+	"github.com/crossplane/terrajet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this RouterNat
-func (mg *RouterNat) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this RouterNAT
+func (mg *RouterNAT) GetTerraformResourceType() string {
 	return "google_compute_router_nat"
 }
 
-// GetConnectionDetailsMapping for this RouterNat
-func (tr *RouterNat) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this RouterNAT
+func (tr *RouterNAT) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this RouterNat
-func (tr *RouterNat) GetObservation() (map[string]interface{}, error) {
+// GetObservation of this RouterNAT
+func (tr *RouterNAT) GetObservation() (map[string]interface{}, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -45,8 +45,8 @@ func (tr *RouterNat) GetObservation() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this RouterNat
-func (tr *RouterNat) SetObservation(obs map[string]interface{}) error {
+// SetObservation for this RouterNAT
+func (tr *RouterNAT) SetObservation(obs map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -54,16 +54,16 @@ func (tr *RouterNat) SetObservation(obs map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this RouterNat
-func (tr *RouterNat) GetID() string {
+// GetID returns ID of underlying Terraform resource of this RouterNAT
+func (tr *RouterNAT) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this RouterNat
-func (tr *RouterNat) GetParameters() (map[string]interface{}, error) {
+// GetParameters of this RouterNAT
+func (tr *RouterNAT) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -72,8 +72,8 @@ func (tr *RouterNat) GetParameters() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this RouterNat
-func (tr *RouterNat) SetParameters(params map[string]interface{}) error {
+// SetParameters for this RouterNAT
+func (tr *RouterNAT) SetParameters(params map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -81,10 +81,10 @@ func (tr *RouterNat) SetParameters(params map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// LateInitialize this RouterNat using its observed tfState.
+// LateInitialize this RouterNAT using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *RouterNat) LateInitialize(attrs []byte) (bool, error) {
-	params := &RouterNatParameters{}
+func (tr *RouterNAT) LateInitialize(attrs []byte) (bool, error) {
+	params := &RouterNATParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -95,6 +95,6 @@ func (tr *RouterNat) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *RouterNat) GetTerraformSchemaVersion() int {
+func (tr *RouterNAT) GetTerraformSchemaVersion() int {
 	return 0
 }
