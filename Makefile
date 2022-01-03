@@ -35,7 +35,7 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
+GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
 GO111MODULE = on
@@ -89,20 +89,7 @@ crds.clean:
 	@find package/crds -name '*.yaml.sed' -delete || $(FAIL)
 	@$(OK) cleaned generated CRDs
 
-terrajet.run:
-	@go run cmd/generator/main.go .
-
-generate.init: terrajet.run
 generate.done: crds.clean
-
-# todo(turkenh): clean up whole apis and internal/control directories once we
-# figured out where to keep non generated files inside there dirs
-terrajet.clean:
-	@rm -f apis/zz_*.go
-	@rm -f apis/*/zz_*.go
-	@rm -f apis/*/*/zz_*.go
-	@rm -f internal/controller/zz_*.go
-	@rm -f internal/controller/*/*/zz_*.go
 
 # Update the submodules, such as the common build scripts.
 submodules:
