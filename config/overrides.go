@@ -5,7 +5,7 @@ import (
 
 	"github.com/iancoleman/strcase"
 
-	tjconfig "github.com/crossplane-contrib/terrajet/pkg/config"
+	tjconfig "github.com/crossplane/terrajet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"

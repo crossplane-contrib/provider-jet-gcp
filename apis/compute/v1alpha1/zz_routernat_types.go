@@ -25,10 +25,10 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type RouterNatLogConfigObservation struct {
+type RouterNATLogConfigObservation struct {
 }
 
-type RouterNatLogConfigParameters struct {
+type RouterNATLogConfigParameters struct {
 
 	// Indicates whether or not to export logs.
 	// +kubebuilder:validation:Required
@@ -39,16 +39,16 @@ type RouterNatLogConfigParameters struct {
 	Filter *string `json:"filter" tf:"filter,omitempty"`
 }
 
-type RouterNatObservation struct {
+type RouterNATObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
-type RouterNatParameters struct {
+type RouterNATParameters struct {
 
 	// A list of URLs of the IP resources to be drained. These IPs must be
 	// valid static external IPs that have been assigned to the NAT.
 	// +kubebuilder:validation:Optional
-	DrainNatIps []*string `json:"drainNatIps,omitempty" tf:"drain_nat_ips,omitempty"`
+	DrainNATIps []*string `json:"drainNatIps,omitempty" tf:"drain_nat_ips,omitempty"`
 
 	// Specifies if endpoint independent mapping is enabled. This is enabled by default. For more information
 	// see the [official documentation](https://cloud.google.com/nat/docs/overview#specs-rfcs).
@@ -61,7 +61,7 @@ type RouterNatParameters struct {
 
 	// Configuration for logging on NAT
 	// +kubebuilder:validation:Optional
-	LogConfig []RouterNatLogConfigParameters `json:"logConfig,omitempty" tf:"log_config,omitempty"`
+	LogConfig []RouterNATLogConfigParameters `json:"logConfig,omitempty" tf:"log_config,omitempty"`
 
 	// Minimum number of ports allocated to a VM from this NAT.
 	// +kubebuilder:validation:Optional
@@ -71,12 +71,12 @@ type RouterNatParameters struct {
 	// 'AUTO_ONLY' for only allowing NAT IPs allocated by Google Cloud
 	// Platform, or 'MANUAL_ONLY' for only user-allocated NAT IP addresses. Possible values: ["MANUAL_ONLY", "AUTO_ONLY"]
 	// +kubebuilder:validation:Required
-	NatIPAllocateOption *string `json:"natIpAllocateOption" tf:"nat_ip_allocate_option,omitempty"`
+	NATIPAllocateOption *string `json:"natIpAllocateOption" tf:"nat_ip_allocate_option,omitempty"`
 
 	// Self-links of NAT IPs. Only valid if natIpAllocateOption
 	// is set to MANUAL_ONLY.
 	// +kubebuilder:validation:Optional
-	NatIps []*string `json:"natIps,omitempty" tf:"nat_ips,omitempty"`
+	NATIps []*string `json:"natIps,omitempty" tf:"nat_ips,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
@@ -107,7 +107,7 @@ type RouterNatParameters struct {
 	// ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, then there should not be any
 	// other RouterNat section in any Router for this network in this region. Possible values: ["ALL_SUBNETWORKS_ALL_IP_RANGES", "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES", "LIST_OF_SUBNETWORKS"]
 	// +kubebuilder:validation:Required
-	SourceSubnetworkIPRangesToNat *string `json:"sourceSubnetworkIpRangesToNat" tf:"source_subnetwork_ip_ranges_to_nat,omitempty"`
+	SourceSubnetworkIPRangesToNAT *string `json:"sourceSubnetworkIpRangesToNat" tf:"source_subnetwork_ip_ranges_to_nat,omitempty"`
 
 	// One or more subnetwork NAT configurations. Only used if
 	// 'source_subnetwork_ip_ranges_to_nat' is set to 'LIST_OF_SUBNETWORKS'
@@ -157,54 +157,54 @@ type SubnetworkParameters struct {
 	// 'ALL_IP_RANGES', 'LIST_OF_SECONDARY_IP_RANGES',
 	// 'PRIMARY_IP_RANGE'.
 	// +kubebuilder:validation:Required
-	SourceIPRangesToNat []*string `json:"sourceIpRangesToNat" tf:"source_ip_ranges_to_nat,omitempty"`
+	SourceIPRangesToNAT []*string `json:"sourceIpRangesToNat" tf:"source_ip_ranges_to_nat,omitempty"`
 }
 
-// RouterNatSpec defines the desired state of RouterNat
-type RouterNatSpec struct {
+// RouterNATSpec defines the desired state of RouterNAT
+type RouterNATSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RouterNatParameters `json:"forProvider"`
+	ForProvider     RouterNATParameters `json:"forProvider"`
 }
 
-// RouterNatStatus defines the observed state of RouterNat.
-type RouterNatStatus struct {
+// RouterNATStatus defines the observed state of RouterNAT.
+type RouterNATStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RouterNatObservation `json:"atProvider,omitempty"`
+	AtProvider        RouterNATObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// RouterNat is the Schema for the RouterNats API
+// RouterNAT is the Schema for the RouterNATs API
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,gcpjet}
-type RouterNat struct {
+type RouterNAT struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              RouterNatSpec   `json:"spec"`
-	Status            RouterNatStatus `json:"status,omitempty"`
+	Spec              RouterNATSpec   `json:"spec"`
+	Status            RouterNATStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// RouterNatList contains a list of RouterNats
-type RouterNatList struct {
+// RouterNATList contains a list of RouterNATs
+type RouterNATList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []RouterNat `json:"items"`
+	Items           []RouterNAT `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	RouterNat_Kind             = "RouterNat"
-	RouterNat_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: RouterNat_Kind}.String()
-	RouterNat_KindAPIVersion   = RouterNat_Kind + "." + CRDGroupVersion.String()
-	RouterNat_GroupVersionKind = CRDGroupVersion.WithKind(RouterNat_Kind)
+	RouterNAT_Kind             = "RouterNAT"
+	RouterNAT_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: RouterNAT_Kind}.String()
+	RouterNAT_KindAPIVersion   = RouterNAT_Kind + "." + CRDGroupVersion.String()
+	RouterNAT_GroupVersionKind = CRDGroupVersion.WithKind(RouterNAT_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&RouterNat{}, &RouterNatList{})
+	SchemeBuilder.Register(&RouterNAT{}, &RouterNATList{})
 }

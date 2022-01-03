@@ -12,8 +12,8 @@ spec:
     - crossplane
     - managed
     - gcpjet
-    kind: RouterNat
-    listKind: RouterNatList
+    kind: RouterNAT
+    listKind: RouterNATList
     plural: routernats
     singular: routernat
   scope: Cluster
@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: RouterNat is the Schema for the RouterNats API
+        description: RouterNAT is the Schema for the RouterNATs API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -49,7 +49,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: RouterNatSpec defines the desired state of RouterNat
+            description: RouterNATSpec defines the desired state of RouterNAT
             properties:
               deletionPolicy:
                 default: Delete
@@ -272,7 +272,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: RouterNatStatus defines the observed state of RouterNat.
+            description: RouterNATStatus defines the observed state of RouterNAT.
             properties:
               atProvider:
                 properties:

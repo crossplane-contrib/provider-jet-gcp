@@ -355,59 +355,59 @@ func (mg *Router) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this RouterNat.
-func (mg *RouterNat) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this RouterNAT.
+func (mg *RouterNAT) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this RouterNat.
-func (mg *RouterNat) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this RouterNAT.
+func (mg *RouterNAT) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetProviderConfigReference of this RouterNat.
-func (mg *RouterNat) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this RouterNAT.
+func (mg *RouterNAT) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 /*
-GetProviderReference of this RouterNat.
+GetProviderReference of this RouterNAT.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *RouterNat) GetProviderReference() *xpv1.Reference {
+func (mg *RouterNAT) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
-// GetWriteConnectionSecretToReference of this RouterNat.
-func (mg *RouterNat) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this RouterNAT.
+func (mg *RouterNAT) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this RouterNat.
-func (mg *RouterNat) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this RouterNAT.
+func (mg *RouterNAT) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this RouterNat.
-func (mg *RouterNat) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this RouterNAT.
+func (mg *RouterNAT) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetProviderConfigReference of this RouterNat.
-func (mg *RouterNat) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this RouterNAT.
+func (mg *RouterNAT) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 /*
-SetProviderReference of this RouterNat.
+SetProviderReference of this RouterNAT.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *RouterNat) SetProviderReference(r *xpv1.Reference) {
+func (mg *RouterNAT) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
-// SetWriteConnectionSecretToReference of this RouterNat.
-func (mg *RouterNat) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this RouterNAT.
+func (mg *RouterNAT) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
