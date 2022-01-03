@@ -64,7 +64,7 @@ type AutoProvisioningDefaultsParameters struct {
 
 	// Scopes that are used by NAP when creating node pools.
 	// +kubebuilder:validation:Optional
-	OauthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
+	OAuthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 
 	// The Google Cloud Platform Service Account to be used by the node VMs.
 	// +kubebuilder:validation:Optional
@@ -498,7 +498,7 @@ type ManagementParameters struct {
 type MasterAuthObservation struct {
 	ClientCertificate *string `json:"clientCertificate,omitempty" tf:"client_certificate,omitempty"`
 
-	ClusterCaCertificate *string `json:"clusterCaCertificate,omitempty" tf:"cluster_ca_certificate,omitempty"`
+	ClusterCACertificate *string `json:"clusterCaCertificate,omitempty" tf:"cluster_ca_certificate,omitempty"`
 }
 
 type MasterAuthParameters struct {
@@ -622,7 +622,7 @@ type NodeConfigParameters struct {
 
 	// The set of Google API scopes to be made available on all of the node VMs.
 	// +kubebuilder:validation:Optional
-	OauthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
+	OAuthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 
 	// Whether the nodes are created as preemptible VM instances.
 	// +kubebuilder:validation:Optional
@@ -734,7 +734,7 @@ type NodePoolNodeConfigParameters struct {
 
 	// The set of Google API scopes to be made available on all of the node VMs.
 	// +kubebuilder:validation:Optional
-	OauthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
+	OAuthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 
 	// Whether the nodes are created as preemptible VM instances.
 	// +kubebuilder:validation:Optional

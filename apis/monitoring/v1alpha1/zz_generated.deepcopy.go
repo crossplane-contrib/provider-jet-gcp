@@ -937,13 +937,13 @@ func (in *HTTPCheckParameters) DeepCopyInto(out *HTTPCheckParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.UseSsl != nil {
-		in, out := &in.UseSsl, &out.UseSsl
+	if in.UseSSL != nil {
+		in, out := &in.UseSSL, &out.UseSSL
 		*out = new(bool)
 		**out = **in
 	}
-	if in.ValidateSsl != nil {
-		in, out := &in.ValidateSsl, &out.ValidateSsl
+	if in.ValidateSSL != nil {
+		in, out := &in.ValidateSSL, &out.ValidateSSL
 		*out = new(bool)
 		**out = **in
 	}

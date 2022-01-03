@@ -37,10 +37,6 @@ type ServiceAccountObservation struct {
 
 type ServiceAccountParameters struct {
 
-	// The account id that is used to generate the service account email address and a stable unique id. It is unique within a project, must be 6-30 characters long, and match the regular expression [a-z]([-a-z0-9]*[a-z0-9]) to comply with RFC1035. Changing this forces a new service account to be created.
-	// +kubebuilder:validation:Required
-	AccountID *string `json:"accountId" tf:"account_id,omitempty"`
-
 	// A text description of the service account. Must be less than or equal to 256 UTF-8 bytes.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`

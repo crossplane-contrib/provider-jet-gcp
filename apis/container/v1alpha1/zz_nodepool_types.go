@@ -114,7 +114,7 @@ type NodePoolNodeConfigParameters_2 struct {
 
 	// The set of Google API scopes to be made available on all of the node VMs.
 	// +kubebuilder:validation:Optional
-	OauthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
+	OAuthScopes []*string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 
 	// Whether the nodes are created as preemptible VM instances.
 	// +kubebuilder:validation:Optional
@@ -201,7 +201,7 @@ type NodePoolParameters_2 struct {
 
 	// The cluster to create the node pool for. Cluster must be present in location provided for zonal clusters.
 	// +crossplane:generate:reference:type=Cluster
-	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-gcp/apis/rconfig.ExtractResourceID()
+	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-gcp/config/common.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	Cluster *string `json:"cluster,omitempty" tf:"cluster,omitempty"`
 

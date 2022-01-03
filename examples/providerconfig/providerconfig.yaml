@@ -7,6 +7,6 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      name: gcp-creds
+      name: example-creds
       namespace: crossplane-system
-      key: creds
+      key: credentials

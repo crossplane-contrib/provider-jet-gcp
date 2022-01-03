@@ -19,7 +19,7 @@ package v1alpha1
 
 import (
 	"context"
-	rconfig "github.com/crossplane-contrib/provider-jet-gcp/apis/rconfig"
+	common "github.com/crossplane-contrib/provider-jet-gcp/config/common"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -34,7 +34,7 @@ func (mg *NodePool) ResolveReferences(ctx context.Context, c client.Reader) erro
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Cluster),
-		Extract:      rconfig.ExtractResourceID(),
+		Extract:      common.ExtractResourceID(),
 		Reference:    mg.Spec.ForProvider.ClusterRef,
 		Selector:     mg.Spec.ForProvider.ClusterSelector,
 		To: reference.To{

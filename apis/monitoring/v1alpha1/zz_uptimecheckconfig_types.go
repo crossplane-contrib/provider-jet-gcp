@@ -92,11 +92,11 @@ type HTTPCheckParameters struct {
 
 	// If true, use HTTPS instead of HTTP to run the check.
 	// +kubebuilder:validation:Optional
-	UseSsl *bool `json:"useSsl,omitempty" tf:"use_ssl,omitempty"`
+	UseSSL *bool `json:"useSsl,omitempty" tf:"use_ssl,omitempty"`
 
 	// Boolean specifying whether to include SSL certificate validation as a part of the Uptime check. Only applies to checks where monitoredResource is set to uptime_url. If useSsl is false, setting validateSsl to true has no effect.
 	// +kubebuilder:validation:Optional
-	ValidateSsl *bool `json:"validateSsl,omitempty" tf:"validate_ssl,omitempty"`
+	ValidateSSL *bool `json:"validateSsl,omitempty" tf:"validate_ssl,omitempty"`
 }
 
 type MonitoredResourceObservation struct {

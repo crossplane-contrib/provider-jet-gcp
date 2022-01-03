@@ -1,13 +1,12 @@
-package kubernetes
+package container
 
 import (
 	"context"
 	"fmt"
 	"strings"
 
-	"github.com/crossplane-contrib/terrajet/pkg/config"
+	"github.com/crossplane/terrajet/pkg/config"
 
-	"github.com/crossplane-contrib/provider-jet-gcp/apis/rconfig"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/common"
 )
 
@@ -36,7 +35,6 @@ func Configure(p *config.Provider) {
 	})
 
 	p.AddResourceConfigurator("google_container_node_pool", func(r *config.Resource) {
-		locationIndex, clusterNameIndex := 3, 5
 		r.Kind = "NodePool"
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
@@ -49,13 +47,13 @@ func Configure(p *config.Provider) {
 			if err != nil {
 				return "", err
 			}
-			location := strings.Split(clusterID, "/")[locationIndex]
-			cluster := strings.Split(clusterID, "/")[clusterNameIndex]
+			location := strings.Split(clusterID, "/")[3]
+			cluster := strings.Split(clusterID, "/")[5]
 			return fmt.Sprintf("%s/%s/%s/%s", project, location, cluster, externalName), nil
 		}
 		r.References["cluster"] = config.Reference{
 			Type:      "Cluster",
-			Extractor: rconfig.ExtractResourceIDFuncPath,
+			Extractor: common.ExtractResourceIDFuncPath,
 		}
 		r.UseAsync = true
 	})
