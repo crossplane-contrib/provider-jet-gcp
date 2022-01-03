@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/crossplane-contrib/terrajet/pkg/config"
+	"github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/common"

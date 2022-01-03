@@ -1,7 +1,7 @@
 # Terrajet GCP Provider
 
 `provider-jet-gcp` is a [Crossplane](https://crossplane.io/) provider that
-is built using [Terrajet](https://github.com/crossplane-contrib/terrajet) code
+is built using [Terrajet](https://github.com/crossplane/terrajet) code
 generation tools and exposes XRM-conformant managed resources for the 
 GCP API.
 

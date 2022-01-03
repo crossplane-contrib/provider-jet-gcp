@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/crossplane-contrib/terrajet/pkg/pipeline"
+	"github.com/crossplane/terrajet/pkg/pipeline"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config"
 )
