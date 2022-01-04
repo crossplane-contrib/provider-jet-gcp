@@ -2,10 +2,12 @@ package config
 
 import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
+	"github.com/crossplane/terrajet/pkg/types/name"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tf "github.com/hashicorp/terraform-provider-google/google"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/bigtable"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudfunctions"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudiot"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
@@ -60,6 +62,7 @@ func GetProvider() *tjconfig.Provider {
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		accessapproval.Configure,
+		bigtable.Configure,
 		cloudfunctions.Configure,
 		cloudiot.Configure,
 		cloudplatform.Configure,
@@ -82,4 +85,12 @@ func DefaultResource(opts ...tjconfig.ResourceOption) tjconfig.DefaultResourceFn
 	return func(name string, terraformResource *schema.Resource, orgOpts ...tjconfig.ResourceOption) *tjconfig.Resource {
 		return tjconfig.DefaultResource(name, terraformResource, append(orgOpts, opts...)...)
 	}
+}
+
+func init() {
+	// GCP specific acronyms
+
+	// Todo(turkenh): move to Terrajet?
+	name.AddAcronym("idp", "IdP")
+	name.AddAcronym("oauth", "OAuth")
 }
