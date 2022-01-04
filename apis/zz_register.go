@@ -22,7 +22,10 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-gcp/apis/compute/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-gcp/apis/cloudplatform/v1alpha1"
+	v1alpha1compute "github.com/crossplane-contrib/provider-jet-gcp/apis/compute/v1alpha1"
+	v1alpha1container "github.com/crossplane-contrib/provider-jet-gcp/apis/container/v1alpha1"
+	v1alpha1monitoring "github.com/crossplane-contrib/provider-jet-gcp/apis/monitoring/v1alpha1"
 	v1alpha1storage "github.com/crossplane-contrib/provider-jet-gcp/apis/storage/v1alpha1"
 	v1alpha1apis "github.com/crossplane-contrib/provider-jet-gcp/apis/v1alpha1"
 )
@@ -31,6 +34,9 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1compute.SchemeBuilder.AddToScheme,
+		v1alpha1container.SchemeBuilder.AddToScheme,
+		v1alpha1monitoring.SchemeBuilder.AddToScheme,
 		v1alpha1storage.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 	)

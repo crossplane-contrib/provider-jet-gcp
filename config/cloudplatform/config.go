@@ -18,4 +18,15 @@ func Configure(p *config.Provider) {
 		r.TerraformResource.
 			Schema["keepers"].Elem = schema.TypeString
 	})
+	p.AddResourceConfigurator("google_service_account", func(r *config.Resource) {
+		r.Kind = "ServiceAccount"
+		r.ExternalName = config.ExternalName{
+			SetIdentifierArgumentFn: func(base map[string]interface{}, name string) {
+				base["account_id"] = name
+			},
+			OmittedFields:     []string{"account_id"},
+			GetExternalNameFn: config.IDAsExternalName,
+			GetIDFn:           config.ExternalNameAsID,
+		}
+	})
 }

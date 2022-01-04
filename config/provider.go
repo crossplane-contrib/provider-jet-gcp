@@ -12,6 +12,7 @@ import (
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudiot"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/compute"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/container"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataflow"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
@@ -44,6 +45,18 @@ var includeList = []string{
 	"google_compute_managed_ssl_certificate$",
 	"google_compute_router$",
 	"google_compute_router_nat$",
+
+	// Container
+	"google_container_cluster",
+	"google_container_node_pool",
+
+	// Monitoring
+	"google_monitoring_alert_policy",
+	"google_monitoring_notification_channel",
+	"google_monitoring_uptime_check_config",
+
+	// CloudPlatform
+	"google_service_account$",
 }
 
 // GetProvider returns provider configuration
@@ -71,6 +84,7 @@ func GetProvider() *tjconfig.Provider {
 		dataproc.Configure,
 		project.Configure,
 		storage.Configure,
+		container.Configure,
 	} {
 		configure(pc)
 	}

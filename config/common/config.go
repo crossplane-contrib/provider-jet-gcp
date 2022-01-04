@@ -3,6 +3,7 @@ package common
 import (
 	"strings"
 
+	jresource "github.com/crossplane/terrajet/pkg/resource"
 	"github.com/pkg/errors"
 
 	"github.com/crossplane/crossplane-runtime/pkg/fieldpath"
@@ -17,6 +18,9 @@ const (
 	SelfPackagePath = "github.com/crossplane-contrib/provider-jet-gcp/config/common"
 
 	errFmtCannotGetFieldAsString = "cannot get the %q field as string"
+
+	// ExtractResourceIDFuncPath holds the GCP resource ID extractor func name
+	ExtractResourceIDFuncPath = "github.com/crossplane-contrib/provider-jet-gcp/config/common.ExtractResourceID()"
 )
 
 var (
@@ -60,4 +64,17 @@ func GetField(mapping map[string]interface{}, field string) (string, error) {
 		return "", errors.Errorf(errFmtCannotGetFieldAsString, f)
 	}
 	return f, nil
+}
+
+// ExtractResourceID extracts the value of `spec.atProvider.id`
+// from a Terraformed resource. If mr is not a Terraformed
+// resource, returns an empty string.
+func ExtractResourceID() reference.ExtractValueFn {
+	return func(mr resource.Managed) string {
+		tr, ok := mr.(jresource.Terraformed)
+		if !ok {
+			return ""
+		}
+		return tr.GetID()
+	}
 }

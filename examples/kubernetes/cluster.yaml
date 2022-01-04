@@ -1,0 +1,9 @@
+apiVersion: container.gcp.jet.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  name: my-gke-cluster
+spec:
+  forProvider:
+    initialNodeCount: 1
+    location: us-central1
+    removeDefaultNodePool: true
