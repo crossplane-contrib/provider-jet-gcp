@@ -2,6 +2,7 @@ package config
 
 import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
+	"github.com/crossplane/terrajet/pkg/types/name"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tf "github.com/hashicorp/terraform-provider-google/google"
 
@@ -13,7 +14,6 @@ import (
 	"github.com/crossplane-contrib/provider-jet-gcp/config/compute"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataflow"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
-	"github.com/crossplane-contrib/provider-jet-gcp/config/identityplatform"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/storage"
 )
@@ -69,7 +69,6 @@ func GetProvider() *tjconfig.Provider {
 		compute.Configure,
 		dataflow.Configure,
 		dataproc.Configure,
-		identityplatform.Configure,
 		project.Configure,
 		storage.Configure,
 	} {
@@ -86,4 +85,12 @@ func DefaultResource(opts ...tjconfig.ResourceOption) tjconfig.DefaultResourceFn
 	return func(name string, terraformResource *schema.Resource, orgOpts ...tjconfig.ResourceOption) *tjconfig.Resource {
 		return tjconfig.DefaultResource(name, terraformResource, append(orgOpts, opts...)...)
 	}
+}
+
+func init() {
+	// GCP specific acronyms
+
+	// Todo(turkenh): move to Terrajet?
+	name.AddAcronym("idp", "IdP")
+	name.AddAcronym("oauth", "OAuth")
 }
