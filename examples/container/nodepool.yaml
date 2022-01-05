@@ -1,7 +1,7 @@
 apiVersion: container.gcp.jet.crossplane.io/v1alpha1
 kind: NodePool
 metadata:
-  name: my-node-pool
+  name: example-node-pool
 spec:
   forProvider:
     nodeConfig:
@@ -11,4 +11,4 @@ spec:
         preemptible: true
     nodeCount: 1
     clusterRef:
-      name: my-gke-cluster
+      name: example-gke-cluster
