@@ -11,7 +11,7 @@ import (
 
 // Configure configures individual resources by adding custom
 // ResourceConfigurators.
-func Configure(p *config.Provider) {
+func Configure(p *config.Provider) { //nolint:gocyclo
 	p.AddResourceConfigurator("google_sql_database_instance", func(r *config.Resource) {
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID

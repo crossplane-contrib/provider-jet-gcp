@@ -1,8 +1,6 @@
 package config
 
 import (
-	"github.com/crossplane-contrib/provider-jet-gcp/config/container"
-	"github.com/crossplane-contrib/provider-jet-gcp/config/sql"
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/crossplane/terrajet/pkg/types/name"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,9 +12,11 @@ import (
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudiot"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/cloudplatform"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/compute"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/container"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataflow"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/sql"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/storage"
 )
 
