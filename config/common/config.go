@@ -17,8 +17,6 @@ const (
 	// SelfPackagePath is the golang path for this package.
 	SelfPackagePath = "github.com/crossplane-contrib/provider-jet-gcp/config/common"
 
-	errFmtCannotGetFieldAsString = "cannot get the %q field as string"
-
 	// ExtractResourceIDFuncPath holds the GCP resource ID extractor func name
 	ExtractResourceIDFuncPath = "github.com/crossplane-contrib/provider-jet-gcp/config/common.ExtractResourceID()"
 )
@@ -58,12 +56,8 @@ func GetNameFromFullyQualifiedID(tfstate map[string]interface{}) (string, error)
 
 // GetField returns the value of field as a string in a map[string]interface{},
 //  fails properly otherwise.
-func GetField(mapping map[string]interface{}, field string) (string, error) {
-	f, ok := mapping[field].(string)
-	if !ok {
-		return "", errors.Errorf(errFmtCannotGetFieldAsString, f)
-	}
-	return f, nil
+func GetField(from map[string]interface{}, path string) (string, error) {
+	return fieldpath.Pave(from).GetString(path)
 }
 
 // ExtractResourceID extracts the value of `spec.atProvider.id`
