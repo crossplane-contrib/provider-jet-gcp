@@ -16,6 +16,7 @@ import (
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataflow"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/sql"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/storage"
 )
 
@@ -57,6 +58,9 @@ var includeList = []string{
 
 	// CloudPlatform
 	"google_service_account$",
+
+	// Sql
+	"google_sql_.+",
 }
 
 // GetProvider returns provider configuration
@@ -79,12 +83,13 @@ func GetProvider() *tjconfig.Provider {
 		cloudfunctions.Configure,
 		cloudiot.Configure,
 		cloudplatform.Configure,
+		container.Configure,
 		compute.Configure,
 		dataflow.Configure,
 		dataproc.Configure,
 		project.Configure,
 		storage.Configure,
-		container.Configure,
+		sql.Configure,
 	} {
 		configure(pc)
 	}

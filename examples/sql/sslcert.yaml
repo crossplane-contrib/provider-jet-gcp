@@ -1,11 +1,12 @@
 apiVersion: sql.gcp.jet.crossplane.io/v1alpha1
-kind: SslCert
+kind: SSLCert
 metadata:
   name: example
 spec:
   forProvider:
     commonName: client-name
-    instance: example-instance
+    instanceRef:
+      name: example-instance
   writeConnectionSecretToRef:
     name: example-sql-ssl-secret
     namespace: crossplane-system

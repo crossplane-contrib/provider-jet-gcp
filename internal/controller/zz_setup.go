@@ -40,6 +40,11 @@ import (
 	notificationchannel "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/notificationchannel"
 	uptimecheckconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/uptimecheckconfig"
 	providerconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/providerconfig"
+	database "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/database"
+	databaseinstance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/databaseinstance"
+	sourcerepresentationinstance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/sourcerepresentationinstance"
+	sslcert "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/sslcert"
+	user "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/user"
 	bucket "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/storage/bucket"
 )
 
@@ -62,6 +67,11 @@ func Setup(mgr ctrl.Manager, l logging.Logger, wl workqueue.RateLimiter, ps terr
 		notificationchannel.Setup,
 		uptimecheckconfig.Setup,
 		providerconfig.Setup,
+		database.Setup,
+		databaseinstance.Setup,
+		sourcerepresentationinstance.Setup,
+		sslcert.Setup,
+		user.Setup,
 		bucket.Setup,
 	} {
 		if err := setup(mgr, l, wl, ps, ws, cfg, concurrency); err != nil {
