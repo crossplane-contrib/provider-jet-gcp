@@ -1,0 +1,286 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: entries.datacatalog.gcp.jet.crossplane.io
+spec:
+  group: datacatalog.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: Entry
+    listKind: EntryList
+    plural: entries
+    singular: entry
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Entry is the Schema for the Entrys API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EntrySpec defines the desired state of Entry
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  description:
+                    description: Entry description, which can consist of several sentences
+                      or paragraphs that describe entry contents.
+                    type: string
+                  displayName:
+                    description: Display information such as title and description.
+                      A short name to identify the entry, for example, "Analytics
+                      Data - Jan 2011".
+                    type: string
+                  entryGroup:
+                    description: The name of the entry group this entry is in.
+                    type: string
+                  entryId:
+                    description: The id of the entry to create.
+                    type: string
+                  gcsFilesetSpec:
+                    description: Specification that applies to a Cloud Storage fileset.
+                      This is only valid on entries of type FILESET.
+                    items:
+                      properties:
+                        filePatterns:
+                          description: "Patterns to identify a set of files in Google
+                            Cloud Storage. See [Cloud Storage documentation](https://cloud.google.com/storage/docs/gsutil/addlhelp/WildcardNames)
+                            for more information. Note that bucket wildcards are currently
+                            not supported. Examples of valid filePatterns: \n * gs://bucket_name/dir/*:
+                            matches all files within bucket_name/dir directory. *
+                            gs://bucket_name/dir/**: matches all files in bucket_name/dir
+                            spanning all subdirectories. * gs://bucket_name/file*:
+                            matches files prefixed by file in bucket_name * gs://bucket_name/??.txt:
+                            matches files with two characters followed by .txt in
+                            bucket_name * gs://bucket_name/[aeiou].txt: matches files
+                            that contain a single vowel character followed by .txt
+                            in bucket_name * gs://bucket_name/[a-m].txt: matches files
+                            that contain a, b, ... or m followed by .txt in bucket_name
+                            * gs://bucket_name/a/*/b: matches all files in bucket_name
+                            that match a/*/b pattern, such as a/c/b, a/d/b * gs://another_bucket/a.txt:
+                            matches gs://another_bucket/a.txt"
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - filePatterns
+                      type: object
+                    type: array
+                  linkedResource:
+                    description: 'The resource this metadata entry refers to. For
+                      Google Cloud Platform resources, linkedResource is the full
+                      name of the resource. For example, the linkedResource for a
+                      table resource from BigQuery is: //bigquery.googleapis.com/projects/projectId/datasets/datasetId/tables/tableId
+                      Output only when Entry is of type in the EntryType enum. For
+                      entries with userSpecifiedType, this field is optional and defaults
+                      to an empty string.'
+                    type: string
+                  schema:
+                    description: Schema of the entry (e.g. BigQuery, GoogleSQL, Avro
+                      schema), as a json string. An entry might not have any schema
+                      attached to it. See https://cloud.google.com/data-catalog/docs/reference/rest/v1/projects.locations.entryGroups.entries#schema
+                      for what fields this schema can contain.
+                    type: string
+                  type:
+                    description: 'The type of the entry. Only used for Entries with
+                      types in the EntryType enum. Currently, only FILESET enum value
+                      is allowed. All other entries created through Data Catalog must
+                      use userSpecifiedType. Possible values: ["FILESET"]'
+                    type: string
+                  userSpecifiedSystem:
+                    description: This field indicates the entry's source system that
+                      Data Catalog does not integrate with. userSpecifiedSystem strings
+                      must begin with a letter or underscore and can only contain
+                      letters, numbers, and underscores; are case insensitive; must
+                      be at least 1 character and at most 64 characters long.
+                    type: string
+                  userSpecifiedType:
+                    description: Entry type if it does not fit any of the input-allowed
+                      values listed in EntryType enum above. When creating an entry,
+                      users should check the enum values first, if nothing matches
+                      the entry to be created, then provide a custom value, for example
+                      "my_special_type". userSpecifiedType strings must begin with
+                      a letter or underscore and can only contain letters, numbers,
+                      and underscores; are case insensitive; must be at least 1 character
+                      and at most 64 characters long.
+                    type: string
+                required:
+                - entryGroup
+                - entryId
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: EntryStatus defines the observed state of Entry.
+            properties:
+              atProvider:
+                properties:
+                  bigqueryDateShardedSpec:
+                    items:
+                      properties:
+                        dataset:
+                          type: string
+                        shardCount:
+                          format: int64
+                          type: integer
+                        tablePrefix:
+                          type: string
+                      type: object
+                    type: array
+                  bigqueryTableSpec:
+                    items:
+                      properties:
+                        tableSourceType:
+                          type: string
+                        tableSpec:
+                          items:
+                            properties:
+                              groupedEntry:
+                                type: string
+                            type: object
+                          type: array
+                        viewSpec:
+                          items:
+                            properties:
+                              viewQuery:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  id:
+                    type: string
+                  integratedSystem:
+                    type: string
+                  name:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

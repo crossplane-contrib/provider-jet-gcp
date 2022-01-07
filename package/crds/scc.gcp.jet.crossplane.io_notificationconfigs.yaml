@@ -1,0 +1,215 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: notificationconfigs.scc.gcp.jet.crossplane.io
+spec:
+  group: scc.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: NotificationConfig
+    listKind: NotificationConfigList
+    plural: notificationconfigs
+    singular: notificationconfig
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: NotificationConfig is the Schema for the NotificationConfigs
+          API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NotificationConfigSpec defines the desired state of NotificationConfig
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  configId:
+                    description: This must be unique within the organization.
+                    type: string
+                  description:
+                    description: The description of the notification config (max of
+                      1024 characters).
+                    type: string
+                  organization:
+                    description: The organization whose Cloud Security Command Center
+                      the Notification Config lives in.
+                    type: string
+                  pubsubTopic:
+                    description: The Pub/Sub topic to send notifications to. Its format
+                      is "projects/[project_id]/topics/[topic]".
+                    type: string
+                  streamingConfig:
+                    description: The config for triggering streaming-based notifications.
+                    items:
+                      properties:
+                        filter:
+                          description: "Expression that defines the filter to apply
+                            across create/update events of assets or findings as specified
+                            by the event type. The expression is a list of zero or
+                            more restrictions combined via logical operators AND and
+                            OR. Parentheses are supported, and OR has higher precedence
+                            than AND. \n Restrictions have the form <field> <operator>
+                            <value> and may have a - character in front of them to
+                            indicate negation. The fields map to those defined in
+                            the corresponding resource. \n The supported operators
+                            are: \n * = for all value types. * >, <, >=, <= for integer
+                            values. * :, meaning substring matching, for strings.
+                            \n The supported value types are: \n * string literals
+                            in quotes. * integer literals without quotes. * boolean
+                            literals true and false without quotes. \n See [Filtering
+                            notifications](https://cloud.google.com/security-command-center/docs/how-to-api-filter-notifications)
+                            for information on how to write a filter."
+                          type: string
+                      required:
+                      - filter
+                      type: object
+                    type: array
+                required:
+                - configId
+                - organization
+                - pubsubTopic
+                - streamingConfig
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: NotificationConfigStatus defines the observed state of NotificationConfig.
+            properties:
+              atProvider:
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  serviceAccount:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
