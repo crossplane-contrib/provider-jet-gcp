@@ -1,0 +1,261 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: deployments.deploymentmanager.gcp.jet.crossplane.io
+spec:
+  group: deploymentmanager.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: Deployment
+    listKind: DeploymentList
+    plural: deployments
+    singular: deployment
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Deployment is the Schema for the Deployments API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DeploymentSpec defines the desired state of Deployment
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  createPolicy:
+                    description: 'Set the policy to use for creating new resources.
+                      Only used on create and update. Valid values are ''CREATE_OR_ACQUIRE''
+                      (default) or ''ACQUIRE''. If set to ''ACQUIRE'' and resources
+                      do not already exist, the deployment will fail. Note that updating
+                      this field does not actually affect the deployment, just how
+                      it is updated. Default value: "CREATE_OR_ACQUIRE" Possible values:
+                      ["ACQUIRE", "CREATE_OR_ACQUIRE"]'
+                    type: string
+                  deletePolicy:
+                    description: 'Set the policy to use for deleting new resources
+                      on update/delete. Valid values are ''DELETE'' (default) or ''ABANDON''.
+                      If ''DELETE'', resource is deleted after removal from Deployment
+                      Manager. If ''ABANDON'', the resource is only removed from Deployment
+                      Manager and is not actually deleted. Note that updating this
+                      field does not actually change the deployment, just how it is
+                      updated. Default value: "DELETE" Possible values: ["ABANDON",
+                      "DELETE"]'
+                    type: string
+                  description:
+                    description: Optional user-provided description of deployment.
+                    type: string
+                  labels:
+                    description: Key-value pairs to apply to this labels.
+                    items:
+                      properties:
+                        key:
+                          description: Key for label.
+                          type: string
+                        value:
+                          description: Value of label.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: Unique name for the deployment
+                    type: string
+                  preview:
+                    description: If set to true, a deployment is created with "shell"
+                      resources that are not actually instantiated. This allows you
+                      to preview a deployment. It can be updated to false to actually
+                      deploy with real resources. ~>**NOTE:** Deployment Manager does
+                      not allow update of a deployment in preview (unless updating
+                      to preview=false). Thus, Terraform will force-recreate deployments
+                      if either preview is updated to true or if other fields are
+                      updated while preview is true.
+                    type: boolean
+                  project:
+                    type: string
+                  target:
+                    description: Parameters that define your deployment, including
+                      the deployment configuration and relevant templates.
+                    items:
+                      properties:
+                        config:
+                          description: The root configuration file to use for this
+                            deployment.
+                          items:
+                            properties:
+                              content:
+                                description: The full YAML contents of your configuration
+                                  file.
+                                type: string
+                            required:
+                            - content
+                            type: object
+                          type: array
+                        imports:
+                          description: Specifies import files for this configuration.
+                            This can be used to import templates or other files. For
+                            example, you might import a text file in order to use
+                            the file in a template.
+                          items:
+                            properties:
+                              content:
+                                description: The full contents of the template that
+                                  you want to import.
+                                type: string
+                              name:
+                                description: The name of the template to import, as
+                                  declared in the YAML configuration.
+                                type: string
+                            type: object
+                          type: array
+                      required:
+                      - config
+                      type: object
+                    type: array
+                required:
+                - name
+                - target
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: DeploymentStatus defines the observed state of Deployment.
+            properties:
+              atProvider:
+                properties:
+                  deploymentId:
+                    type: string
+                  id:
+                    type: string
+                  manifest:
+                    type: string
+                  selfLink:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

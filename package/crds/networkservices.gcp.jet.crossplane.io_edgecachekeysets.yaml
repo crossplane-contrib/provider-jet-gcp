@@ -1,0 +1,227 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: edgecachekeysets.networkservices.gcp.jet.crossplane.io
+spec:
+  group: networkservices.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: EdgeCacheKeyset
+    listKind: EdgeCacheKeysetList
+    plural: edgecachekeysets
+    singular: edgecachekeyset
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: EdgeCacheKeyset is the Schema for the EdgeCacheKeysets API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EdgeCacheKeysetSpec defines the desired state of EdgeCacheKeyset
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  description:
+                    description: A human-readable description of the resource.
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Set of label tags associated with the EdgeCache resource.
+                    type: object
+                  name:
+                    description: Name of the resource; provided by the client when
+                      the resource is created. The name must be 1-64 characters long,
+                      and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which
+                      means the first character must be a letter, and all following
+                      characters must be a dash, underscore, letter or digit.
+                    type: string
+                  project:
+                    type: string
+                  publicKey:
+                    description: "An ordered list of Ed25519 public keys to use for
+                      validating signed requests. You must specify at least one (1)
+                      key, and may have up to three (3) keys. \n Ed25519 public keys
+                      are not secret, and only allow Google to validate a request
+                      was signed by your corresponding private key. You should ensure
+                      that the private key is kept secret, and that only authorized
+                      users can add public keys to a keyset."
+                    items:
+                      properties:
+                        id:
+                          description: The ID of the public key. The ID must be 1-63
+                            characters long, and comply with RFC1035. The name must
+                            be 1-64 characters long, and match the regular expression
+                            [a-zA-Z][a-zA-Z0-9_-]* which means the first character
+                            must be a letter, and all following characters must be
+                            a dash, underscore, letter or digit.
+                          type: string
+                        valueSecretRef:
+                          description: The base64-encoded value of the Ed25519 public
+                            key. The base64 encoding can be padded (44 bytes) or unpadded
+                            (43 bytes). Representations or encodings of the public
+                            key other than this will be rejected with an error.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - id
+                      - valueSecretRef
+                      type: object
+                    type: array
+                required:
+                - name
+                - publicKey
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: EdgeCacheKeysetStatus defines the observed state of EdgeCacheKeyset.
+            properties:
+              atProvider:
+                properties:
+                  id:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

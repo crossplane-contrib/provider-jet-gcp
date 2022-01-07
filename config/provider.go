@@ -34,37 +34,6 @@ var skipList = []string{
 	"google_access_context_manager_service_perimeters$",
 }
 
-var includeList = []string{
-	// Storage
-	"google_storage_bucket$",
-
-	// Compute
-	"google_compute_network$",
-	"google_compute_subnetwork$",
-	"google_compute_address$",
-	"google_compute_firewall$",
-	"google_compute_instance$",
-	"google_compute_managed_ssl_certificate$",
-	"google_compute_router$",
-	"google_compute_router_nat$",
-
-	// Container
-	"google_container_cluster",
-	"google_container_node_pool",
-
-	// Monitoring
-	"google_monitoring_alert_policy",
-	"google_monitoring_notification_channel",
-	"google_monitoring_uptime_check_config",
-
-	// CloudPlatform
-	"google_service_account$",
-	"google_service_account_key$",
-
-	// Sql
-	"google_sql_.+",
-}
-
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
 	resourceMap := tf.Provider().ResourcesMap
@@ -75,8 +44,6 @@ func GetProvider() *tjconfig.Provider {
 		)),
 		tjconfig.WithRootGroup("gcp.jet.crossplane.io"),
 		tjconfig.WithShortName("gcpjet"),
-		// Comment out the following line to generate all resources.
-		tjconfig.WithIncludeList(includeList),
 		tjconfig.WithSkipList(skipList))
 
 	for _, configure := range []func(provider *tjconfig.Provider){

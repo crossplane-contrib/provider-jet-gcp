@@ -1,0 +1,794 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: deidentifytemplates.datalossprevention.gcp.jet.crossplane.io
+spec:
+  group: datalossprevention.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: DeidentifyTemplate
+    listKind: DeidentifyTemplateList
+    plural: deidentifytemplates
+    singular: deidentifytemplate
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DeidentifyTemplate is the Schema for the DeidentifyTemplates
+          API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DeidentifyTemplateSpec defines the desired state of DeidentifyTemplate
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  deidentifyConfig:
+                    description: Configuration of the deidentify template
+                    items:
+                      properties:
+                        infoTypeTransformations:
+                          description: Specifies free-text based transformations to
+                            be applied to the dataset.
+                          items:
+                            properties:
+                              transformations:
+                                description: Transformation for each infoType. Cannot
+                                  specify more than one for a given infoType.
+                                items:
+                                  properties:
+                                    infoTypes:
+                                      description: InfoTypes to apply the transformation
+                                        to. Leaving this empty will apply the transformation
+                                        to apply to all findings that correspond to
+                                        infoTypes that were requested in InspectConfig.
+                                      items:
+                                        properties:
+                                          name:
+                                            description: Name of the information type.
+                                            type: string
+                                        required:
+                                        - name
+                                        type: object
+                                      type: array
+                                    primitiveTransformation:
+                                      description: Primitive transformation to apply
+                                        to the infoType.
+                                      items:
+                                        properties:
+                                          characterMaskConfig:
+                                            description: Partially mask a string by
+                                              replacing a given number of characters
+                                              with a fixed character. Masking can
+                                              start from the beginning or end of the
+                                              string.
+                                            items:
+                                              properties:
+                                                charactersToIgnore:
+                                                  description: Characters to skip
+                                                    when doing de-identification of
+                                                    a value. These will be left alone
+                                                    and skipped.
+                                                  items:
+                                                    properties:
+                                                      characterToSkip:
+                                                        description: Characters to
+                                                          not transform when masking.
+                                                        type: string
+                                                      commonCharactersToIgnore:
+                                                        description: 'Common characters
+                                                          to not transform when masking.
+                                                          Useful to avoid removing
+                                                          punctuation. Possible values:
+                                                          ["NUMERIC", "ALPHA_UPPER_CASE",
+                                                          "ALPHA_LOWER_CASE", "PUNCTUATION",
+                                                          "WHITESPACE"]'
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                maskingCharacter:
+                                                  description: Character to use to
+                                                    mask the sensitive values—for
+                                                    example, * for an alphabetic string
+                                                    such as a name, or 0 for a numeric
+                                                    string such as ZIP code or credit
+                                                    card number. This string must
+                                                    have a length of 1. If not supplied,
+                                                    this value defaults to * for strings,
+                                                    and 0 for digits.
+                                                  type: string
+                                                numberToMask:
+                                                  description: Number of characters
+                                                    to mask. If not set, all matching
+                                                    chars will be masked. Skipped
+                                                    characters do not count towards
+                                                    this tally.
+                                                  format: int64
+                                                  type: integer
+                                                reverseOrder:
+                                                  description: Mask characters in
+                                                    reverse order. For example, if
+                                                    masking_character is 0, number_to_mask
+                                                    is 14, and reverse_order is 'false',
+                                                    then the input string '1234-5678-9012-3456'
+                                                    is masked as '00000000000000-3456'.
+                                                  type: boolean
+                                              type: object
+                                            type: array
+                                          cryptoDeterministicConfig:
+                                            description: Pseudonymization method that
+                                              generates deterministic encryption for
+                                              the given input. Outputs a base64 encoded
+                                              representation of the encrypted output.
+                                              Uses AES-SIV based on the RFC [https://tools.ietf.org/html/rfc5297](https://tools.ietf.org/html/rfc5297).
+                                            items:
+                                              properties:
+                                                context:
+                                                  description: "A context may be used
+                                                    for higher security and maintaining
+                                                    referential integrity such that
+                                                    the same identifier in two different
+                                                    contexts will be given a distinct
+                                                    surrogate. The context is appended
+                                                    to plaintext value being encrypted.
+                                                    On decryption the provided context
+                                                    is validated against the value
+                                                    used during encryption. If a context
+                                                    was provided during encryption,
+                                                    same context must be provided
+                                                    during decryption as well. \n
+                                                    If the context is not set, plaintext
+                                                    would be used as is for encryption.
+                                                    If the context is set but: \n
+                                                    1.  there is no record present
+                                                    when transforming a given value
+                                                    or 2.  the field is not present
+                                                    when transforming a given value,
+                                                    \n plaintext would be used as
+                                                    is for encryption. \n Note that
+                                                    case (1) is expected when an 'InfoTypeTransformation'
+                                                    is applied to both structured
+                                                    and non-structured 'ContentItem's."
+                                                  items:
+                                                    properties:
+                                                      name:
+                                                        description: Name describing
+                                                          the field.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                cryptoKey:
+                                                  description: The key used by the
+                                                    encryption function.
+                                                  items:
+                                                    properties:
+                                                      kmsWrapped:
+                                                        description: Kms wrapped key
+                                                        items:
+                                                          properties:
+                                                            cryptoKeyName:
+                                                              description: The resource
+                                                                name of the KMS CryptoKey
+                                                                to use for unwrapping.
+                                                              type: string
+                                                            wrappedKey:
+                                                              description: "The wrapped
+                                                                data crypto key. \n
+                                                                A base64-encoded string."
+                                                              type: string
+                                                          required:
+                                                          - cryptoKeyName
+                                                          - wrappedKey
+                                                          type: object
+                                                        type: array
+                                                      transient:
+                                                        description: Transient crypto
+                                                          key
+                                                        items:
+                                                          properties:
+                                                            name:
+                                                              description: 'Name of
+                                                                the key. This is an
+                                                                arbitrary string used
+                                                                to differentiate different
+                                                                keys. A unique key
+                                                                is generated per name:
+                                                                two separate ''TransientCryptoKey''
+                                                                protos share the same
+                                                                generated key if their
+                                                                names are the same.
+                                                                When the data crypto
+                                                                key is generated,
+                                                                this name is not used
+                                                                in any way (repeating
+                                                                the api call will
+                                                                result in a different
+                                                                key being generated).'
+                                                              type: string
+                                                          required:
+                                                          - name
+                                                          type: object
+                                                        type: array
+                                                      unwrapped:
+                                                        description: Unwrapped crypto
+                                                          key
+                                                        items:
+                                                          properties:
+                                                            key:
+                                                              description: "A 128/192/256
+                                                                bit key. \n A base64-encoded
+                                                                string."
+                                                              type: string
+                                                          required:
+                                                          - key
+                                                          type: object
+                                                        type: array
+                                                    type: object
+                                                  type: array
+                                                surrogateInfoType:
+                                                  description: "The custom info type
+                                                    to annotate the surrogate with.
+                                                    This annotation will be applied
+                                                    to the surrogate by prefixing
+                                                    it with the name of the custom
+                                                    info type followed by the number
+                                                    of characters comprising the surrogate.
+                                                    The following scheme defines the
+                                                    format: {info type name}({surrogate
+                                                    character count}):{surrogate}
+                                                    \n For example, if the name of
+                                                    custom info type is 'MY\\_TOKEN\\_INFO\\_TYPE'
+                                                    and the surrogate is 'abc', the
+                                                    full replacement value will be:
+                                                    'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'
+                                                    \n This annotation identifies
+                                                    the surrogate when inspecting
+                                                    content using the custom info
+                                                    type 'Surrogate'. This facilitates
+                                                    reversal of the surrogate when
+                                                    it occurs in free text. \n Note:
+                                                    For record transformations where
+                                                    the entire cell in a table is
+                                                    being transformed, surrogates
+                                                    are not mandatory. Surrogates
+                                                    are used to denote the location
+                                                    of the token and are necessary
+                                                    for re-identification in free
+                                                    form text. \n In order for inspection
+                                                    to work properly, the name of
+                                                    this info type must not occur
+                                                    naturally anywhere in your data;
+                                                    otherwise, inspection may either
+                                                    \n *   reverse a surrogate that
+                                                    does not correspond to an actual
+                                                    identifier *   be unable to parse
+                                                    the surrogate and result in an
+                                                    error \n Therefore, choose your
+                                                    custom info type name carefully
+                                                    after considering what your data
+                                                    looks like. One way to select
+                                                    a name that has a high chance
+                                                    of yielding reliable detection
+                                                    is to include one or more unicode
+                                                    characters that are highly improbable
+                                                    to exist in your data. For example,
+                                                    assuming your data is entered
+                                                    from a regular ASCII keyboard,
+                                                    the symbol with the hex code point
+                                                    29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE."
+                                                  items:
+                                                    properties:
+                                                      name:
+                                                        description: Name of the information
+                                                          type. Either a name of your
+                                                          choosing when creating a
+                                                          CustomInfoType, or one of
+                                                          the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference)
+                                                          when specifying a built-in
+                                                          type. When sending Cloud
+                                                          DLP results to Data Catalog,
+                                                          infoType names should conform
+                                                          to the pattern '[A-Za-z0-9$-_]{1,64}'.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                          cryptoReplaceFfxFpeConfig:
+                                            description: "Replaces an identifier with
+                                              a surrogate using Format Preserving
+                                              Encryption (FPE) with the FFX mode of
+                                              operation; however when used in the
+                                              'content.reidentify' API method, it
+                                              serves the opposite function by reversing
+                                              the surrogate back into the original
+                                              identifier. The identifier must be encoded
+                                              as ASCII. For a given crypto key and
+                                              context, the same identifier will be
+                                              replaced with the same surrogate. Identifiers
+                                              must be at least two characters long.
+                                              In the case that the identifier is the
+                                              empty string, it will be skipped. See
+                                              [https://cloud.google.com/dlp/docs/pseudonymization](https://cloud.google.com/dlp/docs/pseudonymization)
+                                              to learn more. \n Note: We recommend
+                                              using CryptoDeterministicConfig for
+                                              all use cases which do not require preserving
+                                              the input alphabet space and size, plus
+                                              warrant referential integrity."
+                                            items:
+                                              properties:
+                                                commonAlphabet:
+                                                  description: 'Common alphabets.
+                                                    Possible values: ["FFX_COMMON_NATIVE_ALPHABET_UNSPECIFIED",
+                                                    "NUMERIC", "HEXADECIMAL", "UPPER_CASE_ALPHA_NUMERIC",
+                                                    "ALPHA_NUMERIC"]'
+                                                  type: string
+                                                context:
+                                                  description: "The 'tweak', a context
+                                                    may be used for higher security
+                                                    since the same identifier in two
+                                                    different contexts won't be given
+                                                    the same surrogate. If the context
+                                                    is not set, a default tweak will
+                                                    be used. \n If the context is
+                                                    set but: \n 1.  there is no record
+                                                    present when transforming a given
+                                                    value or 2.  the field is not
+                                                    present when transforming a given
+                                                    value, \n a default tweak will
+                                                    be used. \n Note that case (1)
+                                                    is expected when an 'InfoTypeTransformation'
+                                                    is applied to both structured
+                                                    and non-structured 'ContentItem's.
+                                                    Currently, the referenced field
+                                                    may be of value type integer or
+                                                    string. \n The tweak is constructed
+                                                    as a sequence of bytes in big
+                                                    endian byte order such that: \n
+                                                    *   a 64 bit integer is encoded
+                                                    followed by a single byte of value
+                                                    1 *   a string is encoded in UTF-8
+                                                    format followed by a single byte
+                                                    of value 2"
+                                                  items:
+                                                    properties:
+                                                      name:
+                                                        description: Name describing
+                                                          the field.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                cryptoKey:
+                                                  description: The key used by the
+                                                    encryption algorithm.
+                                                  items:
+                                                    properties:
+                                                      kmsWrapped:
+                                                        description: Kms wrapped key
+                                                        items:
+                                                          properties:
+                                                            cryptoKeyName:
+                                                              description: The resource
+                                                                name of the KMS CryptoKey
+                                                                to use for unwrapping.
+                                                              type: string
+                                                            wrappedKey:
+                                                              description: "The wrapped
+                                                                data crypto key. \n
+                                                                A base64-encoded string."
+                                                              type: string
+                                                          required:
+                                                          - cryptoKeyName
+                                                          - wrappedKey
+                                                          type: object
+                                                        type: array
+                                                      transient:
+                                                        description: Transient crypto
+                                                          key
+                                                        items:
+                                                          properties:
+                                                            name:
+                                                              description: 'Name of
+                                                                the key. This is an
+                                                                arbitrary string used
+                                                                to differentiate different
+                                                                keys. A unique key
+                                                                is generated per name:
+                                                                two separate ''TransientCryptoKey''
+                                                                protos share the same
+                                                                generated key if their
+                                                                names are the same.
+                                                                When the data crypto
+                                                                key is generated,
+                                                                this name is not used
+                                                                in any way (repeating
+                                                                the api call will
+                                                                result in a different
+                                                                key being generated).'
+                                                              type: string
+                                                          required:
+                                                          - name
+                                                          type: object
+                                                        type: array
+                                                      unwrapped:
+                                                        description: Unwrapped crypto
+                                                          key
+                                                        items:
+                                                          properties:
+                                                            key:
+                                                              description: "A 128/192/256
+                                                                bit key. \n A base64-encoded
+                                                                string."
+                                                              type: string
+                                                          required:
+                                                          - key
+                                                          type: object
+                                                        type: array
+                                                    type: object
+                                                  type: array
+                                                customAlphabet:
+                                                  description: "This is supported
+                                                    by mapping these to the alphanumeric
+                                                    characters that the FFX mode natively
+                                                    supports. This happens before/after
+                                                    encryption/decryption. Each character
+                                                    listed must appear only once.
+                                                    Number of characters must be in
+                                                    the range \\[2, 95\\]. This must
+                                                    be encoded as ASCII. The order
+                                                    of characters does not matter.
+                                                    The full list of allowed characters
+                                                    is: \n ''0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+                                                    ~'!@#$%^&*()_-+={[}]|:;\"'<,>.?/''"
+                                                  type: string
+                                                radix:
+                                                  description: The native way to select
+                                                    the alphabet. Must be in the range
+                                                    \[2, 95\].
+                                                  format: int64
+                                                  type: integer
+                                                surrogateInfoType:
+                                                  description: "The custom infoType
+                                                    to annotate the surrogate with.
+                                                    This annotation will be applied
+                                                    to the surrogate by prefixing
+                                                    it with the name of the custom
+                                                    infoType followed by the number
+                                                    of characters comprising the surrogate.
+                                                    The following scheme defines the
+                                                    format: info\\_type\\_name(surrogate\\_character\\_count):surrogate
+                                                    \n For example, if the name of
+                                                    custom infoType is 'MY\\_TOKEN\\_INFO\\_TYPE'
+                                                    and the surrogate is 'abc', the
+                                                    full replacement value will be:
+                                                    'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'
+                                                    \n This annotation identifies
+                                                    the surrogate when inspecting
+                                                    content using the custom infoType
+                                                    ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype).
+                                                    This facilitates reversal of the
+                                                    surrogate when it occurs in free
+                                                    text. \n In order for inspection
+                                                    to work properly, the name of
+                                                    this infoType must not occur naturally
+                                                    anywhere in your data; otherwise,
+                                                    inspection may find a surrogate
+                                                    that does not correspond to an
+                                                    actual identifier. Therefore,
+                                                    choose your custom infoType name
+                                                    carefully after considering what
+                                                    your data looks like. One way
+                                                    to select a name that has a high
+                                                    chance of yielding reliable detection
+                                                    is to include one or more unicode
+                                                    characters that are highly improbable
+                                                    to exist in your data. For example,
+                                                    assuming your data is entered
+                                                    from a regular ASCII keyboard,
+                                                    the symbol with the hex code point
+                                                    29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE"
+                                                  items:
+                                                    properties:
+                                                      name:
+                                                        description: Name of the information
+                                                          type. Either a name of your
+                                                          choosing when creating a
+                                                          CustomInfoType, or one of
+                                                          the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference)
+                                                          when specifying a built-in
+                                                          type. When sending Cloud
+                                                          DLP results to Data Catalog,
+                                                          infoType names should conform
+                                                          to the pattern '[A-Za-z0-9$-_]{1,64}'.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                          replaceConfig:
+                                            description: Replace each input value
+                                              with a given value.
+                                            items:
+                                              properties:
+                                                newValue:
+                                                  description: Replace each input
+                                                    value with a given value.
+                                                  items:
+                                                    properties:
+                                                      booleanValue:
+                                                        description: A boolean value.
+                                                        type: boolean
+                                                      dateValue:
+                                                        description: Represents a
+                                                          whole or partial calendar
+                                                          date.
+                                                        items:
+                                                          properties:
+                                                            day:
+                                                              description: Day of
+                                                                month. Must be from
+                                                                1 to 31 and valid
+                                                                for the year and month,
+                                                                or 0 if specifying
+                                                                a year by itself or
+                                                                a year and month where
+                                                                the day is not significant.
+                                                              format: int64
+                                                              type: integer
+                                                            month:
+                                                              description: Month of
+                                                                year. Must be from
+                                                                1 to 12, or 0 if specifying
+                                                                a year without a month
+                                                                and day.
+                                                              format: int64
+                                                              type: integer
+                                                            year:
+                                                              description: Year of
+                                                                date. Must be from
+                                                                1 to 9999, or 0 if
+                                                                specifying a date
+                                                                without a year.
+                                                              format: int64
+                                                              type: integer
+                                                          type: object
+                                                        type: array
+                                                      dayOfWeekValue:
+                                                        description: 'Represents a
+                                                          day of the week. Possible
+                                                          values: ["MONDAY", "TUESDAY",
+                                                          "WEDNESDAY", "THURSDAY",
+                                                          "FRIDAY", "SATURDAY", "SUNDAY"]'
+                                                        type: string
+                                                      floatValue:
+                                                        description: A float value.
+                                                        type: number
+                                                      integerValue:
+                                                        description: An integer value.
+                                                        format: int64
+                                                        type: integer
+                                                      stringValue:
+                                                        description: A string value.
+                                                        type: string
+                                                      timeValue:
+                                                        description: Represents a
+                                                          time of day.
+                                                        items:
+                                                          properties:
+                                                            hours:
+                                                              description: Hours of
+                                                                day in 24 hour format.
+                                                                Should be from 0 to
+                                                                23.
+                                                              format: int64
+                                                              type: integer
+                                                            minutes:
+                                                              description: Minutes
+                                                                of hour of day. Must
+                                                                be from 0 to 59.
+                                                              format: int64
+                                                              type: integer
+                                                            nanos:
+                                                              description: Fractions
+                                                                of seconds in nanoseconds.
+                                                                Must be from 0 to
+                                                                999,999,999.
+                                                              format: int64
+                                                              type: integer
+                                                            seconds:
+                                                              description: Seconds
+                                                                of minutes of the
+                                                                time. Must normally
+                                                                be from 0 to 59.
+                                                              format: int64
+                                                              type: integer
+                                                          type: object
+                                                        type: array
+                                                      timestampValue:
+                                                        description: 'A timestamp
+                                                          in RFC3339 UTC "Zulu" format,
+                                                          with nanosecond resolution
+                                                          and up to nine fractional
+                                                          digits. Examples: "2014-10-02T15:01:23Z"
+                                                          and "2014-10-02T15:01:23.045123456Z".'
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              required:
+                                              - newValue
+                                              type: object
+                                            type: array
+                                          replaceWithInfoTypeConfig:
+                                            description: Replace each matching finding
+                                              with the name of the info type.
+                                            type: boolean
+                                        type: object
+                                      type: array
+                                  required:
+                                  - primitiveTransformation
+                                  type: object
+                                type: array
+                            required:
+                            - transformations
+                            type: object
+                          type: array
+                      required:
+                      - infoTypeTransformations
+                      type: object
+                    type: array
+                  description:
+                    description: A description of the template.
+                    type: string
+                  displayName:
+                    description: User set display name of the template.
+                    type: string
+                  parent:
+                    description: "The parent of the template in any of the following
+                      formats: \n * 'projects/{{project}}' * 'projects/{{project}}/locations/{{location}}'
+                      * 'organizations/{{organization_id}}' * 'organizations/{{organization_id}}/locations/{{location}}'"
+                    type: string
+                required:
+                - deidentifyConfig
+                - parent
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: DeidentifyTemplateStatus defines the observed state of DeidentifyTemplate.
+            properties:
+              atProvider:
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

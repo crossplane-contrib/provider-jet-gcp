@@ -1,0 +1,263 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: folderfeeds.cloudasset.gcp.jet.crossplane.io
+spec:
+  group: cloudasset.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: FolderFeed
+    listKind: FolderFeedList
+    plural: folderfeeds
+    singular: folderfeed
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: FolderFeed is the Schema for the FolderFeeds API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FolderFeedSpec defines the desired state of FolderFeed
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  assetNames:
+                    description: 'A list of the full names of the assets to receive
+                      updates. You must specify either or both of assetNames and assetTypes.
+                      Only asset updates matching specified assetNames and assetTypes
+                      are exported to the feed. For example: //compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1.
+                      See https://cloud.google.com/apis/design/resourceNames#fullResourceName
+                      for more info.'
+                    items:
+                      type: string
+                    type: array
+                  assetTypes:
+                    description: 'A list of types of the assets to receive updates.
+                      You must specify either or both of assetNames and assetTypes.
+                      Only asset updates matching specified assetNames and assetTypes
+                      are exported to the feed. For example: "compute.googleapis.com/Disk"
+                      See https://cloud.google.com/asset-inventory/docs/supported-asset-types
+                      for a list of all supported asset types.'
+                    items:
+                      type: string
+                    type: array
+                  billingProject:
+                    description: The project whose identity will be used when sending
+                      messages to the destination pubsub topic. It also specifies
+                      the project for API enablement check, quota, and billing.
+                    type: string
+                  condition:
+                    description: 'A condition which determines whether an asset update
+                      should be published. If specified, an asset will be returned
+                      only when the expression evaluates to true. When set, expression
+                      field must be a valid CEL expression on a TemporalAsset with
+                      name temporal_asset. Example: a Feed with expression "temporal_asset.deleted
+                      == true" will only publish Asset deletions. Other fields of
+                      condition are optional.'
+                    items:
+                      properties:
+                        description:
+                          description: Description of the expression. This is a longer
+                            text which describes the expression, e.g. when hovered
+                            over it in a UI.
+                          type: string
+                        expression:
+                          description: Textual representation of an expression in
+                            Common Expression Language syntax.
+                          type: string
+                        location:
+                          description: String indicating the location of the expression
+                            for error reporting, e.g. a file name and a position in
+                            the file.
+                          type: string
+                        title:
+                          description: Title for the expression, i.e. a short string
+                            describing its purpose. This can be used e.g. in UIs which
+                            allow to enter the expression.
+                          type: string
+                      required:
+                      - expression
+                      type: object
+                    type: array
+                  contentType:
+                    description: 'Asset content type. If not specified, no content
+                      but the asset name and type will be returned. Possible values:
+                      ["CONTENT_TYPE_UNSPECIFIED", "RESOURCE", "IAM_POLICY", "ORG_POLICY",
+                      "ACCESS_POLICY"]'
+                    type: string
+                  feedId:
+                    description: This is the client-assigned asset feed identifier
+                      and it needs to be unique under a specific parent.
+                    type: string
+                  feedOutputConfig:
+                    description: Output configuration for asset feed destination.
+                    items:
+                      properties:
+                        pubsubDestination:
+                          description: Destination on Cloud Pubsub.
+                          items:
+                            properties:
+                              topic:
+                                description: Destination on Cloud Pubsub topic.
+                                type: string
+                            required:
+                            - topic
+                            type: object
+                          type: array
+                      required:
+                      - pubsubDestination
+                      type: object
+                    type: array
+                  folder:
+                    description: The folder this feed should be created in.
+                    type: string
+                required:
+                - billingProject
+                - feedId
+                - feedOutputConfig
+                - folder
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: FolderFeedStatus defines the observed state of FolderFeed.
+            properties:
+              atProvider:
+                properties:
+                  folderId:
+                    type: string
+                  id:
+                    type: string
+                  name:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

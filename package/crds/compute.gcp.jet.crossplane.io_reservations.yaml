@@ -1,0 +1,268 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: reservations.compute.gcp.jet.crossplane.io
+spec:
+  group: compute.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: Reservation
+    listKind: ReservationList
+    plural: reservations
+    singular: reservation
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Reservation is the Schema for the Reservations API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ReservationSpec defines the desired state of Reservation
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  description:
+                    description: An optional description of this resource.
+                    type: string
+                  name:
+                    description: Name of the resource. Provided by the client when
+                      the resource is created. The name must be 1-63 characters long,
+                      and comply with RFC1035. Specifically, the name must be 1-63
+                      characters long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
+                      which means the first character must be a lowercase letter,
+                      and all following characters must be a dash, lowercase letter,
+                      or digit, except the last character, which cannot be a dash.
+                    type: string
+                  project:
+                    type: string
+                  specificReservation:
+                    description: Reservation for instances with specific machine shapes.
+                    items:
+                      properties:
+                        count:
+                          description: The number of resources that are allocated.
+                          format: int64
+                          type: integer
+                        instanceProperties:
+                          description: The instance properties for the reservation.
+                          items:
+                            properties:
+                              guestAccelerators:
+                                description: Guest accelerator type and count.
+                                items:
+                                  properties:
+                                    acceleratorCount:
+                                      description: The number of the guest accelerator
+                                        cards exposed to this instance.
+                                      format: int64
+                                      type: integer
+                                    acceleratorType:
+                                      description: "The full or partial URL of the
+                                        accelerator type to attach to this instance.
+                                        For example: 'projects/my-project/zones/us-central1-c/acceleratorTypes/nvidia-tesla-p100'
+                                        \n If you are creating an instance template,
+                                        specify only the accelerator name."
+                                      type: string
+                                  required:
+                                  - acceleratorCount
+                                  - acceleratorType
+                                  type: object
+                                type: array
+                              localSsds:
+                                description: The amount of local ssd to reserve with
+                                  each instance. This reserves disks of type 'local-ssd'.
+                                items:
+                                  properties:
+                                    diskSizeGb:
+                                      description: The size of the disk in base-2
+                                        GB.
+                                      format: int64
+                                      type: integer
+                                    interface:
+                                      description: 'The disk interface to use for
+                                        attaching this disk. Default value: "SCSI"
+                                        Possible values: ["SCSI", "NVME"]'
+                                      type: string
+                                  required:
+                                  - diskSizeGb
+                                  type: object
+                                type: array
+                              machineType:
+                                description: The name of the machine type to reserve.
+                                type: string
+                              minCpuPlatform:
+                                description: The minimum CPU platform for the reservation.
+                                  For example, '"Intel Skylake"'. See the CPU platform
+                                  availability reference](https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#availablezones)
+                                  for information on available CPU platforms.
+                                type: string
+                            required:
+                            - machineType
+                            type: object
+                          type: array
+                      required:
+                      - count
+                      - instanceProperties
+                      type: object
+                    type: array
+                  specificReservationRequired:
+                    description: When set to true, only VMs that target this reservation
+                      by name can consume this reservation. Otherwise, it can be consumed
+                      by VMs with affinity for any reservation. Defaults to false.
+                    type: boolean
+                  zone:
+                    description: The zone where the reservation is made.
+                    type: string
+                required:
+                - name
+                - specificReservation
+                - zone
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: ReservationStatus defines the observed state of Reservation.
+            properties:
+              atProvider:
+                properties:
+                  commitment:
+                    type: string
+                  creationTimestamp:
+                    type: string
+                  id:
+                    type: string
+                  selfLink:
+                    type: string
+                  status:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

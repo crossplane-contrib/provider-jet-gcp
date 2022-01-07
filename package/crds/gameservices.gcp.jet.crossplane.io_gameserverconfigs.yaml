@@ -1,0 +1,271 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: gameserverconfigs.gameservices.gcp.jet.crossplane.io
+spec:
+  group: gameservices.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: GameServerConfig
+    listKind: GameServerConfigList
+    plural: gameserverconfigs
+    singular: gameserverconfig
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: GameServerConfig is the Schema for the GameServerConfigs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: GameServerConfigSpec defines the desired state of GameServerConfig
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  configId:
+                    description: A unique id for the deployment config.
+                    type: string
+                  deploymentId:
+                    description: A unique id for the deployment.
+                    type: string
+                  description:
+                    description: The description of the game server config.
+                    type: string
+                  fleetConfigs:
+                    description: The fleet config contains list of fleet specs. In
+                      the Single Cloud, there will be only one.
+                    items:
+                      properties:
+                        fleetSpec:
+                          description: "The fleet spec, which is sent to Agones to
+                            configure fleet. The spec can be passed as inline json
+                            but it is recommended to use a file reference instead.
+                            File references can contain the json or yaml format of
+                            the fleet spec. Eg: \n * fleet_spec = jsonencode(yamldecode(file(\"fleet_configs.yaml\")))
+                            * fleet_spec = file(\"fleet_configs.json\") \n The format
+                            of the spec can be found : 'https://agones.dev/site/docs/reference/fleet/'."
+                          type: string
+                        name:
+                          description: The name of the FleetConfig.
+                          type: string
+                      required:
+                      - fleetSpec
+                      type: object
+                    type: array
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: The labels associated with this game server config.
+                      Each label is a key-value pair.
+                    type: object
+                  location:
+                    description: Location of the Deployment.
+                    type: string
+                  project:
+                    type: string
+                  scalingConfigs:
+                    description: Optional. This contains the autoscaling settings.
+                    items:
+                      properties:
+                        fleetAutoscalerSpec:
+                          description: 'Fleet autoscaler spec, which is sent to Agones.
+                            Example spec can be found : https://agones.dev/site/docs/reference/fleetautoscaler/'
+                          type: string
+                        name:
+                          description: The name of the ScalingConfig
+                          type: string
+                        schedules:
+                          description: The schedules to which this scaling config
+                            applies.
+                          items:
+                            properties:
+                              cronJobDuration:
+                                description: "The duration for the cron job event.
+                                  The duration of the event is effective after the
+                                  cron job's start time. \n A duration in seconds
+                                  with up to nine fractional digits, terminated by
+                                  's'. Example: \"3.5s\"."
+                                type: string
+                              cronSpec:
+                                description: The cron definition of the scheduled
+                                  event. See https://en.wikipedia.org/wiki/Cron. Cron
+                                  spec specifies the local time as defined by the
+                                  realm.
+                                type: string
+                              endTime:
+                                description: "The end time of the event. \n A timestamp
+                                  in RFC3339 UTC \"Zulu\" format, accurate to nanoseconds.
+                                  Example: \"2014-10-02T15:01:23.045123456Z\"."
+                                type: string
+                              startTime:
+                                description: "The start time of the event. \n A timestamp
+                                  in RFC3339 UTC \"Zulu\" format, accurate to nanoseconds.
+                                  Example: \"2014-10-02T15:01:23.045123456Z\"."
+                                type: string
+                            type: object
+                          type: array
+                        selectors:
+                          description: Labels used to identify the clusters to which
+                            this scaling config applies. A cluster is subject to this
+                            scaling config if its labels match any of the selector
+                            entries.
+                          items:
+                            properties:
+                              labels:
+                                additionalProperties:
+                                  type: string
+                                description: Set of labels to group by.
+                                type: object
+                            type: object
+                          type: array
+                      required:
+                      - fleetAutoscalerSpec
+                      - name
+                      type: object
+                    type: array
+                required:
+                - configId
+                - deploymentId
+                - fleetConfigs
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: GameServerConfigStatus defines the observed state of GameServerConfig.
+            properties:
+              atProvider:
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

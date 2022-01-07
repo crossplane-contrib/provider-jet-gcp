@@ -1,0 +1,284 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: bucketobjects.storage.gcp.jet.crossplane.io
+spec:
+  group: storage.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: BucketObject
+    listKind: BucketObjectList
+    plural: bucketobjects
+    singular: bucketobject
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        description: BucketObject is the Schema for the BucketObjects API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: BucketObjectSpec defines the desired state of BucketObject
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  bucket:
+                    description: The name of the containing bucket.
+                    type: string
+                  cacheControl:
+                    description: Cache-Control directive to specify caching behavior
+                      of object data. If omitted and object is accessible to all anonymous
+                      users, the default will be public, max-age=3600
+                    type: string
+                  contentDisposition:
+                    description: Content-Disposition of the object data.
+                    type: string
+                  contentEncoding:
+                    description: Content-Encoding of the object data.
+                    type: string
+                  contentLanguage:
+                    description: Content-Language of the object data.
+                    type: string
+                  contentSecretRef:
+                    description: 'Data as string to be uploaded. Must be defined if
+                      source is not. Note: The content field is marked as sensitive.
+                      To view the raw contents of the object, please define an output.'
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  contentType:
+                    description: Content-Type of the object data. Defaults to "application/octet-stream"
+                      or "text/plain; charset=utf-8".
+                    type: string
+                  customerEncryption:
+                    description: Encryption key; encoded using base64.
+                    items:
+                      properties:
+                        encryptionAlgorithm:
+                          description: 'The encryption algorithm. Default: AES256'
+                          type: string
+                        encryptionKeySecretRef:
+                          description: Base64 encoded customer supplied encryption
+                            key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - encryptionKeySecretRef
+                      type: object
+                    type: array
+                  detectMd5Hash:
+                    type: string
+                  eventBasedHold:
+                    description: Whether an object is under event-based hold. Event-based
+                      hold is a way to retain objects until an event occurs, which
+                      is signified by the hold's release (i.e. this value is set to
+                      false). After being released (set to false), such objects will
+                      be subject to bucket-level retention (if any).
+                    type: boolean
+                  kmsKeyName:
+                    description: Resource name of the Cloud KMS key that will be used
+                      to encrypt the object. Overrides the object metadata's kmsKeyName
+                      value, if any.
+                    type: string
+                  metadata:
+                    additionalProperties:
+                      type: string
+                    description: User-provided metadata, in key/value pairs.
+                    type: object
+                  name:
+                    description: The name of the object. If you're interpolating the
+                      name of this object, see output_name instead.
+                    type: string
+                  source:
+                    description: A path to the data you want to upload. Must be defined
+                      if content is not.
+                    type: string
+                  storageClass:
+                    description: 'The StorageClass of the new bucket object. Supported
+                      values include: MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE,
+                      ARCHIVE. If not provided, this defaults to the bucket''s default
+                      storage class or to a standard class.'
+                    type: string
+                  temporaryHold:
+                    description: Whether an object is under temporary hold. While
+                      this flag is set to true, the object is protected against deletion
+                      and overwrites.
+                    type: boolean
+                required:
+                - bucket
+                - name
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: BucketObjectStatus defines the observed state of BucketObject.
+            properties:
+              atProvider:
+                properties:
+                  crc32c:
+                    type: string
+                  id:
+                    type: string
+                  md5hash:
+                    type: string
+                  mediaLink:
+                    type: string
+                  outputName:
+                    type: string
+                  selfLink:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

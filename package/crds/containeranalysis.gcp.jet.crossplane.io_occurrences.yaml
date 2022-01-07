@@ -1,0 +1,245 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.6.2
+  creationTimestamp: null
+  name: occurrences.containeranalysis.gcp.jet.crossplane.io
+spec:
+  group: containeranalysis.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: Occurrence
+    listKind: OccurrenceList
+    plural: occurrences
+    singular: occurrence
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Occurrence is the Schema for the Occurrences API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: OccurrenceSpec defines the desired state of Occurrence
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  attestation:
+                    description: Occurrence that represents a single "attestation".
+                      The authenticity of an attestation can be verified using the
+                      attached signature. If the verifier trusts the public key of
+                      the signer, then verifying the signature is sufficient to establish
+                      trust. In this circumstance, the authority to which this attestation
+                      is attached is primarily useful for lookup (how to find this
+                      attestation if you already know the authority and artifact to
+                      be verified) and intent (for which authority this attestation
+                      was intended to sign.
+                    items:
+                      properties:
+                        serializedPayload:
+                          description: The serialized payload that is verified by
+                            one or more signatures. A base64-encoded string.
+                          type: string
+                        signatures:
+                          description: One or more signatures over serializedPayload.
+                            Verifier implementations should consider this attestation
+                            message verified if at least one signature verifies serializedPayload.
+                            See Signature in common.proto for more details on signature
+                            structure and verification.
+                          items:
+                            properties:
+                              publicKeyId:
+                                description: "The identifier for the public key that
+                                  verifies this signature. MUST be an RFC3986 conformant
+                                  URI. * When possible, the key id should be an immutable
+                                  reference, such as a cryptographic digest. Examples
+                                  of valid values: \n * OpenPGP V4 public key fingerprint.
+                                  See https://www.iana.org/assignments/uri-schemes/prov/openpgp4fpr
+                                  for more details on this scheme. * 'openpgp4fpr:74FAF3B861BDA0870C7B6DEF607E48D2A663AEEA'
+                                  * RFC6920 digest-named SubjectPublicKeyInfo (digest
+                                  of the DER serialization): * \"ni:///sha-256;cD9o9Cq6LG3jD0iKXqEi_vdjJGecm_iXkbqVoScViaU\""
+                                type: string
+                              signature:
+                                description: The content of the signature, an opaque
+                                  bytestring. The payload that this signature verifies
+                                  MUST be unambiguously provided with the Signature
+                                  during verification. A wrapper message might provide
+                                  the payload explicitly. Alternatively, a message
+                                  might have a canonical serialization that can always
+                                  be unambiguously computed to derive the payload.
+                                type: string
+                            required:
+                            - publicKeyId
+                            type: object
+                          type: array
+                      required:
+                      - serializedPayload
+                      - signatures
+                      type: object
+                    type: array
+                  noteName:
+                    description: The analysis note associated with this occurrence,
+                      in the form of projects/[PROJECT]/notes/[NOTE_ID]. This field
+                      can be used as a filter in list requests.
+                    type: string
+                  project:
+                    type: string
+                  remediation:
+                    description: A description of actions that can be taken to remedy
+                      the note.
+                    type: string
+                  resourceUri:
+                    description: Required. Immutable. A URI that represents the resource
+                      for which the occurrence applies. For example, https://gcr.io/project/image@sha256:123abc
+                      for a Docker image.
+                    type: string
+                required:
+                - attestation
+                - noteName
+                - resourceUri
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: OccurrenceStatus defines the observed state of Occurrence.
+            properties:
+              atProvider:
+                properties:
+                  createTime:
+                    type: string
+                  id:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                  updateTime:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
