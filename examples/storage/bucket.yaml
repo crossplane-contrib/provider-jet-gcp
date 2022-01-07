@@ -5,7 +5,7 @@ metadata:
   annotations:
     # Note that this will be the actual bucket name, so it has to be globally
     #  unique/available.
-    crossplane.io/external-name: crossplane-example-bucket-0099
+    crossplane.io/external-name: crossplane-example-bucket
     # This annotation is a workaround for the following bug which sets
     #  create/read timeouts to 1 min:
     # "https://github.com/crossplane-contrib/provider-jet-gcp/issues/12

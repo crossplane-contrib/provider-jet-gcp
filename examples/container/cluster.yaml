@@ -1,4 +1,4 @@
-apiVersion: container.gcp.jet.crossplane.io/v1alpha1
+apiVersion: container.gcp.jet.crossplane.io/v1alpha2
 kind: Cluster
 metadata:
   name: example-gke-cluster
