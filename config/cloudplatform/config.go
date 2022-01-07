@@ -24,6 +24,11 @@ func Configure(p *config.Provider) {
 		// map where elements configured as nil, but needs to be String:
 		r.TerraformResource.
 			Schema["keepers"].Elem = schema.TypeString
+
+		r.References["service_account_id"] = config.Reference{
+			Type:      "ServiceAccount",
+			Extractor: common.ExtractResourceIDFuncPath,
+		}
 	})
 	p.AddResourceConfigurator("google_service_account", func(r *config.Resource) {
 		r.Version = common.VersionV1alpha2

@@ -59,6 +59,7 @@ var includeList = []string{
 
 	// CloudPlatform
 	"google_service_account$",
+	"google_service_account_key$",
 
 	// Sql
 	"google_sql_.+",
