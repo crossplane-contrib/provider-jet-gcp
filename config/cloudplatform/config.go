@@ -1,6 +1,9 @@
 package cloudplatform
 
 import (
+	"context"
+	"fmt"
+
 	"github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -21,17 +24,33 @@ func Configure(p *config.Provider) {
 		// map where elements configured as nil, but needs to be String:
 		r.TerraformResource.
 			Schema["keepers"].Elem = schema.TypeString
+
+		r.References["service_account_id"] = config.Reference{
+			Type:      "ServiceAccount",
+			Extractor: common.ExtractResourceIDFuncPath,
+		}
 	})
 	p.AddResourceConfigurator("google_service_account", func(r *config.Resource) {
 		r.Version = common.VersionV1alpha2
 		r.Kind = "ServiceAccount"
-		r.ExternalName = config.ExternalName{
-			SetIdentifierArgumentFn: func(base map[string]interface{}, name string) {
-				base["account_id"] = name
-			},
-			OmittedFields:     []string{"account_id"},
-			GetExternalNameFn: config.IDAsExternalName,
-			GetIDFn:           config.ExternalNameAsID,
+		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.SetIdentifierArgumentFn = func(base map[string]interface{}, externalName string) {
+			base["account_id"] = externalName
+		}
+		r.ExternalName.OmittedFields = []string{"account_id"}
+		r.ExternalName.GetExternalNameFn = func(tfstate map[string]interface{}) (string, error) {
+			id, err := common.GetField(tfstate, "account_id")
+			if err != nil {
+				return "", err
+			}
+			return id, nil
+		}
+		r.ExternalName.GetIDFn = func(ctx context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
+			project, err := common.GetField(providerConfig, common.KeyProject)
+			if err != nil {
+				return "", err
+			}
+			return fmt.Sprintf("projects/%s/serviceAccounts/%s@%s.iam.gserviceaccount.com", project, externalName, project), nil
 		}
 	})
 }

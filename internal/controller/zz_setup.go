@@ -26,6 +26,7 @@ import (
 	"github.com/crossplane/terrajet/pkg/terraform"
 
 	serviceaccount "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/cloudplatform/serviceaccount"
+	serviceaccountkey "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/cloudplatform/serviceaccountkey"
 	address "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/address"
 	firewall "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/firewall"
 	instance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/instance"
@@ -53,6 +54,7 @@ import (
 func Setup(mgr ctrl.Manager, l logging.Logger, wl workqueue.RateLimiter, ps terraform.SetupFn, ws *terraform.WorkspaceStore, cfg *tjconfig.Provider, concurrency int) error {
 	for _, setup := range []func(ctrl.Manager, logging.Logger, workqueue.RateLimiter, terraform.SetupFn, *terraform.WorkspaceStore, *tjconfig.Provider, int) error{
 		serviceaccount.Setup,
+		serviceaccountkey.Setup,
 		address.Setup,
 		firewall.Setup,
 		instance.Setup,
