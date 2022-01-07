@@ -17,6 +17,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	//  all resources separately and no complex logic here.
 
 	p.AddResourceConfigurator("google_compute_managed_ssl_certificate", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.Kind = "ManagedSSLCertificate"
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
@@ -31,6 +32,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_subnetwork", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
@@ -51,6 +53,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_address", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
@@ -73,6 +76,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_firewall", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
@@ -89,6 +93,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_router", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
@@ -109,6 +114,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_router_nat", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
@@ -136,6 +142,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_instance_template", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		// Note(turkenh): We have to modify schema of
 		// "boot_disk.initialize_params.labels", since it is a map where
 		// elements configured as nil, defaulting to map[string]string:
@@ -153,6 +160,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_instance", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		// Note(turkenh): We have to modify schema of
 		// "boot_disk.initialize_params", since "labels" key here is a map where
 		// elements configured as nil, defaulting to map[string]string:
@@ -187,6 +195,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_instance_from_template", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		// Note(turkenh): We have to modify schema of
 		// "boot_disk.initialize_params.labels", since it is a map where
 		// elements configured as nil, defaulting to map[string]string:
@@ -222,6 +231,7 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 	})
 
 	p.AddResourceConfigurator("google_compute_network", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
 		// projects/{{project}}/global/networks/{{name}}
