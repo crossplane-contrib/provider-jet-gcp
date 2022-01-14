@@ -22,6 +22,9 @@ const (
 
 	// VersionV1alpha2 is the version to be used for manually configured types.
 	VersionV1alpha2 = "v1alpha2"
+
+	// ExternalTagsFieldName is used as field name to set external resource tags.
+	ExternalTagsFieldName = "Labels"
 )
 
 var (
