@@ -76,8 +76,7 @@ spec:
                   port:
                     description: The externally accessible port for the source database
                       server. Defaults to 3306.
-                    format: int64
-                    type: integer
+                    type: number
                   project:
                     type: string
                   region:

@@ -277,7 +277,7 @@ type ConditionMonitoringQueryLanguageTriggerParameters struct {
 	// that must fail the predicate for the
 	// condition to be triggered.
 	// +kubebuilder:validation:Optional
-	Count *int64 `json:"count,omitempty" tf:"count,omitempty"`
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// The percentage of time series that
 	// must fail the predicate for the
@@ -505,7 +505,7 @@ type ConditionThresholdTriggerParameters struct {
 	// that must fail the predicate for the
 	// condition to be triggered.
 	// +kubebuilder:validation:Optional
-	Count *int64 `json:"count,omitempty" tf:"count,omitempty"`
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// The percentage of time series that
 	// must fail the predicate for the
@@ -544,12 +544,15 @@ type ConditionsParameters struct {
 }
 
 type CreationRecordObservation struct {
-	MutateTime *string `json:"mutateTime,omitempty" tf:"mutate_time,omitempty"`
-
-	MutatedBy *string `json:"mutatedBy,omitempty" tf:"mutated_by,omitempty"`
 }
 
 type CreationRecordParameters struct {
+
+	// +kubebuilder:validation:Required
+	MutateTime *string `json:"mutateTime" tf:"mutate_time,omitempty"`
+
+	// +kubebuilder:validation:Required
+	MutatedBy *string `json:"mutatedBy" tf:"mutated_by,omitempty"`
 }
 
 type DenominatorAggregationsObservation struct {
@@ -670,7 +673,7 @@ type TriggerParameters struct {
 	// that must fail the predicate for the
 	// condition to be triggered.
 	// +kubebuilder:validation:Optional
-	Count *int64 `json:"count,omitempty" tf:"count,omitempty"`
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
 	// The percentage of time series that
 	// must fail the predicate for the

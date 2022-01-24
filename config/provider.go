@@ -1,10 +1,14 @@
 package config
 
 import (
+	"io/ioutil"
+
+	"github.com/crossplane/terrajet/pkg/types/conversion/cli"
+
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/crossplane/terrajet/pkg/types/name"
+	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	tf "github.com/hashicorp/terraform-provider-google/google"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/bigtable"
@@ -67,7 +71,18 @@ var includeList = []string{
 
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
-	resourceMap := tf.Provider().ResourcesMap
+	b, err := ioutil.ReadFile("/Users/hasanturken/Workspace/crossplane-contrib/provider-jet-gcp/cli-schema/schema.json")
+	if err != nil {
+		panic(err)
+	}
+
+	pss := tfjson.ProviderSchemas{}
+	if err = pss.UnmarshalJSON(b); err != nil {
+		panic(err)
+	}
+
+	resourceMap := cli.GetV2ResourceMapFromTFJSONSchemaMap(pss.Schemas["registry.terraform.io/hashicorp/google"].ResourceSchemas)
+
 	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
 		tjconfig.WithDefaultResourceFn(DefaultResource(
 			groupOverrides(),

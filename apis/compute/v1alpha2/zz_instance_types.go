@@ -54,7 +54,7 @@ type AdvancedMachineFeaturesParameters struct {
 
 	// The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.
 	// +kubebuilder:validation:Optional
-	ThreadsPerCore *int64 `json:"threadsPerCore,omitempty" tf:"threads_per_core,omitempty"`
+	ThreadsPerCore *float64 `json:"threadsPerCore,omitempty" tf:"threads_per_core,omitempty"`
 }
 
 type AliasIPRangeObservation struct {
@@ -148,11 +148,9 @@ type GuestAcceleratorObservation struct {
 
 type GuestAcceleratorParameters struct {
 
-	// The number of the guest accelerator cards exposed to this instance.
 	// +kubebuilder:validation:Required
-	Count *int64 `json:"count" tf:"count,omitempty"`
+	Count *float64 `json:"count" tf:"count,omitempty"`
 
-	// The accelerator type resource exposed to this instance. E.g. nvidia-tesla-k80.
 	// +kubebuilder:validation:Required
 	Type *string `json:"type" tf:"type,omitempty"`
 }
@@ -185,11 +183,11 @@ type InitializeParamsParameters struct {
 
 	// A set of key/value label pairs assigned to the disk.
 	// +kubebuilder:validation:Optional
-	Labels map[string]string `json:"labels,omitempty" tf:"labels,omitempty"`
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// The size of the image in gigabytes.
 	// +kubebuilder:validation:Optional
-	Size *int64 `json:"size,omitempty" tf:"size,omitempty"`
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
 	// The Google Compute Engine disk type. One of pd-standard, pd-ssd or pd-balanced.
 	// +kubebuilder:validation:Optional
@@ -423,7 +421,7 @@ type SchedulingParameters struct {
 	AutomaticRestart *bool `json:"automaticRestart,omitempty" tf:"automatic_restart,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	MinNodeCpus *int64 `json:"minNodeCpus,omitempty" tf:"min_node_cpus,omitempty"`
+	MinNodeCpus *float64 `json:"minNodeCpus,omitempty" tf:"min_node_cpus,omitempty"`
 
 	// Specifies node affinities or anti-affinities to determine which sole-tenant nodes your instances and managed instance groups will use as host systems.
 	// +kubebuilder:validation:Optional

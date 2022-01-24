@@ -4,7 +4,7 @@
 PROJECT_NAME := provider-jet-gcp
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.0.11
+export TERRAFORM_VERSION := 1.1.4
 export TERRAFORM_PROVIDER_SOURCE := hashicorp/google
 export TERRAFORM_PROVIDER_VERSION := 4.0.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-google

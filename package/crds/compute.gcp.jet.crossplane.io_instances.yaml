@@ -75,8 +75,7 @@ spec:
                             disable simultaneous multithreading (SMT) set this to
                             1. If unset, the maximum number of threads supported per
                             core by the underlying processor is assumed.
-                          format: int64
-                          type: integer
+                          type: number
                       type: object
                     type: array
                   allowStoppingForUpdate:
@@ -179,8 +178,7 @@ spec:
                                 type: object
                               size:
                                 description: The size of the image in gigabytes.
-                                format: int64
-                                type: integer
+                                type: number
                               type:
                                 description: The Google Compute Engine disk type.
                                   One of pd-standard, pd-ssd or pd-balanced.
@@ -239,13 +237,8 @@ spec:
                     items:
                       properties:
                         count:
-                          description: The number of the guest accelerator cards exposed
-                            to this instance.
-                          format: int64
-                          type: integer
+                          type: number
                         type:
-                          description: The accelerator type resource exposed to this
-                            instance. E.g. nvidia-tesla-k80.
                           type: string
                       required:
                       - count
@@ -474,8 +467,7 @@ spec:
                             if it was terminated by Compute Engine (not a user).
                           type: boolean
                         minNodeCpus:
-                          format: int64
-                          type: integer
+                          type: number
                         nodeAffinities:
                           description: Specifies node affinities or anti-affinities
                             to determine which sole-tenant nodes your instances and

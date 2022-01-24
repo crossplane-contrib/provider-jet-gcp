@@ -165,10 +165,10 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 		// "boot_disk.initialize_params", since "labels" key here is a map where
 		// elements configured as nil, defaulting to map[string]string:
 		// https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance#nested_initialize_params
-		r.TerraformResource.
-			Schema["boot_disk"].Elem.(*schema.Resource).
-			Schema["initialize_params"].Elem.(*schema.Resource).
-			Schema["labels"].Elem = schema.TypeString
+		/*		r.TerraformResource.
+				Schema["boot_disk"].Elem.(*schema.Resource).
+				Schema["initialize_params"].Elem.(*schema.Resource).
+				Schema["labels"].Elem = schema.TypeString*/
 
 		r.ExternalName = config.NameAsIdentifier
 		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
