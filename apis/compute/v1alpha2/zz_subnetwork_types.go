@@ -35,14 +35,14 @@ type SecondaryIPRangeParameters struct {
 	// Ranges must be unique and non-overlapping with all primary and
 	// secondary IP ranges within a network. Only IPv4 is supported.
 	// +kubebuilder:validation:Required
-	IPCidrRange *string `json:"ipCidrRange" tf:"ip_cidr_range,omitempty"`
+	IPCidrRange *string `json:"ipCidrRange" tf:"ip_cidr_range"`
 
 	// The name associated with this subnetwork secondary range, used
 	// when adding an alias IP range to a VM instance. The name must
 	// be 1-63 characters long, and comply with RFC1035. The name
 	// must be unique within the subnetwork.
 	// +kubebuilder:validation:Required
-	RangeName *string `json:"rangeName" tf:"range_name,omitempty"`
+	RangeName *string `json:"rangeName" tf:"range_name"`
 }
 
 type SubnetworkLogConfigObservation struct {

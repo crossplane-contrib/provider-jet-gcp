@@ -60,15 +60,15 @@ type NodePoolNodeConfigGuestAcceleratorParameters struct {
 
 	// The number of the accelerator cards exposed to an instance.
 	// +kubebuilder:validation:Required
-	Count *int64 `json:"count" tf:"count,omitempty"`
+	Count *int64 `json:"count" tf:"count"`
 
 	// Size of partitions to create on the GPU. Valid values are described in the NVIDIA mig user guide (https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#partitioning)
 	// +kubebuilder:validation:Optional
-	GpuPartitionSize *string `json:"gpuPartitionSize,omitempty" tf:"gpu_partition_size,omitempty"`
+	GpuPartitionSize *string `json:"gpuPartitionSize,omitempty" tf:"gpu_partition_size"`
 
 	// The accelerator type resource name.
 	// +kubebuilder:validation:Required
-	Type *string `json:"type" tf:"type,omitempty"`
+	Type *string `json:"type" tf:"type"`
 }
 
 type NodePoolNodeConfigObservation_2 struct {
@@ -162,15 +162,15 @@ type NodePoolNodeConfigTaintParameters struct {
 
 	// Effect for taint.
 	// +kubebuilder:validation:Required
-	Effect *string `json:"effect" tf:"effect,omitempty"`
+	Effect *string `json:"effect" tf:"effect"`
 
 	// Key for taint.
 	// +kubebuilder:validation:Required
-	Key *string `json:"key" tf:"key,omitempty"`
+	Key *string `json:"key" tf:"key"`
 
 	// Value for taint.
 	// +kubebuilder:validation:Required
-	Value *string `json:"value" tf:"value,omitempty"`
+	Value *string `json:"value" tf:"value"`
 }
 
 type NodePoolNodeConfigWorkloadMetadataConfigObservation struct {

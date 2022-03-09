@@ -150,11 +150,11 @@ type GuestAcceleratorParameters struct {
 
 	// The number of the guest accelerator cards exposed to this instance.
 	// +kubebuilder:validation:Required
-	Count *int64 `json:"count" tf:"count,omitempty"`
+	Count *int64 `json:"count" tf:"count"`
 
 	// The accelerator type resource exposed to this instance. E.g. nvidia-tesla-k80.
 	// +kubebuilder:validation:Required
-	Type *string `json:"type" tf:"type,omitempty"`
+	Type *string `json:"type" tf:"type"`
 }
 
 type IPv6AccessConfigObservation struct {
