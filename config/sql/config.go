@@ -27,43 +27,41 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 		// NOTE(@tnthornton) most of the connection details that were exported
 		// to the connection details secret are marked as non-sensitive for tf.
 		// We need to manually construct the secret details for those items.
-		r.Sensitive = config.Sensitive{
-			AdditionalConnectionDetailsFn: func(attr map[string]interface{}) (map[string][]byte, error) {
-				conn := map[string][]byte{}
-				if a, ok := attr["connection_name"].(string); ok {
-					conn["connectionName"] = []byte(a)
-				}
-				if a, ok := attr["private_ip_address"].(string); ok {
-					conn["privateIpAddress"] = []byte(a)
-				}
-				if a, ok := attr["public_ip_address"].(string); ok {
-					conn["publicIpAddress"] = []byte(a)
-				}
-				if a, ok := attr["root_password"].(string); ok {
-					conn["rootPassword"] = []byte(a)
-				}
-				// map
-				if certSlice, ok := attr["server_ca_cert"].([]interface{}); ok {
-					if certattrs, ok := certSlice[0].(map[string]interface{}); ok {
-						if a, ok := certattrs["cert"].(string); ok {
-							conn["cert"] = []byte(a)
-						}
-						if a, ok := certattrs["common_name"].(string); ok {
-							conn["commonName"] = []byte(a)
-						}
-						if a, ok := certattrs["create_time"].(string); ok {
-							conn["createTime"] = []byte(a)
-						}
-						if a, ok := certattrs["expiration_time"].(string); ok {
-							conn["expirationTime"] = []byte(a)
-						}
-						if a, ok := certattrs["sha1_fingerprint"].(string); ok {
-							conn["sha1Fingerprint"] = []byte(a)
-						}
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+			if a, ok := attr["connection_name"].(string); ok {
+				conn["connectionName"] = []byte(a)
+			}
+			if a, ok := attr["private_ip_address"].(string); ok {
+				conn["privateIpAddress"] = []byte(a)
+			}
+			if a, ok := attr["public_ip_address"].(string); ok {
+				conn["publicIpAddress"] = []byte(a)
+			}
+			if a, ok := attr["root_password"].(string); ok {
+				conn["rootPassword"] = []byte(a)
+			}
+			// map
+			if certSlice, ok := attr["server_ca_cert"].([]interface{}); ok {
+				if certattrs, ok := certSlice[0].(map[string]interface{}); ok {
+					if a, ok := certattrs["cert"].(string); ok {
+						conn["serverCaCert"] = []byte(a)
+					}
+					if a, ok := certattrs["common_name"].(string); ok {
+						conn["commonName"] = []byte(a)
+					}
+					if a, ok := certattrs["create_time"].(string); ok {
+						conn["createTime"] = []byte(a)
+					}
+					if a, ok := certattrs["expiration_time"].(string); ok {
+						conn["expirationTime"] = []byte(a)
+					}
+					if a, ok := certattrs["sha1_fingerprint"].(string); ok {
+						conn["sha1Fingerprint"] = []byte(a)
 					}
 				}
-				return conn, nil
-			},
+			}
+			return conn, nil
 		}
 
 		r.UseAsync = true
