@@ -6,7 +6,23 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/config"
 
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+
 	"github.com/crossplane-contrib/provider-jet-gcp/config/common"
+)
+
+// CloudSQL connection detail keys
+const (
+	CloudSQLSecretServerCACertificateCertKey            = "serverCACertificateCert"
+	CloudSQLSecretServerCACertificateCommonNameKey      = "serverCACertificateCommonName"
+	CloudSQLSecretServerCACertificateCreateTimeKey      = "serverCACertificateCreateTime"
+	CloudSQLSecretServerCACertificateExpirationTimeKey  = "serverCACertificateExpirationTime"
+	CloudSQLSecretServerCACertificateSha1FingerprintKey = "serverCACertificateSha1Fingerprint"
+
+	CloudSQLSecretConnectionName = "connectionName"
+
+	PrivateIPKey = "privateIP"
+	PublicIPKey  = "publicIP"
 )
 
 // Configure configures individual resources by adding custom
@@ -30,34 +46,34 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 			if a, ok := attr["connection_name"].(string); ok {
-				conn["connectionName"] = []byte(a)
+				conn[CloudSQLSecretConnectionName] = []byte(a)
 			}
 			if a, ok := attr["private_ip_address"].(string); ok {
-				conn["privateIpAddress"] = []byte(a)
+				conn[PrivateIPKey] = []byte(a)
 			}
 			if a, ok := attr["public_ip_address"].(string); ok {
-				conn["publicIpAddress"] = []byte(a)
+				conn[PublicIPKey] = []byte(a)
 			}
 			if a, ok := attr["root_password"].(string); ok {
-				conn["rootPassword"] = []byte(a)
+				conn[xpv1.ResourceCredentialsSecretPasswordKey] = []byte(a)
 			}
 			// map
 			if certSlice, ok := attr["server_ca_cert"].([]interface{}); ok {
 				if certattrs, ok := certSlice[0].(map[string]interface{}); ok {
 					if a, ok := certattrs["cert"].(string); ok {
-						conn["serverCaCert"] = []byte(a)
+						conn[CloudSQLSecretServerCACertificateCertKey] = []byte(a)
 					}
 					if a, ok := certattrs["common_name"].(string); ok {
-						conn["commonName"] = []byte(a)
+						conn[CloudSQLSecretServerCACertificateCommonNameKey] = []byte(a)
 					}
 					if a, ok := certattrs["create_time"].(string); ok {
-						conn["createTime"] = []byte(a)
+						conn[CloudSQLSecretServerCACertificateCreateTimeKey] = []byte(a)
 					}
 					if a, ok := certattrs["expiration_time"].(string); ok {
-						conn["expirationTime"] = []byte(a)
+						conn[CloudSQLSecretServerCACertificateExpirationTimeKey] = []byte(a)
 					}
 					if a, ok := certattrs["sha1_fingerprint"].(string); ok {
-						conn["sha1Fingerprint"] = []byte(a)
+						conn[CloudSQLSecretServerCACertificateSha1FingerprintKey] = []byte(a)
 					}
 				}
 			}
