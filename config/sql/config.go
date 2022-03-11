@@ -6,7 +6,23 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/config"
 
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+
 	"github.com/crossplane-contrib/provider-jet-gcp/config/common"
+)
+
+// CloudSQL connection detail keys
+const (
+	CloudSQLSecretServerCACertificateCertKey            = "serverCACertificateCert"
+	CloudSQLSecretServerCACertificateCommonNameKey      = "serverCACertificateCommonName"
+	CloudSQLSecretServerCACertificateCreateTimeKey      = "serverCACertificateCreateTime"
+	CloudSQLSecretServerCACertificateExpirationTimeKey  = "serverCACertificateExpirationTime"
+	CloudSQLSecretServerCACertificateSha1FingerprintKey = "serverCACertificateSha1Fingerprint"
+
+	CloudSQLSecretConnectionName = "connectionName"
+
+	PrivateIPKey = "privateIP"
+	PublicIPKey  = "publicIP"
 )
 
 // Configure configures individual resources by adding custom
@@ -23,6 +39,47 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 			}
 			return fmt.Sprintf("projects/%s/instances/%s", project, externalName), nil
 		}
+
+		// NOTE(@tnthornton) most of the connection details that were exported
+		// to the connection details secret are marked as non-sensitive for tf.
+		// We need to manually construct the secret details for those items.
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+			if a, ok := attr["connection_name"].(string); ok {
+				conn[CloudSQLSecretConnectionName] = []byte(a)
+			}
+			if a, ok := attr["private_ip_address"].(string); ok {
+				conn[PrivateIPKey] = []byte(a)
+			}
+			if a, ok := attr["public_ip_address"].(string); ok {
+				conn[PublicIPKey] = []byte(a)
+			}
+			if a, ok := attr["root_password"].(string); ok {
+				conn[xpv1.ResourceCredentialsSecretPasswordKey] = []byte(a)
+			}
+			// map
+			if certSlice, ok := attr["server_ca_cert"].([]interface{}); ok {
+				if certattrs, ok := certSlice[0].(map[string]interface{}); ok {
+					if a, ok := certattrs["cert"].(string); ok {
+						conn[CloudSQLSecretServerCACertificateCertKey] = []byte(a)
+					}
+					if a, ok := certattrs["common_name"].(string); ok {
+						conn[CloudSQLSecretServerCACertificateCommonNameKey] = []byte(a)
+					}
+					if a, ok := certattrs["create_time"].(string); ok {
+						conn[CloudSQLSecretServerCACertificateCreateTimeKey] = []byte(a)
+					}
+					if a, ok := certattrs["expiration_time"].(string); ok {
+						conn[CloudSQLSecretServerCACertificateExpirationTimeKey] = []byte(a)
+					}
+					if a, ok := certattrs["sha1_fingerprint"].(string); ok {
+						conn[CloudSQLSecretServerCACertificateSha1FingerprintKey] = []byte(a)
+					}
+				}
+			}
+			return conn, nil
+		}
+
 		r.UseAsync = true
 	})
 	p.AddResourceConfigurator("google_sql_database", func(r *config.Resource) {
