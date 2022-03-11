@@ -1,10 +1,12 @@
 package config
 
 import (
+	// Note(ezgidemirel): we are importing this to embed provider schema document
+	_ "embed"
+
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/crossplane/terrajet/pkg/types/name"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	tf "github.com/hashicorp/terraform-provider-google/google"
 
 	"github.com/crossplane-contrib/provider-jet-gcp/config/accessapproval"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/bigtable"
@@ -25,6 +27,9 @@ const (
 	resourcePrefix = "gcp"
 	modulePath     = "github.com/crossplane-contrib/provider-jet-gcp"
 )
+
+//go:embed schema.json
+var providerSchema string
 
 var skipList = []string{
 	// Note(turkenh): Following two resources conflicts their singular versions
@@ -67,8 +72,7 @@ var includeList = []string{
 
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
-	resourceMap := tf.Provider().ResourcesMap
-	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
+	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
 		tjconfig.WithDefaultResourceFn(DefaultResource(
 			groupOverrides(),
 			externalNameConfig(),

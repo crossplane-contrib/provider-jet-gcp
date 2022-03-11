@@ -72,7 +72,7 @@ type BGPParameters struct {
 	// this router resource. All VPN tunnels that link to this router
 	// will have the same local ASN.
 	// +kubebuilder:validation:Required
-	Asn *int64 `json:"asn" tf:"asn,omitempty"`
+	Asn *float64 `json:"asn" tf:"asn,omitempty"`
 }
 
 type RouterObservation struct {
