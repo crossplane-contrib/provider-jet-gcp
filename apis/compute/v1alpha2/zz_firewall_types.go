@@ -146,7 +146,7 @@ type FirewallParameters struct {
 	// higher precedence than a rule with priority 1). DENY rules take
 	// precedence over ALLOW rules having equal priority.
 	// +kubebuilder:validation:Optional
-	Priority *int64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
