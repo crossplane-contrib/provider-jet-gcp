@@ -61,7 +61,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			keyProject: pc.Spec.ProjectID,
 		}
 
-		switch s := pc.Spec.Credentials.Source; s { //nolint:exhaustive
+		switch pc.Spec.Credentials.Source { //nolint:exhaustive
 		case xpv1.CredentialsSourceInjectedIdentity:
 			// We don't need to do anything here, as the TF Provider will take care of workloadIdentity etc.
 		default:
