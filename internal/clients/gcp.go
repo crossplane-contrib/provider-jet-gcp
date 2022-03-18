@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/terrajet/pkg/terraform"
 	"github.com/pkg/errors"
@@ -55,18 +56,24 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errTrackUsage)
 		}
 
-		data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
-		if err != nil {
-			return ps, errors.Wrap(err, errExtractCredentials)
-		}
-
 		// set provider configuration
 		ps.Configuration = map[string]interface{}{
 			keyProject: pc.Spec.ProjectID,
 		}
-		// set environment variables for sensitive provider configuration
-		ps.Env = []string{
-			fmt.Sprintf(fmtEnvVar, envCredentials, string(data)),
+
+		switch pc.Spec.Credentials.Source { //nolint:exhaustive
+		case xpv1.CredentialsSourceInjectedIdentity:
+			// We don't need to do anything here, as the TF Provider will take care of workloadIdentity etc.
+		default:
+			data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
+			if err != nil {
+				return ps, errors.Wrap(err, errExtractCredentials)
+			}
+
+			// set environment variables for sensitive provider configuration
+			ps.Env = []string{
+				fmt.Sprintf(fmtEnvVar, envCredentials, string(data)),
+			}
 		}
 		return ps, nil
 	}
