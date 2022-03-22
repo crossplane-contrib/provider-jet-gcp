@@ -19,6 +19,7 @@ import (
 	"github.com/crossplane-contrib/provider-jet-gcp/config/dataproc"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/monitoring"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/project"
+	"github.com/crossplane-contrib/provider-jet-gcp/config/redis"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/sql"
 	"github.com/crossplane-contrib/provider-jet-gcp/config/storage"
 )
@@ -62,6 +63,9 @@ var includeList = []string{
 	"google_monitoring_notification_channel",
 	"google_monitoring_uptime_check_config",
 
+	// Memory Store
+	"google_redis_instance",
+
 	// CloudPlatform
 	"google_service_account$",
 	"google_service_account_key$",
@@ -93,6 +97,7 @@ func GetProvider() *tjconfig.Provider {
 		compute.Configure,
 		dataflow.Configure,
 		dataproc.Configure,
+		redis.Configure,
 		monitoring.Configure,
 		project.Configure,
 		storage.Configure,

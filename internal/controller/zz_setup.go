@@ -37,6 +37,7 @@ import (
 	notificationchannel "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/notificationchannel"
 	uptimecheckconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/monitoring/uptimecheckconfig"
 	providerconfig "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/providerconfig"
+	instanceredis "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/redis/instance"
 	database "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/database"
 	databaseinstance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/databaseinstance"
 	sourcerepresentationinstance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/sql/sourcerepresentationinstance"
@@ -65,6 +66,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		notificationchannel.Setup,
 		uptimecheckconfig.Setup,
 		providerconfig.Setup,
+		instanceredis.Setup,
 		database.Setup,
 		databaseinstance.Setup,
 		sourcerepresentationinstance.Setup,
