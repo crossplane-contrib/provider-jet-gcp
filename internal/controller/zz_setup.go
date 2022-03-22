@@ -21,6 +21,7 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
+	project "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/cloudplatform/project"
 	serviceaccount "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/cloudplatform/serviceaccount"
 	serviceaccountkey "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/cloudplatform/serviceaccountkey"
 	address "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/address"
@@ -49,6 +50,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		project.Setup,
 		serviceaccount.Setup,
 		serviceaccountkey.Setup,
 		address.Setup,

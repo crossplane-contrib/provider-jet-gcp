@@ -63,6 +63,7 @@ var includeList = []string{
 	"google_monitoring_uptime_check_config",
 
 	// CloudPlatform
+	"google_project$",
 	"google_service_account$",
 	"google_service_account_key$",
 
