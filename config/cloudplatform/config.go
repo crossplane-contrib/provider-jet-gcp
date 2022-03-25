@@ -13,10 +13,24 @@ import (
 // Configure configures individual resources by adding custom
 // ResourceConfigurators.
 func Configure(p *config.Provider) {
+	p.AddResourceConfigurator("google_folder", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
+		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
+		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
+			return fmt.Sprintf("folders/%s", externalName), nil
+		}
+	})
 	p.AddResourceConfigurator("google_project", func(r *config.Resource) {
 		r.Version = common.VersionV1alpha2
+		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
+		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
+			return fmt.Sprintf("projects/%s", externalName), nil
+		}
 		r.TerraformResource.Schema["org_id"].Description =
 			"The numeric ID of the organization this project belongs to."
+		r.UseAsync = true
 	})
 	p.AddResourceConfigurator("google_service_account_key", func(r *config.Resource) {
 		r.Version = common.VersionV1alpha2

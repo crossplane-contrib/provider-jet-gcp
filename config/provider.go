@@ -67,6 +67,8 @@ var includeList = []string{
 	"google_redis_instance",
 
 	// CloudPlatform
+	"google_folder$",
+	"google_project$",
 	"google_service_account$",
 	"google_service_account_key$",
 
