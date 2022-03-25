@@ -42,6 +42,11 @@ func (mg *Database) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this Database.
+func (mg *Database) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this Database.
 func (mg *Database) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -68,6 +73,11 @@ Deprecated: Use SetProviderConfigReference.
 */
 func (mg *Database) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
+}
+
+// SetPublishConnectionDetailsTo of this Database.
+func (mg *Database) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this Database.
@@ -98,6 +108,11 @@ func (mg *DatabaseInstance) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this DatabaseInstance.
+func (mg *DatabaseInstance) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this DatabaseInstance.
 func (mg *DatabaseInstance) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -124,6 +139,11 @@ Deprecated: Use SetProviderConfigReference.
 */
 func (mg *DatabaseInstance) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
+}
+
+// SetPublishConnectionDetailsTo of this DatabaseInstance.
+func (mg *DatabaseInstance) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this DatabaseInstance.
@@ -154,6 +174,11 @@ func (mg *SSLCert) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this SSLCert.
+func (mg *SSLCert) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this SSLCert.
 func (mg *SSLCert) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -180,6 +205,11 @@ Deprecated: Use SetProviderConfigReference.
 */
 func (mg *SSLCert) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
+}
+
+// SetPublishConnectionDetailsTo of this SSLCert.
+func (mg *SSLCert) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this SSLCert.
@@ -210,6 +240,11 @@ func (mg *SourceRepresentationInstance) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this SourceRepresentationInstance.
+func (mg *SourceRepresentationInstance) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this SourceRepresentationInstance.
 func (mg *SourceRepresentationInstance) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -236,6 +271,11 @@ Deprecated: Use SetProviderConfigReference.
 */
 func (mg *SourceRepresentationInstance) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
+}
+
+// SetPublishConnectionDetailsTo of this SourceRepresentationInstance.
+func (mg *SourceRepresentationInstance) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this SourceRepresentationInstance.
@@ -266,6 +306,11 @@ func (mg *User) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this User.
+func (mg *User) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this User.
 func (mg *User) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -292,6 +337,11 @@ Deprecated: Use SetProviderConfigReference.
 */
 func (mg *User) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
+}
+
+// SetPublishConnectionDetailsTo of this User.
+func (mg *User) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this User.
