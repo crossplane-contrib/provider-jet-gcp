@@ -6,9 +6,9 @@ PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.0.11
 export TERRAFORM_PROVIDER_SOURCE := hashicorp/google
-export TERRAFORM_PROVIDER_VERSION := 4.0.0
+export TERRAFORM_PROVIDER_VERSION := 4.7.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-google
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-google/4.0.0
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-google/$(TERRAFORM_PROVIDER_VERSION)
 
 PLATFORMS ?= linux_amd64 linux_arm64
 

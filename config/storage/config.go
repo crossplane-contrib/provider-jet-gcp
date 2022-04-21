@@ -3,6 +3,7 @@ package storage
 import (
 	"context"
 	"path/filepath"
+	"time"
 
 	"github.com/crossplane/terrajet/pkg/config"
 
@@ -28,5 +29,8 @@ func Configure(p *config.Provider) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
 			return filepath.Join(project, externalName), err
 		}
+		// We are setting read timeout as a workaround for
+		// https://github.com/crossplane-contrib/provider-jet-gcp/issues/12
+		r.OperationTimeouts.Read = 1 * time.Minute
 	})
 }
