@@ -1,8 +1,23 @@
+/*
+Copyright 2022 The Crossplane Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package clients
 
 import (
 	"context"
-	"fmt"
 
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
@@ -17,12 +32,10 @@ import (
 const (
 	keyProject = "project"
 
-	envCredentials = "GOOGLE_CREDENTIALS"
+	keyCredentials = "credentials"
 )
 
 const (
-	fmtEnvVar = "%s=%s"
-
 	// error messages
 	errNoProviderConfig   = "no providerConfigRef provided"
 	errGetProviderConfig  = "cannot get referenced ProviderConfig"
@@ -70,10 +83,8 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 				return ps, errors.Wrap(err, errExtractCredentials)
 			}
 
-			// set environment variables for sensitive provider configuration
-			ps.Env = []string{
-				fmt.Sprintf(fmtEnvVar, envCredentials, string(data)),
-			}
+			// set provider configuration keys for GCP credentials
+			ps.Configuration[keyCredentials] = string(data)
 		}
 		return ps, nil
 	}
