@@ -67,7 +67,7 @@ spec:
                     description: The static external IP address represented by this
                       resource. Only IPv4 is supported. An address may only be specified
                       for INTERNAL address types. The IP address must be inside the
-                      specified subnetwork, if any.
+                      specified subnetwork, if any. Set by the API if undefined.
                     type: string
                   addressType:
                     description: 'The type of address to reserve. Default value: "EXTERNAL"

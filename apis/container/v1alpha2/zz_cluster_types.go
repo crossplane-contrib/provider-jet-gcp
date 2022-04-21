@@ -34,6 +34,10 @@ type AddonsConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudrunConfig []CloudrunConfigParameters `json:"cloudrunConfig,omitempty" tf:"cloudrun_config,omitempty"`
 
+	// The status of the Filestore CSI driver addon, which allows the usage of filestore instance as volumes. Defaults to disabled; set enabled = true to enable.
+	// +kubebuilder:validation:Optional
+	GCPFilestoreCsiDriverConfig []GCPFilestoreCsiDriverConfigParameters `json:"gcpFilestoreCsiDriverConfig,omitempty" tf:"gcp_filestore_csi_driver_config,omitempty"`
+
 	// The status of the HTTP (L7) load balancing controller addon, which makes it easy to set up HTTP load balancers for services in a cluster. It is enabled by default; set disabled = true to disable.
 	// +kubebuilder:validation:Optional
 	HTTPLoadBalancing []HTTPLoadBalancingParameters `json:"httpLoadBalancing,omitempty" tf:"http_load_balancing,omitempty"`
@@ -61,6 +65,10 @@ type AutoProvisioningDefaultsObservation struct {
 }
 
 type AutoProvisioningDefaultsParameters struct {
+
+	// The default image type used by NAP once a new node pool is being created.
+	// +kubebuilder:validation:Optional
+	ImageType *string `json:"imageType,omitempty" tf:"image_type,omitempty"`
 
 	// Scopes that are used by NAP when creating node pools.
 	// +kubebuilder:validation:Optional
@@ -184,6 +192,14 @@ type ClusterParameters struct {
 	// The IP address range of the Kubernetes pods in this cluster in CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one automatically chosen or specify a /14 block in 10.0.0.0/8. This field will only work for routes-based clusters, where ip_allocation_policy is not defined.
 	// +kubebuilder:validation:Optional
 	ClusterIPv4Cidr *string `json:"clusterIpv4Cidr,omitempty" tf:"cluster_ipv4_cidr,omitempty"`
+
+	// Configuration for the confidential nodes feature, which makes nodes run on confidential VMs. Warning: This configuration can't be changed (or added/removed) after cluster creation without deleting and recreating the entire cluster.
+	// +kubebuilder:validation:Optional
+	ConfidentialNodes []ConfidentialNodesParameters `json:"confidentialNodes,omitempty" tf:"confidential_nodes,omitempty"`
+
+	// Configuration for Cloud DNS for Kubernetes Engine.
+	// +kubebuilder:validation:Optional
+	DNSConfig []DNSConfigParameters `json:"dnsConfig,omitempty" tf:"dns_config,omitempty"`
 
 	// Application-layer Secrets Encryption settings. The object format is {state = string, key_name = string}. Valid values of state are: "ENCRYPTED"; "DECRYPTED". key_name is the name of a CloudKMS key.
 	// +kubebuilder:validation:Optional
@@ -346,6 +362,34 @@ type ClusterParameters struct {
 	WorkloadIdentityConfig []WorkloadIdentityConfigParameters `json:"workloadIdentityConfig,omitempty" tf:"workload_identity_config,omitempty"`
 }
 
+type ConfidentialNodesObservation struct {
+}
+
+type ConfidentialNodesParameters struct {
+
+	// Whether Confidential Nodes feature is enabled for all nodes in this cluster.
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
+type DNSConfigObservation struct {
+}
+
+type DNSConfigParameters struct {
+
+	// Which in-cluster DNS provider should be used.
+	// +kubebuilder:validation:Optional
+	ClusterDNS *string `json:"clusterDns,omitempty" tf:"cluster_dns,omitempty"`
+
+	// The suffix used for all cluster service records.
+	// +kubebuilder:validation:Optional
+	ClusterDNSDomain *string `json:"clusterDnsDomain,omitempty" tf:"cluster_dns_domain,omitempty"`
+
+	// The scope of access to cluster DNS records.
+	// +kubebuilder:validation:Optional
+	ClusterDNSScope *string `json:"clusterDnsScope,omitempty" tf:"cluster_dns_scope,omitempty"`
+}
+
 type DailyMaintenanceWindowObservation struct {
 	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
 }
@@ -380,6 +424,25 @@ type DefaultSnatStatusParameters struct {
 	Disabled *bool `json:"disabled" tf:"disabled,omitempty"`
 }
 
+type GCPFilestoreCsiDriverConfigObservation struct {
+}
+
+type GCPFilestoreCsiDriverConfigParameters struct {
+
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
+type GcfsConfigObservation struct {
+}
+
+type GcfsConfigParameters struct {
+
+	// Whether or not GCFS is enabled
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type GuestAcceleratorObservation struct {
 }
 
@@ -393,6 +456,16 @@ type GuestAcceleratorParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type"`
+}
+
+type GvnicObservation struct {
+}
+
+type GvnicParameters struct {
+
+	// Whether or not gvnic is enabled
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 }
 
 type HTTPLoadBalancingObservation struct {
@@ -558,6 +631,16 @@ type NetworkPolicyParameters struct {
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 }
 
+type NodeConfigGcfsConfigObservation struct {
+}
+
+type NodeConfigGcfsConfigParameters struct {
+
+	// Whether or not GCFS is enabled
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type NodeConfigGuestAcceleratorObservation struct {
 }
 
@@ -573,10 +656,24 @@ type NodeConfigGuestAcceleratorParameters struct {
 	Type *string `json:"type,omitempty" tf:"type"`
 }
 
+type NodeConfigGvnicObservation struct {
+}
+
+type NodeConfigGvnicParameters struct {
+
+	// Whether or not gvnic is enabled
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type NodeConfigObservation struct {
 }
 
 type NodeConfigParameters struct {
+
+	// The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool.
+	// +kubebuilder:validation:Optional
+	BootDiskKMSKey *string `json:"bootDiskKmsKey,omitempty" tf:"boot_disk_kms_key,omitempty"`
 
 	// Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB.
 	// +kubebuilder:validation:Optional
@@ -586,9 +683,17 @@ type NodeConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	DiskType *string `json:"diskType,omitempty" tf:"disk_type,omitempty"`
 
+	// GCFS configuration for this node.
+	// +kubebuilder:validation:Optional
+	GcfsConfig []GcfsConfigParameters `json:"gcfsConfig,omitempty" tf:"gcfs_config,omitempty"`
+
 	// List of the type and count of accelerator cards attached to the instance.
 	// +kubebuilder:validation:Optional
 	GuestAccelerator []GuestAcceleratorParameters `json:"guestAccelerator,omitempty" tf:"guest_accelerator,omitempty"`
+
+	// Enable or disable gvnic in the node pool.
+	// +kubebuilder:validation:Optional
+	Gvnic []GvnicParameters `json:"gvnic,omitempty" tf:"gvnic,omitempty"`
 
 	// The image type to use for this node. Note that for a given image type, the latest version of it will be used.
 	// +kubebuilder:validation:Optional
@@ -613,6 +718,10 @@ type NodeConfigParameters struct {
 	// Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform.
 	// +kubebuilder:validation:Optional
 	MinCPUPlatform *string `json:"minCpuPlatform,omitempty" tf:"min_cpu_platform,omitempty"`
+
+	// Setting this field will assign instances of this pool to run on the specified node group. This is useful for running workloads on sole tenant nodes.
+	// +kubebuilder:validation:Optional
+	NodeGroup *string `json:"nodeGroup,omitempty" tf:"node_group,omitempty"`
 
 	// The set of Google API scopes to be made available on all of the node VMs.
 	// +kubebuilder:validation:Optional
@@ -687,6 +796,10 @@ type NodePoolNodeConfigObservation struct {
 
 type NodePoolNodeConfigParameters struct {
 
+	// The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool.
+	// +kubebuilder:validation:Optional
+	BootDiskKMSKey *string `json:"bootDiskKmsKey,omitempty" tf:"boot_disk_kms_key,omitempty"`
+
 	// Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB.
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
@@ -695,9 +808,17 @@ type NodePoolNodeConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	DiskType *string `json:"diskType,omitempty" tf:"disk_type,omitempty"`
 
+	// GCFS configuration for this node.
+	// +kubebuilder:validation:Optional
+	GcfsConfig []NodeConfigGcfsConfigParameters `json:"gcfsConfig,omitempty" tf:"gcfs_config,omitempty"`
+
 	// List of the type and count of accelerator cards attached to the instance.
 	// +kubebuilder:validation:Optional
 	GuestAccelerator []NodeConfigGuestAcceleratorParameters `json:"guestAccelerator,omitempty" tf:"guest_accelerator,omitempty"`
+
+	// Enable or disable gvnic in the node pool.
+	// +kubebuilder:validation:Optional
+	Gvnic []NodeConfigGvnicParameters `json:"gvnic,omitempty" tf:"gvnic,omitempty"`
 
 	// The image type to use for this node. Note that for a given image type, the latest version of it will be used.
 	// +kubebuilder:validation:Optional
@@ -722,6 +843,10 @@ type NodePoolNodeConfigParameters struct {
 	// Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform.
 	// +kubebuilder:validation:Optional
 	MinCPUPlatform *string `json:"minCpuPlatform,omitempty" tf:"min_cpu_platform,omitempty"`
+
+	// Setting this field will assign instances of this pool to run on the specified node group. This is useful for running workloads on sole tenant nodes.
+	// +kubebuilder:validation:Optional
+	NodeGroup *string `json:"nodeGroup,omitempty" tf:"node_group,omitempty"`
 
 	// The set of Google API scopes to be made available on all of the node VMs.
 	// +kubebuilder:validation:Optional

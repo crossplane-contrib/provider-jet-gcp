@@ -53,6 +53,16 @@ type NodePoolManagementParameters struct {
 	AutoUpgrade *bool `json:"autoUpgrade,omitempty" tf:"auto_upgrade,omitempty"`
 }
 
+type NodePoolNodeConfigGcfsConfigObservation struct {
+}
+
+type NodePoolNodeConfigGcfsConfigParameters struct {
+
+	// Whether or not GCFS is enabled
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type NodePoolNodeConfigGuestAcceleratorObservation struct {
 }
 
@@ -68,10 +78,24 @@ type NodePoolNodeConfigGuestAcceleratorParameters struct {
 	Type *string `json:"type,omitempty" tf:"type"`
 }
 
+type NodePoolNodeConfigGvnicObservation struct {
+}
+
+type NodePoolNodeConfigGvnicParameters struct {
+
+	// Whether or not gvnic is enabled
+	// +kubebuilder:validation:Required
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type NodePoolNodeConfigObservation_2 struct {
 }
 
 type NodePoolNodeConfigParameters_2 struct {
+
+	// The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool.
+	// +kubebuilder:validation:Optional
+	BootDiskKMSKey *string `json:"bootDiskKmsKey,omitempty" tf:"boot_disk_kms_key,omitempty"`
 
 	// Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB.
 	// +kubebuilder:validation:Optional
@@ -81,9 +105,17 @@ type NodePoolNodeConfigParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	DiskType *string `json:"diskType,omitempty" tf:"disk_type,omitempty"`
 
+	// GCFS configuration for this node.
+	// +kubebuilder:validation:Optional
+	GcfsConfig []NodePoolNodeConfigGcfsConfigParameters `json:"gcfsConfig,omitempty" tf:"gcfs_config,omitempty"`
+
 	// List of the type and count of accelerator cards attached to the instance.
 	// +kubebuilder:validation:Optional
 	GuestAccelerator []NodePoolNodeConfigGuestAcceleratorParameters `json:"guestAccelerator,omitempty" tf:"guest_accelerator,omitempty"`
+
+	// Enable or disable gvnic in the node pool.
+	// +kubebuilder:validation:Optional
+	Gvnic []NodePoolNodeConfigGvnicParameters `json:"gvnic,omitempty" tf:"gvnic,omitempty"`
 
 	// The image type to use for this node. Note that for a given image type, the latest version of it will be used.
 	// +kubebuilder:validation:Optional
@@ -108,6 +140,10 @@ type NodePoolNodeConfigParameters_2 struct {
 	// Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform.
 	// +kubebuilder:validation:Optional
 	MinCPUPlatform *string `json:"minCpuPlatform,omitempty" tf:"min_cpu_platform,omitempty"`
+
+	// Setting this field will assign instances of this pool to run on the specified node group. This is useful for running workloads on sole tenant nodes.
+	// +kubebuilder:validation:Optional
+	NodeGroup *string `json:"nodeGroup,omitempty" tf:"node_group,omitempty"`
 
 	// The set of Google API scopes to be made available on all of the node VMs.
 	// +kubebuilder:validation:Optional

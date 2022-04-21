@@ -92,6 +92,10 @@ type CloneObservation struct {
 
 type CloneParameters struct {
 
+	// The name of the allocated ip range for the private ip CloudSQL instance. For example: "google-managed-services-default". If set, the cloned instance ip will be created in the allocated range. The range name must comply with [RFC 1035](https://tools.ietf.org/html/rfc1035). Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])?.
+	// +kubebuilder:validation:Optional
+	AllocatedIPRange *string `json:"allocatedIpRange,omitempty" tf:"allocated_ip_range,omitempty"`
+
 	// The timestamp of the point in time that should be restored.
 	// +kubebuilder:validation:Optional
 	PointInTime *string `json:"pointInTime,omitempty" tf:"point_in_time,omitempty"`
@@ -192,6 +196,10 @@ type IPConfigurationObservation struct {
 }
 
 type IPConfigurationParameters struct {
+
+	// The name of the allocated ip range for the private ip CloudSQL instance. For example: "google-managed-services-default". If set, the instance ip will be created in the allocated range. The range name must comply with RFC 1035. Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])?.
+	// +kubebuilder:validation:Optional
+	AllocatedIPRange *string `json:"allocatedIpRange,omitempty" tf:"allocated_ip_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	AuthorizedNetworks []AuthorizedNetworksParameters `json:"authorizedNetworks,omitempty" tf:"authorized_networks,omitempty"`

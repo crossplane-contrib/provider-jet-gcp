@@ -169,12 +169,11 @@ spec:
                   project:
                     type: string
                   purpose:
-                    description: "The purpose of the resource. This field can be either
-                      PRIVATE or INTERNAL_HTTPS_LOAD_BALANCER. A subnetwork with purpose
+                    description: "The purpose of the resource. A subnetwork with purpose
                       set to INTERNAL_HTTPS_LOAD_BALANCER is a user-created subnetwork
-                      that is reserved for Internal HTTP(S) Load Balancing. If unspecified,
-                      the purpose defaults to PRIVATE. \n If set to INTERNAL_HTTPS_LOAD_BALANCER
-                      you must also set 'role'."
+                      that is reserved for Internal HTTP(S) Load Balancing. \n If
+                      set to INTERNAL_HTTPS_LOAD_BALANCER you must also set the 'role'
+                      field."
                     type: string
                   region:
                     description: The GCP region for this subnetwork.

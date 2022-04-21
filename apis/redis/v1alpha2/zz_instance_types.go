@@ -34,9 +34,15 @@ type InstanceObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	Nodes []NodesObservation `json:"nodes,omitempty" tf:"nodes,omitempty"`
+
 	PersistenceIAMIdentity *string `json:"persistenceIamIdentity,omitempty" tf:"persistence_iam_identity,omitempty"`
 
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	ReadEndpoint *string `json:"readEndpoint,omitempty" tf:"read_endpoint,omitempty"`
+
+	ReadEndpointPort *float64 `json:"readEndpointPort,omitempty" tf:"read_endpoint_port,omitempty"`
 
 	ServerCACerts []ServerCACertsObservation `json:"serverCaCerts,omitempty" tf:"server_ca_certs,omitempty"`
 }
@@ -82,12 +88,29 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	LocationID *string `json:"locationId,omitempty" tf:"location_id,omitempty"`
 
+	// Maintenance policy for an instance.
+	// +kubebuilder:validation:Optional
+	MaintenancePolicy []MaintenancePolicyParameters `json:"maintenancePolicy,omitempty" tf:"maintenance_policy,omitempty"`
+
+	// Upcoming maintenance schedule.
+	// +kubebuilder:validation:Optional
+	MaintenanceSchedule []MaintenanceScheduleParameters `json:"maintenanceSchedule,omitempty" tf:"maintenance_schedule,omitempty"`
+
 	// Redis memory size in GiB.
 	// +kubebuilder:validation:Required
 	MemorySizeGb *float64 `json:"memorySizeGb" tf:"memory_size_gb,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// Optional. Read replica mode. Can only be specified when trying to create the instance.
+	// If not set, Memorystore Redis backend will default to READ_REPLICAS_DISABLED.
+	// - READ_REPLICAS_DISABLED: If disabled, read endpoint will not be provided and the
+	// instance cannot scale up or down the number of replicas.
+	// - READ_REPLICAS_ENABLED: If enabled, read endpoint will be provided and the instance
+	// can scale up and down the number of replicas. Possible values: ["READ_REPLICAS_DISABLED", "READ_REPLICAS_ENABLED"]
+	// +kubebuilder:validation:Optional
+	ReadReplicasMode *string `json:"readReplicasMode,omitempty" tf:"read_replicas_mode,omitempty"`
 
 	// Redis configuration parameters, according to http://redis.io/topics/config.
 	// Please check Memorystore documentation for the list of supported parameters:
@@ -104,6 +127,13 @@ type InstanceParameters struct {
 	// The name of the Redis region of the instance.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Optional. The number of replica nodes. The valid range for the Standard Tier with
+	// read replicas enabled is [1-5] and defaults to 2. If read replicas are not enabled
+	// for a Standard Tier instance, the only valid value is 1 and the default is 1.
+	// The valid value for basic tier is 0 and the default is also 0.
+	// +kubebuilder:validation:Optional
+	ReplicaCount *float64 `json:"replicaCount,omitempty" tf:"replica_count,omitempty"`
 
 	// The CIDR range of internal addresses that are reserved for this
 	// instance. If not provided, the service will choose an unused /29
@@ -122,9 +152,50 @@ type InstanceParameters struct {
 
 	// The TLS mode of the Redis instance, If not provided, TLS is disabled for the instance.
 	//
-	// - SERVER_AUTHENTICATION: Client to Server traffic encryption enabled with server authentcation Default value: "DISABLED" Possible values: ["SERVER_AUTHENTICATION", "DISABLED"]
+	// - SERVER_AUTHENTICATION: Client to Server traffic encryption enabled with server authentication Default value: "DISABLED" Possible values: ["SERVER_AUTHENTICATION", "DISABLED"]
 	// +kubebuilder:validation:Optional
 	TransitEncryptionMode *string `json:"transitEncryptionMode,omitempty" tf:"transit_encryption_mode,omitempty"`
+}
+
+type MaintenancePolicyObservation struct {
+	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
+
+	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
+}
+
+type MaintenancePolicyParameters struct {
+
+	// Optional. Description of what this policy is for.
+	// Create/Update methods return INVALID_ARGUMENT if the
+	// length is greater than 512.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Optional. Maintenance window that is applied to resources covered by this policy.
+	// Minimum 1. For the current version, the maximum number
+	// of weekly_window is expected to be one.
+	// +kubebuilder:validation:Optional
+	WeeklyMaintenanceWindow []WeeklyMaintenanceWindowParameters `json:"weeklyMaintenanceWindow,omitempty" tf:"weekly_maintenance_window,omitempty"`
+}
+
+type MaintenanceScheduleObservation struct {
+	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
+
+	ScheduleDeadlineTime *string `json:"scheduleDeadlineTime,omitempty" tf:"schedule_deadline_time,omitempty"`
+
+	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
+}
+
+type MaintenanceScheduleParameters struct {
+}
+
+type NodesObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	Zone *string `json:"zone,omitempty" tf:"zone,omitempty"`
+}
+
+type NodesParameters struct {
 }
 
 type ServerCACertsObservation struct {
@@ -140,6 +211,54 @@ type ServerCACertsObservation struct {
 }
 
 type ServerCACertsParameters struct {
+}
+
+type StartTimeObservation struct {
+}
+
+type StartTimeParameters struct {
+
+	// Hours of day in 24 hour format. Should be from 0 to 23.
+	// An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+	// +kubebuilder:validation:Optional
+	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+
+	// Minutes of hour of day. Must be from 0 to 59.
+	// +kubebuilder:validation:Optional
+	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+
+	// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+	// +kubebuilder:validation:Optional
+	Nanos *float64 `json:"nanos,omitempty" tf:"nanos,omitempty"`
+
+	// Seconds of minutes of the time. Must normally be from 0 to 59.
+	// An API may allow the value 60 if it allows leap-seconds.
+	// +kubebuilder:validation:Optional
+	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+}
+
+type WeeklyMaintenanceWindowObservation struct {
+	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
+}
+
+type WeeklyMaintenanceWindowParameters struct {
+
+	// Required. The day of week that maintenance updates occur.
+	//
+	// - DAY_OF_WEEK_UNSPECIFIED: The day of the week is unspecified.
+	// - MONDAY: Monday
+	// - TUESDAY: Tuesday
+	// - WEDNESDAY: Wednesday
+	// - THURSDAY: Thursday
+	// - FRIDAY: Friday
+	// - SATURDAY: Saturday
+	// - SUNDAY: Sunday Possible values: ["DAY_OF_WEEK_UNSPECIFIED", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+	// +kubebuilder:validation:Required
+	Day *string `json:"day" tf:"day,omitempty"`
+
+	// Required. Start time of the window in UTC time.
+	// +kubebuilder:validation:Required
+	StartTime []StartTimeParameters `json:"startTime" tf:"start_time,omitempty"`
 }
 
 // InstanceSpec defines the desired state of Instance

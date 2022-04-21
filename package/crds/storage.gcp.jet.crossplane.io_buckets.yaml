@@ -97,6 +97,8 @@ spec:
                       type: object
                     type: array
                   defaultEventBasedHold:
+                    description: Whether or not to automatically apply an eventBasedHold
+                      to new objects added to the bucket.
                     type: boolean
                   encryption:
                     description: The bucket's encryption configuration.
