@@ -53,6 +53,7 @@ type BucketParameters struct {
 	// +kubebuilder:validation:Optional
 	Cors []CorsParameters `json:"cors,omitempty" tf:"cors,omitempty"`
 
+	// Whether or not to automatically apply an eventBasedHold to new objects added to the bucket.
 	// +kubebuilder:validation:Optional
 	DefaultEventBasedHold *bool `json:"defaultEventBasedHold,omitempty" tf:"default_event_based_hold,omitempty"`
 

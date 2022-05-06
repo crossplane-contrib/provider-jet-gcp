@@ -212,7 +212,8 @@ spec:
                       within sourceRanges OR the source IP that belongs to a tag listed
                       in the sourceTags property. The connection does not need to
                       match both properties for the firewall to apply. Only IPv4 is
-                      supported.
+                      supported. For INGRESS traffic, one of 'source_ranges', 'source_tags'
+                      or 'source_service_accounts' is required.
                     items:
                       type: string
                     type: array
@@ -228,7 +229,9 @@ spec:
                       to an instance with service account listed in sourceServiceAccount.
                       The connection does not need to match both properties for the
                       firewall to apply. sourceServiceAccounts cannot be used at the
-                      same time as sourceTags or targetTags.
+                      same time as sourceTags or targetTags. For INGRESS traffic,
+                      one of 'source_ranges', 'source_tags' or 'source_service_accounts'
+                      is required.
                     items:
                       type: string
                     type: array
@@ -242,7 +245,8 @@ spec:
                       will apply to traffic that has source IP address within sourceRanges
                       OR the source IP that belongs to a tag listed in the sourceTags
                       property. The connection does not need to match both properties
-                      for the firewall to apply.
+                      for the firewall to apply. For INGRESS traffic, one of 'source_ranges',
+                      'source_tags' or 'source_service_accounts' is required.
                     items:
                       type: string
                     type: array

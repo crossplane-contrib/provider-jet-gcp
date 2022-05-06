@@ -78,7 +78,7 @@ type HTTPCheckParameters struct {
 	// +kubebuilder:validation:Optional
 	MaskHeaders *bool `json:"maskHeaders,omitempty" tf:"mask_headers,omitempty"`
 
-	// The path to the page to run the check against. Will be combined with the host (specified within the MonitoredResource) and port to construct the full URL. Optional (defaults to "/").
+	// The path to the page to run the check against. Will be combined with the host (specified within the MonitoredResource) and port to construct the full URL. If the provided path does not begin with "/", a "/" will be prepended automatically. Optional (defaults to "/").
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 

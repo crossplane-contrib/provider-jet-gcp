@@ -3,6 +3,7 @@ package storage
 import (
 	"context"
 	"path/filepath"
+	"time"
 
 	"github.com/crossplane/terrajet/pkg/config"
 
@@ -28,5 +29,13 @@ func Configure(p *config.Provider) {
 			project, err := common.GetField(providerConfig, common.KeyProject)
 			return filepath.Join(project, externalName), err
 		}
+		// Note(turkenh): Terraform provider added retries to bucket resource
+		// for eventual consistency: https://github.com/hashicorp/terraform-provider-google/pull/10287
+		// However, this causes refresh to keep retrying until timeout if the
+		// bucket does not exist indeed. This causes the initial observe call to
+		// hang on until timeout. We configure read timeout to a relatively
+		// smaller value as a workaround/solution.
+		// Related issue: https://github.com/crossplane-contrib/provider-jet-gcp/issues/12
+		r.OperationTimeouts.Read = 1 * time.Minute
 	})
 }
