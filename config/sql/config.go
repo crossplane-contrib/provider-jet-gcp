@@ -21,6 +21,8 @@ const (
 
 	CloudSQLSecretConnectionName = "connectionName"
 
+	CloudSQLUserName = "userName"
+
 	PrivateIPKey = "privateIP"
 	PublicIPKey  = "publicIP"
 )
@@ -147,6 +149,16 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 
 		r.References["instance"] = config.Reference{
 			Type: "DatabaseInstance",
+		}
+
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+			// reference: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user#argument-reference
+			// map the Terraform attribute name to the Provider's connection details attribute name
+			if a, ok := attr["name"].(string); ok {
+				conn[CloudSQLUserName] = []byte(a)
+			}
+			return conn, nil
 		}
 
 		r.UseAsync = true
