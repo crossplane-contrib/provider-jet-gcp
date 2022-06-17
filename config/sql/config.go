@@ -21,7 +21,7 @@ const (
 
 	CloudSQLSecretConnectionName = "connectionName"
 
-	CloudSQLUserName = "userName"
+	CloudSQLUserName = "username"
 
 	PrivateIPKey = "privateIP"
 	PublicIPKey  = "publicIP"
