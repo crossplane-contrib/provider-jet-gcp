@@ -45,6 +45,7 @@ func Configure(p *config.Provider) {
 			if err != nil {
 				return nil, err
 			}
+			server = "https://" + server
 			caData, err := common.GetField(attr, "master_auth[0].cluster_ca_certificate")
 			if err != nil {
 				return nil, err
