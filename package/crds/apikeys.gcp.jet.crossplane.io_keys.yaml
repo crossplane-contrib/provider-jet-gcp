@@ -1,0 +1,340 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: keys.apikeys.gcp.jet.crossplane.io
+spec:
+  group: apikeys.gcp.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - gcpjet
+    kind: Key
+    listKind: KeyList
+    plural: keys
+    singular: key
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Key is the Schema for the Keys API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: KeySpec defines the desired state of Key
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  displayName:
+                    description: Human-readable display name of this API key. Modifiable
+                      by user.
+                    type: string
+                  name:
+                    description: 'The resource name of the key. The name must be unique
+                      within the project, must conform with RFC-1034, is restricted
+                      to lower-cased letters, and has a maximum length of 63 characters.
+                      In another word, the name must match the regular expression:
+                      [a-z]([a-z0-9-]{0,61}[a-z0-9])?.'
+                    type: string
+                  project:
+                    description: The project for the resource
+                    type: string
+                  restrictions:
+                    description: Key restrictions.
+                    items:
+                      properties:
+                        androidKeyRestrictions:
+                          description: The Android apps that are allowed to use the
+                            key.
+                          items:
+                            properties:
+                              allowedApplications:
+                                description: A list of Android applications that are
+                                  allowed to make API calls with this key.
+                                items:
+                                  properties:
+                                    packageName:
+                                      description: The package name of the application.
+                                      type: string
+                                    sha1Fingerprint:
+                                      description: 'The SHA1 fingerprint of the application.
+                                        For example, both sha1 formats are acceptable
+                                        : DA:39:A3:EE:5E:6B:4B:0D:32:55:BF:EF:95:60:18:90:AF:D8:07:09
+                                        or DA39A3EE5E6B4B0D3255BFEF95601890AFD80709.
+                                        Output format is the latter.'
+                                      type: string
+                                  required:
+                                  - packageName
+                                  - sha1Fingerprint
+                                  type: object
+                                type: array
+                            required:
+                            - allowedApplications
+                            type: object
+                          type: array
+                        apiTargets:
+                          description: A restriction for a specific service and optionally
+                            one or more specific methods. Requests are allowed if
+                            they match any of these restrictions. If no restrictions
+                            are specified, all targets are allowed.
+                          items:
+                            properties:
+                              methods:
+                                description: 'Optional. List of one or more methods
+                                  that can be called. If empty, all methods for the
+                                  service are allowed. A wildcard (*) can be used
+                                  as the last symbol. Valid examples: `google.cloud.translate.v2.TranslateService.GetSupportedLanguage`
+                                  `TranslateText` `Get*` `translate.googleapis.com.Get*`'
+                                items:
+                                  type: string
+                                type: array
+                              service:
+                                description: 'The service for this restriction. It
+                                  should be the canonical service name, for example:
+                                  `translate.googleapis.com`. You can use `gcloud
+                                  services list` to get a list of services that are
+                                  enabled in the project.'
+                                type: string
+                            required:
+                            - service
+                            type: object
+                          type: array
+                        browserKeyRestrictions:
+                          description: The HTTP referrers (websites) that are allowed
+                            to use the key.
+                          items:
+                            properties:
+                              allowedReferrers:
+                                description: A list of regular expressions for the
+                                  referrer URLs that are allowed to make API calls
+                                  with this key.
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - allowedReferrers
+                            type: object
+                          type: array
+                        iosKeyRestrictions:
+                          description: The iOS apps that are allowed to use the key.
+                          items:
+                            properties:
+                              allowedBundleIds:
+                                description: A list of bundle IDs that are allowed
+                                  when making API calls with this key.
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - allowedBundleIds
+                            type: object
+                          type: array
+                        serverKeyRestrictions:
+                          description: The IP addresses of callers that are allowed
+                            to use the key.
+                          items:
+                            properties:
+                              allowedIps:
+                                description: A list of the caller IP addresses that
+                                  are allowed to make API calls with this key.
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - allowedIps
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                required:
+                - name
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: KeyStatus defines the observed state of Key.
+            properties:
+              atProvider:
+                properties:
+                  id:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

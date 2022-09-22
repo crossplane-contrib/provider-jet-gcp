@@ -247,6 +247,154 @@ func (tr *Instance) GetTerraformSchemaVersion() int {
 	return 6
 }
 
+// GetTerraformResourceType returns Terraform resource type for this InstanceFromTemplate
+func (mg *InstanceFromTemplate) GetTerraformResourceType() string {
+	return "google_compute_instance_from_template"
+}
+
+// GetConnectionDetailsMapping for this InstanceFromTemplate
+func (tr *InstanceFromTemplate) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"boot_disk[*].disk_encryption_key_raw": "spec.forProvider.bootDisk[*].diskEncryptionKeyRawSecretRef"}
+}
+
+// GetObservation of this InstanceFromTemplate
+func (tr *InstanceFromTemplate) GetObservation() (map[string]interface{}, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]interface{}{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this InstanceFromTemplate
+func (tr *InstanceFromTemplate) SetObservation(obs map[string]interface{}) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this InstanceFromTemplate
+func (tr *InstanceFromTemplate) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this InstanceFromTemplate
+func (tr *InstanceFromTemplate) GetParameters() (map[string]interface{}, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]interface{}{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this InstanceFromTemplate
+func (tr *InstanceFromTemplate) SetParameters(params map[string]interface{}) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this InstanceFromTemplate using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *InstanceFromTemplate) LateInitialize(attrs []byte) (bool, error) {
+	params := &InstanceFromTemplateParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *InstanceFromTemplate) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this InstanceTemplate
+func (mg *InstanceTemplate) GetTerraformResourceType() string {
+	return "google_compute_instance_template"
+}
+
+// GetConnectionDetailsMapping for this InstanceTemplate
+func (tr *InstanceTemplate) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this InstanceTemplate
+func (tr *InstanceTemplate) GetObservation() (map[string]interface{}, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]interface{}{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this InstanceTemplate
+func (tr *InstanceTemplate) SetObservation(obs map[string]interface{}) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this InstanceTemplate
+func (tr *InstanceTemplate) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this InstanceTemplate
+func (tr *InstanceTemplate) GetParameters() (map[string]interface{}, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]interface{}{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this InstanceTemplate
+func (tr *InstanceTemplate) SetParameters(params map[string]interface{}) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this InstanceTemplate using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *InstanceTemplate) LateInitialize(attrs []byte) (bool, error) {
+	params := &InstanceTemplateParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *InstanceTemplate) GetTerraformSchemaVersion() int {
+	return 1
+}
+
 // GetTerraformResourceType returns Terraform resource type for this ManagedSSLCertificate
 func (mg *ManagedSSLCertificate) GetTerraformResourceType() string {
 	return "google_compute_managed_ssl_certificate"

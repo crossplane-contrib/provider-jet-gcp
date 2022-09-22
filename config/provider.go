@@ -40,7 +40,7 @@ var skipList = []string{
 	"google_access_context_manager_service_perimeters$",
 }
 
-var includeList = []string{
+var _ = []string{
 	// Storage
 	"google_storage_bucket$",
 
@@ -86,7 +86,7 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithRootGroup("gcp.jet.crossplane.io"),
 		tjconfig.WithShortName("gcpjet"),
 		// Comment out the following line to generate all resources.
-		tjconfig.WithIncludeList(includeList),
+		// tjconfig.WithIncludeList(includeList),
 		tjconfig.WithSkipList(skipList))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
