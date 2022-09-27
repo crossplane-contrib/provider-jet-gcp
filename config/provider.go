@@ -51,6 +51,7 @@ var includeList = []string{
 	"google_compute_firewall$",
 	"google_compute_instance$",
 	"google_compute_managed_ssl_certificate$",
+	"google_compute_route$",
 	"google_compute_router$",
 	"google_compute_router_nat$",
 

@@ -92,6 +92,23 @@ func Configure(p *config.Provider) { //nolint: gocyclo
 		}
 	})
 
+	p.AddResourceConfigurator("google_compute_route", func(r *config.Resource) {
+		r.Version = common.VersionV1alpha2
+		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName.GetExternalNameFn = common.GetNameFromFullyQualifiedID
+		r.ExternalName.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, providerConfig map[string]interface{}) (string, error) {
+			project, err := common.GetField(providerConfig, common.KeyProject)
+			if err != nil {
+				return "", err
+			}
+			return fmt.Sprintf("projects/%s/global/routes/%s", project, externalName), nil
+		}
+		r.References["network"] = config.Reference{
+			Type: "Network",
+		}
+		r.UseAsync = true
+	})
+
 	p.AddResourceConfigurator("google_compute_router", func(r *config.Resource) {
 		r.Version = common.VersionV1alpha2
 		r.ExternalName = config.NameAsIdentifier
