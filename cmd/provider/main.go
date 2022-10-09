@@ -80,7 +80,7 @@ func main() {
 
 	mgr, err := ctrl.NewManager(ratelimiter.LimitRESTConfig(cfg, *maxReconcileRate), ctrl.Options{
 		LeaderElection:             *leaderElection,
-		LeaderElectionID:           "crossplane-leader-election-provider-jet-aws",
+		LeaderElectionID:           "crossplane-leader-election-provider-jet-gcp",
 		SyncPeriod:                 syncPeriod,
 		LeaderElectionResourceLock: resourcelock.LeasesResourceLock,
 		LeaseDuration:              func() *time.Duration { d := 60 * time.Second; return &d }(),
