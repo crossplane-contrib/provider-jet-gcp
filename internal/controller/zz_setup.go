@@ -30,6 +30,7 @@ import (
 	instance "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/instance"
 	managedsslcertificate "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/managedsslcertificate"
 	network "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/network"
+	route "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/route"
 	router "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/router"
 	routernat "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/routernat"
 	subnetwork "github.com/crossplane-contrib/provider-jet-gcp/internal/controller/compute/subnetwork"
@@ -61,6 +62,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		instance.Setup,
 		managedsslcertificate.Setup,
 		network.Setup,
+		route.Setup,
 		router.Setup,
 		routernat.Setup,
 		subnetwork.Setup,
