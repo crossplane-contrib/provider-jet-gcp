@@ -1,3 +1,6 @@
+# 🚨 PLEASE NOTE 🚨: This repository is no longer maintained. Use its successor [Official GCP Provider](https://github.com/upbound/provider-gcp) instead. See details in https://github.com/crossplane/terrajet/issues/308
+
+---
 # Terrajet GCP Provider
 
 `provider-jet-gcp` is a [Crossplane](https://crossplane.io/) provider that
