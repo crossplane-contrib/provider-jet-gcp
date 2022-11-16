@@ -36,6 +36,14 @@ func Configure(p *config.Provider) {
 			}
 			return fmt.Sprintf("projects/%s/locations/%s/clusters/%s", project, location, externalName), nil
 		}
+		r.References["network"] = config.Reference{
+			Type:      "Network",
+			Extractor: common.PathSelfLinkExtractor,
+		}
+		r.References["subnetwork"] = config.Reference{
+			Type:      "Subnetwork",
+			Extractor: common.PathSelfLinkExtractor,
+		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			name, err := common.GetField(attr, "name")
 			if err != nil {
